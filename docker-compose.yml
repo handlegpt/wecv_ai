@@ -9,6 +9,8 @@ services:
       - NODE_ENV=production
       - NEXT_PUBLIC_GA_ID=G-KNJRZ9YXL7
       - NEXT_PUBLIC_APP_URL=http://wecv.com
+      - NEXT_PUBLIC_SUPABASE_URL=https://wkjswfrvlgscqooyscpe.supabase.co
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI
     env_file:
       - .env
     restart: always

@@ -1,9 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
 // 创建 Supabase 客户端，支持服务端和客户端
-// 直接使用硬编码的值，因为环境变量在客户端没有正确传递
-const supabaseUrl = 'https://wkjswfrvlgscqooyscpe.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
 
 // 安全的 Supabase 客户端创建
 let supabaseClient: any = null;
@@ -40,8 +39,22 @@ export const supabase = getSupabaseClient();
 
 // 检查 Supabase 是否已正确配置
 export const isSupabaseConfigured = (): boolean => {
-  // 现在使用硬编码的真实值，所以总是返回 true
-  return true;
+  // 检查环境变量是否正确配置
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  // 调试信息
+  if (typeof window !== 'undefined') {
+    console.log('Supabase配置检查:', {
+      url,
+      key: key ? `${key.substring(0, 20)}...` : 'undefined',
+      isConfigured: Boolean(url && url !== 'https://placeholder.supabase.co' && 
+                     key && key !== 'placeholder-key')
+    });
+  }
+  
+  return Boolean(url && url !== 'https://placeholder.supabase.co' && 
+         key && key !== 'placeholder-key');
 };
 
 // 数据库类型定义
