@@ -185,7 +185,7 @@ export async function GET(request: NextRequest) {
         "X-Frame-Options": "DENY",
         "X-XSS-Protection": "1; mode=block",
         "Referrer-Policy": "strict-origin-when-cross-origin",
-        "Access-Control-Allow-Origin": process.env.NEXT_PUBLIC_APP_URL || "https://wecv.ai",
+        "Access-Control-Allow-Origin": process.env.NEXT_PUBLIC_APP_URL || "https://wecv.com",
         "Access-Control-Allow-Methods": "GET, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Max-Age": "3600",

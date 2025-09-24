@@ -273,7 +273,7 @@ const Field = ({
                     <span>{t("previewDock.grammarCheck.configurePrompt")}</span>
                     <Button
                       className="p-0 h-auto text-white"
-                      onClick={() => router.push("/app/dashboard/ai")}
+                      onClick={() => router.push("/dashboard/ai")}
                     >
                       {t("previewDock.grammarCheck.configureButton")}
                     </Button>

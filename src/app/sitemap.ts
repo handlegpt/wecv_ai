@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://wecv.ai";
+  const baseUrl = "https://wecv.com";
   const currentDate = new Date();
 
   const locales = ["zh", "en", "ja"];
@@ -29,11 +29,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   locales.forEach((locale) => {
     const appPages = [
       "/app",
-      "/app/dashboard",
-      "/app/dashboard/resumes",
-      "/app/dashboard/templates",
-      "/app/dashboard/ai",
-      "/app/dashboard/settings"
+      "/dashboard",
+      "/dashboard/resumes",
+      "/dashboard/templates",
+      "/dashboard/ai",
+      "/dashboard/settings"
     ];
 
     appPages.forEach((page) => {

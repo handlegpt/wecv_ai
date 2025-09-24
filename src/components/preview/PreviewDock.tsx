@@ -75,7 +75,7 @@ const PreviewDock = ({
           <span>{t("grammarCheck.configurePrompt")}</span>
           <Button
             className="p-0 h-auto text-white"
-            onClick={() => router.push("/app/dashboard/ai")}
+            onClick={() => router.push("/dashboard/ai")}
           >
             {t("grammarCheck.configureButton")}
           </Button>
@@ -250,7 +250,7 @@ const PreviewDock = ({
                       "flex cursor-pointer h-7 w-7 items-center justify-center rounded-lg",
                       "hover:bg-gray-100/50 dark:hover:bg-neutral-800/50"
                     )}
-                    onClick={() => router.push("/app/dashboard")}
+                    onClick={() => router.push("/dashboard")}
                   >
                     <Home className="h-4 w-4" />
                   </div>

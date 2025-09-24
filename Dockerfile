@@ -18,7 +18,7 @@ COPY . .
 
 # 设置构建时的环境变量
 ARG NEXT_PUBLIC_GA_ID=G-KNJRZ9YXL7
-ARG NEXT_PUBLIC_APP_URL=http://wecv.ai
+ARG NEXT_PUBLIC_APP_URL=http://wecv.com
 ARG NEXT_PUBLIC_SUPABASE_URL=https://placeholder.supabase.co
 ARG NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 

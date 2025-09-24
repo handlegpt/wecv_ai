@@ -207,7 +207,7 @@ const ResumeWorkbench = () => {
                   variant="outline"
                   className="ml-4 hover:bg-green-100 dark:hover:bg-green-900 border-green-300 dark:border-green-700"
                   onClick={() => {
-                    router.push("/app/dashboard/settings");
+                    router.push("/dashboard/settings");
                   }}
                 >
                   <FolderOpen className="w-4 h-4 mr-2" />
@@ -230,7 +230,7 @@ const ResumeWorkbench = () => {
                   size="sm"
                   className="ml-4 hover:bg-amber-100 dark:hover:bg-amber-900 border-amber-300 dark:border-amber-700"
                   onClick={() => {
-                    router.push("/app/dashboard/settings");
+                    router.push("/dashboard/settings");
                   }}
                 >
                   <Settings className="w-4 h-4 mr-2" />

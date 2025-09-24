@@ -50,7 +50,7 @@
       "name": "创建新简历",
       "short_name": "新建",
       "description": "快速创建新的简历",
-      "url": "/app/dashboard/resumes",
+      "url": "/dashboard/resumes",
       "icons": [
         {
           "src": "/shortcut-new.png",
@@ -62,7 +62,7 @@
       "name": "模板库",
       "short_name": "模板",
       "description": "浏览简历模板",
-      "url": "/app/dashboard/templates",
+      "url": "/dashboard/templates",
       "icons": [
         {
           "src": "/shortcut-templates.png",

@@ -35,7 +35,7 @@ export default function LoginForm({ onSwitchToRegister, onBack }: LoginFormProps
     try {
       await login(formData);
       toast.success(t("login.success"));
-      router.push("/app/dashboard");
+      router.push("/dashboard");
     } catch (error: any) {
       toast.error(error.message || t("login.error"));
     }
@@ -149,7 +149,7 @@ export default function LoginForm({ onSwitchToRegister, onBack }: LoginFormProps
           <Button
             variant="outline"
             className="w-full"
-            onClick={() => router.push("/app/dashboard")}
+            onClick={() => router.push("/dashboard")}
             disabled={isLoading}
           >
             {t("login.continueLocal")}

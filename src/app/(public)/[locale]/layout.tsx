@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: { locale }
 }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "common" });
-  const baseUrl = "https://wecv.ai";
+  const baseUrl = "https://wecv.com";
 
   return {
     title: t("title") + " - " + t("subtitle"),

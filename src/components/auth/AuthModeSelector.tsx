@@ -111,7 +111,7 @@ export default function AuthModeSelector({ onSelectMode }: AuthModeSelectorProps
                 <div className="pt-4">
                   {mode.id === 'local' ? (
                     <Button
-                      onClick={() => router.push("/app/dashboard")}
+                      onClick={() => router.push("/dashboard")}
                       className="w-full"
                       size="lg"
                     >

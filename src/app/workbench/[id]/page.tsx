@@ -259,7 +259,7 @@ export default function Home() {
   };
 
   const handleBackToDashboard = () => {
-    router.push("/app/dashboard");
+    router.push("/dashboard");
   };
 
   // 显示加载状态

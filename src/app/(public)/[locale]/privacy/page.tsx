@@ -6,7 +6,7 @@ export async function generateMetadata({
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
-  const baseUrl = "https://wecv.ai";
+  const baseUrl = "https://wecv.com";
   
   return {
     title: locale === "zh" 

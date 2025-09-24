@@ -63,7 +63,7 @@ export default function MobileMenu({
               className="bg-primary hover:opacity-90 text-white w-full py-6"
               asChild
             >
-              <Link href="/app/dashboard" onClick={onClose}>
+              <Link href="/dashboard" onClick={onClose}>
                 {buttonText}
               </Link>
             </Button>

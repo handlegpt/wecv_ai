@@ -15,7 +15,7 @@ export default function Footer() {
   useEffect(() => {
     // 动态生成邮箱地址
     const name = "hello";
-    const domain = "wecv.ai";
+    const domain = "wecv.com";
     const fullEmail = `${name}@${domain}`;
     setEmail(fullEmail);
   }, []);

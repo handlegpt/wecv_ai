@@ -7,7 +7,7 @@ interface StructuredDataProps {
 }
 
 export default function StructuredData({ type, data, locale = "zh" }: StructuredDataProps) {
-  const baseUrl = "https://wecv.ai";
+  const baseUrl = "https://wecv.com";
   
   const getStructuredData = () => {
     switch (type) {
@@ -137,7 +137,7 @@ export default function StructuredData({ type, data, locale = "zh" }: Structured
           "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer service",
-            "email": "hello@wecv.ai"
+            "email": "hello@wecv.com"
           },
           "sameAs": [
             "https://github.com/handlegpt/wecv_old"

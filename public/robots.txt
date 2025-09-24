@@ -17,7 +17,7 @@ Allow: /manifest.webmanifest
 Crawl-delay: 1
 
 # Sitemap
-Sitemap: https://wecv.ai/sitemap.xml
+Sitemap: https://wecv.com/sitemap.xml
 
 # 特定搜索引擎优化
 User-agent: Googlebot
