@@ -380,21 +380,21 @@ export default function Home() {
       <div className="md:hidden h-[calc(100vh-64px)]">
         <div className="h-full flex flex-col">
           {/* 移动端标签页导航 */}
-          <div className="flex border-b border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+          <div className="flex border-b border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm">
             <button
               onClick={() => {
                 setEditPanelCollapsed(false);
                 setPreviewPanelCollapsed(true);
               }}
               className={cn(
-                "flex-1 px-4 py-3 text-sm font-medium transition-colors",
+                "flex-1 px-4 py-4 text-sm font-medium transition-all duration-200 min-h-[60px] flex flex-col items-center justify-center gap-1",
                 !editPanelCollapsed && !previewPanelCollapsed
-                  ? "text-primary border-b-2 border-primary bg-primary/5"
-                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                  ? "text-primary border-b-2 border-primary bg-primary/5 shadow-sm"
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-neutral-800"
               )}
             >
-              <Edit2 className="w-4 h-4 mx-auto mb-1" />
-              编辑
+              <Edit2 className="w-5 h-5" />
+              <span className="text-xs">编辑</span>
             </button>
             <button
               onClick={() => {
@@ -402,14 +402,14 @@ export default function Home() {
                 setPreviewPanelCollapsed(false);
               }}
               className={cn(
-                "flex-1 px-4 py-3 text-sm font-medium transition-colors",
+                "flex-1 px-4 py-4 text-sm font-medium transition-all duration-200 min-h-[60px] flex flex-col items-center justify-center gap-1",
                 editPanelCollapsed && !previewPanelCollapsed
-                  ? "text-primary border-b-2 border-primary bg-primary/5"
-                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                  ? "text-primary border-b-2 border-primary bg-primary/5 shadow-sm"
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-neutral-800"
               )}
             >
-              <Eye className="w-4 h-4 mx-auto mb-1" />
-              预览
+              <Eye className="w-5 h-5" />
+              <span className="text-xs">预览</span>
             </button>
           </div>
           
@@ -421,14 +421,16 @@ export default function Home() {
               </div>
             )}
             {!previewPanelCollapsed && (
-              <div className="h-full overflow-y-auto">
-                <PreviewPanel
-                  sidePanelCollapsed={true}
-                  editPanelCollapsed={editPanelCollapsed}
-                  previewPanelCollapsed={false}
-                  toggleSidePanel={toggleSidePanel}
-                  toggleEditPanel={toggleEditPanel}
-                />
+              <div className="h-full overflow-y-auto overflow-x-hidden">
+                <div className="p-2 md:p-4">
+                  <PreviewPanel
+                    sidePanelCollapsed={true}
+                    editPanelCollapsed={editPanelCollapsed}
+                    previewPanelCollapsed={false}
+                    toggleSidePanel={toggleSidePanel}
+                    toggleEditPanel={toggleEditPanel}
+                  />
+                </div>
               </div>
             )}
           </div>

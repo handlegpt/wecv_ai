@@ -123,14 +123,14 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="flex items-center justify-between mb-6">
+    <div className="container mx-auto py-4 md:py-8 px-4 md:px-6">
+      <div className="flex items-center justify-between mb-4 md:mb-6">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
             {t("dashboard.settings.title")}
           </h2>
           {isAuthenticated && user && (
-            <p className="text-muted-foreground mt-1">
+            <p className="text-muted-foreground mt-1 text-sm md:text-base">
               {tAuth("welcomeBack", { name: user.name })}
             </p>
           )}
@@ -139,7 +139,7 @@ const SettingsPage = () => {
 
       {/* 未登录状态：显示登录界面 */}
       {!isAuthenticated && (
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           {/* Magic Link 登录 */}
           <Card>
             <CardHeader>
@@ -168,7 +168,7 @@ const SettingsPage = () => {
                   <Button 
                     onClick={handleMagicLinkLogin}
                     disabled={isSendingMagicLink || !email.trim()}
-                    className="w-full"
+                    className="w-full min-h-[48px] text-base"
                   >
                     {isSendingMagicLink ? (
                       <>
@@ -204,7 +204,7 @@ const SettingsPage = () => {
                       setMagicLinkSent(false);
                       setEmail("");
                     }}
-                    className="w-full"
+                    className="w-full min-h-[48px] text-base"
                   >
                     {tAuth("resend")}
                   </Button>
@@ -230,9 +230,9 @@ const SettingsPage = () => {
         </div>
       )}
 
-      {/* 已登录状态：显示完整设置界面 */}
-      {isAuthenticated && (
-        <div className="space-y-6">
+            {/* 已登录状态：显示完整设置界面 */}
+            {isAuthenticated && (
+              <div className="space-y-4 md:space-y-6">
           {/* 用户信息卡片 */}
           {user && (
             <Card>
@@ -271,7 +271,7 @@ const SettingsPage = () => {
                 
                 <Separator />
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 text-xs md:text-sm">
                   <div className="flex items-center gap-2">
                     <Clock className="h-4 w-4 text-muted-foreground" />
                     <div>
@@ -303,7 +303,7 @@ const SettingsPage = () => {
             {/* 主要设置 */}
             <div>
               <h3 className="text-lg font-semibold mb-4">{tAuth("mainSettings")}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 {/* Profile Settings */}
                 <Link href="/dashboard/settings/profile">
                   <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer h-full">
@@ -355,7 +355,7 @@ const SettingsPage = () => {
             {/* 账户管理 */}
             <div>
               <h3 className="text-lg font-semibold mb-4">{tAuth("accountManagement")}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 {/* 同步状态 */}
                 <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm">
                   <CardHeader className="space-y-4">
@@ -389,7 +389,7 @@ const SettingsPage = () => {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      className="w-full"
+                      className="w-full min-h-[44px] text-sm md:text-base"
                       onClick={handleManualSync}
                       disabled={isSyncing}
                     >
@@ -425,7 +425,7 @@ const SettingsPage = () => {
                     <Button 
                       onClick={handleLogout} 
                       variant="destructive" 
-                      className="w-full"
+                      className="w-full min-h-[48px] text-base"
                       disabled={isLoggingOut}
                     >
                       {isLoggingOut ? (

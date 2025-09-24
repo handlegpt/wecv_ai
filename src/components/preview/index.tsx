@@ -193,7 +193,7 @@ const PreviewPanel = ({
             "shadow-lg",
             "relative mx-auto",
             // 响应式缩放 - 改善移动端可读性
-            "scale-[70%] origin-top", // 移动端缩放 - 提高可读性
+            "scale-[75%] origin-top", // 移动端缩放 - 提高可读性
             "sm:scale-[75%] sm:origin-top", // 小屏幕
             "md:scale-[80%] md:origin-top", // 中等屏幕
             "lg:scale-[85%] lg:origin-top", // 大屏幕

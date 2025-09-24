@@ -44,7 +44,7 @@ const CustomField: React.FC<CustomFieldProps> = ({
       <motion.div
         {...itemAnimations}
         className={cn(
-          "grid grid-cols-[auto,auto,1fr,1fr,auto] gap-3 items-center p-3",
+          "grid grid-cols-[auto,auto,1fr,1fr,auto] gap-2 md:gap-3 items-center p-2 md:p-3",
           "bg-white dark:bg-neutral-800 rounded-xl",
           "border border-neutral-100 dark:border-neutral-700",
           "transition-all duration-200",
