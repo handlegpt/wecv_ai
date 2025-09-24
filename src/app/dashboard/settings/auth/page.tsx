@@ -264,7 +264,7 @@ export default function AuthSettingsPage() {
               <Button
                 onClick={() => {
                   if (typeof window !== 'undefined') {
-                    window.location.assign('/app/dashboard');
+                    window.location.assign('/dashboard');
                   }
                 }}
                 variant="outline"

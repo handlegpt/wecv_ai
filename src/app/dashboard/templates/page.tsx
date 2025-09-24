@@ -62,7 +62,7 @@ const TemplatesPage = () => {
       });
     }
 
-    router.push(`/app/workbench/${resumeId}`);
+    router.push(`/workbench/${resumeId}`);
   };
 
   return (

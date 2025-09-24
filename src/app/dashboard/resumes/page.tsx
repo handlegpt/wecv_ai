@@ -334,7 +334,7 @@ const ResumeWorkbench = () => {
                                 
                                 setActiveResume(id);
                                 await new Promise(resolve => setTimeout(resolve, 0));
-                                router.push(`/app/workbench/${id}`);
+                                router.push(`/workbench/${id}`);
                               } catch (error) {
                                 toast.error(t("dashboard.resumes.navigationError"));
                               }

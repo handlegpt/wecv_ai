@@ -112,7 +112,7 @@ const PreviewDock = ({
     try {
       const newId = duplicateResume(activeResumeId);
       toast.success(t("copyResume.success"));
-      router.push(`/app/workbench/${newId}`);
+      router.push(`/workbench/${newId}`);
     } catch (error) {
       toast.error(t("copyResume.error"));
     }
