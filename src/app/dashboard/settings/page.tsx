@@ -1,12 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
-import { User, Settings, Shield, Palette, Bell, Mail, LogOut, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { User, Settings, Shield, Palette, Bell, Mail, LogOut, Loader2, CheckCircle, AlertCircle, Cloud, CloudOff, RefreshCw, Database, ShieldCheck, Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
   CardContent,
@@ -241,26 +243,55 @@ const SettingsPage = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <User className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">{user.name}</h3>
+                <div className="flex items-center gap-4">
+                  <Avatar className="h-16 w-16">
+                    <AvatarImage src={user.avatar || undefined} />
+                    <AvatarFallback className="text-lg font-semibold">
+                      {user.name.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold">{user.name}</h3>
                     <p className="text-sm text-muted-foreground">{user.email}</p>
+                    {user.bio && (
+                      <p className="text-sm text-muted-foreground mt-1">{user.bio}</p>
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Badge variant="secondary" className="w-fit">
+                      <Cloud className="h-3 w-3 mr-1" />
+                      {tAuth("cloudUser")}
+                    </Badge>
+                    <Badge variant="outline" className="w-fit">
+                      <ShieldCheck className="h-3 w-3 mr-1" />
+                      {tAuth("verified")}
+                    </Badge>
                   </div>
                 </div>
                 
                 <Separator />
                 
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <p className="text-muted-foreground">{tAuth("registerTime")}</p>
-                    <p>{new Date(user.createdAt).toLocaleDateString()}</p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-muted-foreground" />
+                    <div>
+                      <p className="text-muted-foreground">{tAuth("registerTime")}</p>
+                      <p className="font-medium">{new Date(user.createdAt).toLocaleDateString()}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-muted-foreground">{tAuth("lastUpdate")}</p>
-                    <p>{new Date(user.updatedAt).toLocaleDateString()}</p>
+                  <div className="flex items-center gap-2">
+                    <Database className="h-4 w-4 text-muted-foreground" />
+                    <div>
+                      <p className="text-muted-foreground">{tAuth("lastUpdate")}</p>
+                      <p className="font-medium">{new Date(user.updatedAt).toLocaleDateString()}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <RefreshCw className="h-4 w-4 text-muted-foreground" />
+                    <div>
+                      <p className="text-muted-foreground">{tAuth("syncStatus")}</p>
+                      <p className="font-medium text-green-600">{tAuth("enabled")}</p>
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -268,75 +299,131 @@ const SettingsPage = () => {
           )}
 
           {/* 设置导航 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Profile Settings */}
-            <Link href="/dashboard/settings/profile">
-              <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
-                <CardHeader className="space-y-4">
-                  <CardTitle className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950">
-                      <User className="h-6 w-6 text-blue-500 dark:text-blue-400" />
-                    </div>
-                    <span>{tAuth("profileSettings")}</span>
-                  </CardTitle>
-                  <CardDescription className="text-base">
-                    {tAuth("profileDescription")}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
+          <div className="space-y-6">
+            {/* 主要设置 */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">{tAuth("mainSettings")}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Profile Settings */}
+                <Link href="/dashboard/settings/profile">
+                  <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer h-full">
+                    <CardHeader className="space-y-4">
+                      <CardTitle className="flex items-center gap-3">
+                        <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950">
+                          <User className="h-6 w-6 text-blue-500 dark:text-blue-400" />
+                        </div>
+                        <span>{tAuth("profileSettings")}</span>
+                      </CardTitle>
+                      <CardDescription className="text-base">
+                        {tAuth("profileDescription")}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <User className="h-4 w-4" />
+                        <span>{tAuth("profileFeatures")}</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
 
-            {/* Preferences Settings */}
-            <Link href="/dashboard/settings/preferences">
-              <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
-                <CardHeader className="space-y-4">
-                  <CardTitle className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-purple-50 dark:bg-purple-950">
-                      <Palette className="h-6 w-6 text-purple-500 dark:text-purple-400" />
-                    </div>
-                    <span>{tAuth("preferencesSettings")}</span>
-                  </CardTitle>
-                  <CardDescription className="text-base">
-                    {tAuth("preferencesDescription")}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
+                {/* Preferences Settings */}
+                <Link href="/dashboard/settings/preferences">
+                  <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer h-full">
+                    <CardHeader className="space-y-4">
+                      <CardTitle className="flex items-center gap-3">
+                        <div className="p-2.5 rounded-xl bg-purple-50 dark:bg-purple-950">
+                          <Palette className="h-6 w-6 text-purple-500 dark:text-purple-400" />
+                        </div>
+                        <span>{tAuth("preferencesSettings")}</span>
+                      </CardTitle>
+                      <CardDescription className="text-base">
+                        {tAuth("preferencesDescription")}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Palette className="h-4 w-4" />
+                        <span>{tAuth("preferencesFeatures")}</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </div>
+            </div>
 
-            {/* 登出按钮 */}
-            <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-300">
-              <CardHeader className="space-y-4">
-                <CardTitle className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-red-50 dark:bg-red-950">
-                    <LogOut className="h-6 w-6 text-red-500 dark:text-red-400" />
-                  </div>
-                  <span>{tAuth("accountManagement")}</span>
-                </CardTitle>
-                <CardDescription className="text-base">
-                  {tAuth("logoutDescription")}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button 
-                  onClick={handleLogout} 
-                  variant="destructive" 
-                  className="w-full"
-                  disabled={isLoggingOut}
-                >
-                  {isLoggingOut ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      {tAuth("loggingOut")}
-                    </>
-                  ) : (
-                    <>
-                      <LogOut className="mr-2 h-4 w-4" />
-                      {tAuth("logout")}
-                    </>
-                  )}
-                </Button>
-              </CardContent>
-            </Card>
+            {/* 账户管理 */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">{tAuth("accountManagement")}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* 同步状态 */}
+                <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm">
+                  <CardHeader className="space-y-4">
+                    <CardTitle className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-green-50 dark:bg-green-950">
+                        <Cloud className="h-6 w-6 text-green-500 dark:text-green-400" />
+                      </div>
+                      <span>{tAuth("dataSync")}</span>
+                    </CardTitle>
+                    <CardDescription className="text-base">
+                      {tAuth("syncDescription")}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">{tAuth("cloudSync")}</span>
+                      <Badge variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                        <Cloud className="h-3 w-3 mr-1" />
+                        {tAuth("enabled")}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">{tAuth("lastSync")}</span>
+                      <span className="text-sm text-muted-foreground">刚刚</span>
+                    </div>
+                    <Button variant="outline" size="sm" className="w-full">
+                      <RefreshCw className="h-4 w-4 mr-2" />
+                      {tAuth("syncNow")}
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                {/* 登出按钮 */}
+                <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm">
+                  <CardHeader className="space-y-4">
+                    <CardTitle className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-red-50 dark:bg-red-950">
+                        <LogOut className="h-6 w-6 text-red-500 dark:text-red-400" />
+                      </div>
+                      <span>{tAuth("accountManagement")}</span>
+                    </CardTitle>
+                    <CardDescription className="text-base">
+                      {tAuth("logoutDescription")}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button 
+                      onClick={handleLogout} 
+                      variant="destructive" 
+                      className="w-full"
+                      disabled={isLoggingOut}
+                    >
+                      {isLoggingOut ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          {tAuth("loggingOut")}
+                        </>
+                      ) : (
+                        <>
+                          <LogOut className="mr-2 h-4 w-4" />
+                          {tAuth("logout")}
+                        </>
+                      )}
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </div>
         </div>
       )}

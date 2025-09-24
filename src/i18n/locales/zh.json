@@ -90,7 +90,20 @@
     "preferencesSettings": "偏好设置",
     "preferencesDescription": "自定义主题、语言和通知偏好",
     "accountManagement": "账户管理",
-    "logoutDescription": "登出当前账户"
+    "logoutDescription": "登出当前账户",
+    "mainSettings": "主要设置",
+    "accountManagement": "账户管理",
+    "dataSync": "数据同步",
+    "syncDescription": "管理您的数据同步设置",
+    "cloudSync": "云端同步",
+    "lastSync": "最后同步",
+    "syncNow": "立即同步",
+    "profileFeatures": "头像、姓名、简介",
+    "preferencesFeatures": "主题、语言、通知",
+    "cloudUser": "云端用户",
+    "verified": "已验证",
+    "syncStatus": "同步状态",
+    "enabled": "已启用"
   },
   "sync": {
     "title": "同步状态",
