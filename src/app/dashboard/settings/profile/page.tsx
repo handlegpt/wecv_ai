@@ -25,6 +25,7 @@ import { toast } from "sonner";
 
 export default function ProfilePage() {
   const t = useTranslations();
+  const tAuth = useTranslations("auth");
   const { user, updateUser } = useAuthStore();
   
   const [isLoading, setIsLoading] = useState(false);
@@ -70,7 +71,7 @@ export default function ProfilePage() {
     if (!file) return;
 
     if (!supabaseConfigured) {
-      toast.error("文件上传服务未配置");
+      toast.error(tAuth("uploadServiceNotConfigured"));
       return;
     }
 
@@ -95,9 +96,9 @@ export default function ProfilePage() {
         .getPublicUrl(fileName);
 
       handleInputChange('avatar', publicUrl);
-      toast.success("头像上传成功");
+      toast.success(tAuth("uploadSuccess"));
     } catch (error: any) {
-      toast.error(error.message || "头像上传失败");
+      toast.error(error.message || tAuth("uploadFailed"));
     } finally {
       setIsLoading(false);
     }
@@ -134,9 +135,9 @@ export default function ProfilePage() {
         updatedAt: new Date().toISOString()
       });
 
-      toast.success("个人资料更新成功");
+      toast.success(tAuth("updateSuccess"));
     } catch (error: any) {
-      toast.error(error.message || "更新失败");
+      toast.error(error.message || tAuth("updateFailed"));
     } finally {
       setIsSaving(false);
     }
@@ -147,7 +148,7 @@ export default function ProfilePage() {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-          <p className="text-muted-foreground">请先登录以管理个人资料</p>
+          <p className="text-muted-foreground">{tAuth("loginRequired")}</p>
         </div>
       </div>
     );
@@ -156,8 +157,8 @@ export default function ProfilePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">个人资料</h1>
-        <p className="text-muted-foreground">管理您的个人信息和偏好设置</p>
+        <h1 className="text-2xl font-bold">{tAuth("profileTitle")}</h1>
+        <p className="text-muted-foreground">{tAuth("profileDescription")}</p>
       </div>
 
       {/* 头像设置 */}
@@ -165,10 +166,10 @@ export default function ProfilePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="h-5 w-5" />
-            头像设置
+            {tAuth("avatarSettings")}
           </CardTitle>
           <CardDescription>
-            上传您的头像，让个人资料更加完整
+            {tAuth("avatarDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -186,12 +187,12 @@ export default function ProfilePage() {
                     {isLoading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        上传中...
+                        {tAuth("uploading")}
                       </>
                     ) : (
                       <>
                         <Upload className="mr-2 h-4 w-4" />
-                        更换头像
+                        {tAuth("changeAvatar")}
                       </>
                     )}
                   </span>
@@ -206,7 +207,7 @@ export default function ProfilePage() {
                 disabled={isLoading}
               />
               <p className="text-sm text-muted-foreground">
-                支持 JPG、PNG 格式，建议尺寸 200x200px
+                {tAuth("avatarFormat")}
               </p>
             </div>
           </div>
@@ -218,25 +219,25 @@ export default function ProfilePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="h-5 w-5" />
-            基本信息
+            {tAuth("basicInfo")}
           </CardTitle>
           <CardDescription>
-            编辑您的基本个人信息
+            {tAuth("basicInfoDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="name">姓名</Label>
+              <Label htmlFor="name">{tAuth("name")}</Label>
               <Input
                 id="name"
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
-                placeholder="请输入您的姓名"
+                placeholder={tAuth("namePlaceholder")}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">邮箱</Label>
+              <Label htmlFor="email">{tAuth("email")}</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
@@ -247,18 +248,18 @@ export default function ProfilePage() {
                 />
               </div>
               <p className="text-sm text-muted-foreground">
-                邮箱地址不可修改
+                {tAuth("emailNotEditable")}
               </p>
             </div>
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="bio">个人简介</Label>
+            <Label htmlFor="bio">{tAuth("bio")}</Label>
             <Textarea
               id="bio"
               value={formData.bio}
               onChange={(e) => handleInputChange('bio', e.target.value)}
-              placeholder="介绍一下自己..."
+              placeholder={tAuth("bioPlaceholder")}
               rows={3}
             />
           </div>
@@ -270,18 +271,18 @@ export default function ProfilePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="h-5 w-5" />
-            账户信息
+            {tAuth("accountInfo")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div>
-              <p className="text-muted-foreground">注册时间</p>
-              <p>{new Date(user.createdAt).toLocaleDateString('zh-CN')}</p>
+              <p className="text-muted-foreground">{tAuth("registerTime")}</p>
+              <p>{new Date(user.createdAt).toLocaleDateString()}</p>
             </div>
             <div>
-              <p className="text-muted-foreground">最后更新</p>
-              <p>{new Date(user.updatedAt).toLocaleDateString('zh-CN')}</p>
+              <p className="text-muted-foreground">{tAuth("lastUpdate")}</p>
+              <p>{new Date(user.updatedAt).toLocaleDateString()}</p>
             </div>
           </div>
         </CardContent>
@@ -297,12 +298,12 @@ export default function ProfilePage() {
           {isSaving ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              保存中...
+              {tAuth("saving")}
             </>
           ) : (
             <>
               <Save className="mr-2 h-4 w-4" />
-              保存更改
+              {tAuth("saveChanges")}
             </>
           )}
         </Button>
