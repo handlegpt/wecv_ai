@@ -18,14 +18,16 @@ services:
     security_opt:
       - no-new-privileges:true
       - seccomp:unconfined
-    # 只读根文件系统
-    read_only: true
     # 临时目录挂载
     tmpfs:
       - /tmp:noexec,nosuid,size=100m
       - /var/tmp:noexec,nosuid,size=100m
+      - /app/.next/cache:noexec,nosuid,size=500m
     # 用户和组
     user: "1001:1001"
+    # 创建缓存目录
+    volumes:
+      - cache_data:/app/.next/cache
     # 资源限制
     deploy:
       resources:
@@ -49,3 +51,6 @@ services:
 networks:
   wecv-network:
     driver: bridge
+
+volumes:
+  cache_data:

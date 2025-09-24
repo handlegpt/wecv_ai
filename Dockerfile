@@ -35,7 +35,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # 创建必要的目录并设置权限
-RUN mkdir -p .next public
+RUN mkdir -p .next public .next/cache
 RUN chown -R nextjs:nodejs .next public
 
 # 复制应用文件
