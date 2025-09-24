@@ -129,7 +129,7 @@ const SettingsPage = () => {
           </h2>
           {isAuthenticated && user && (
             <p className="text-muted-foreground mt-1">
-              欢迎回来，{user.name}
+              {tAuth("welcomeBack", { name: user.name })}
             </p>
           )}
         </div>
@@ -214,14 +214,14 @@ const SettingsPage = () => {
           {/* 登录后功能说明 */}
           <Card>
             <CardHeader>
-              <CardTitle>登录后您可以：</CardTitle>
+              <CardTitle>{tAuth("loginBenefits")}</CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• 云端同步您的简历数据</li>
-                <li>• 管理个人资料和偏好设置</li>
-                <li>• 在多设备间无缝切换</li>
-                <li>• 享受更安全的数据保护</li>
+                <li>• {tAuth("cloudSyncData")}</li>
+                <li>• {tAuth("manageProfile")}</li>
+                <li>• {tAuth("multiDevice")}</li>
+                <li>• {tAuth("dataProtection")}</li>
               </ul>
             </CardContent>
           </Card>
@@ -277,10 +277,10 @@ const SettingsPage = () => {
                     <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950">
                       <User className="h-6 w-6 text-blue-500 dark:text-blue-400" />
                     </div>
-                    <span>个人资料</span>
+                    <span>{tAuth("profileSettings")}</span>
                   </CardTitle>
                   <CardDescription className="text-base">
-                    编辑个人信息、头像和简介
+                    {tAuth("profileDescription")}
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -294,10 +294,10 @@ const SettingsPage = () => {
                     <div className="p-2.5 rounded-xl bg-purple-50 dark:bg-purple-950">
                       <Palette className="h-6 w-6 text-purple-500 dark:text-purple-400" />
                     </div>
-                    <span>偏好设置</span>
+                    <span>{tAuth("preferencesSettings")}</span>
                   </CardTitle>
                   <CardDescription className="text-base">
-                    自定义主题、语言和通知偏好
+                    {tAuth("preferencesDescription")}
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -310,10 +310,10 @@ const SettingsPage = () => {
                   <div className="p-2.5 rounded-xl bg-red-50 dark:bg-red-950">
                     <LogOut className="h-6 w-6 text-red-500 dark:text-red-400" />
                   </div>
-                  <span>账户管理</span>
+                  <span>{tAuth("accountManagement")}</span>
                 </CardTitle>
                 <CardDescription className="text-base">
-                  登出当前账户
+                  {tAuth("logoutDescription")}
                 </CardDescription>
               </CardHeader>
               <CardContent>

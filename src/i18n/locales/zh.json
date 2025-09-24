@@ -78,7 +78,19 @@
     "enterEmail": "请输入邮箱地址",
     "authNotConfigured": "认证服务未配置，请联系管理员",
     "loginLinkSentSuccess": "登录链接已发送到您的邮箱，请查收邮件并点击链接完成登录",
-    "sendLoginLinkFailed": "发送登录链接失败"
+    "sendLoginLinkFailed": "发送登录链接失败",
+    "welcomeBack": "欢迎回来，{name}",
+    "loginBenefits": "登录后您可以：",
+    "cloudSyncData": "云端同步您的简历数据",
+    "manageProfile": "管理个人资料和偏好设置",
+    "multiDevice": "在多设备间无缝切换",
+    "dataProtection": "享受更安全的数据保护",
+    "profileSettings": "个人资料",
+    "profileDescription": "编辑个人信息、头像和简介",
+    "preferencesSettings": "偏好设置",
+    "preferencesDescription": "自定义主题、语言和通知偏好",
+    "accountManagement": "账户管理",
+    "logoutDescription": "登出当前账户"
   },
   "sync": {
     "title": "同步状态",
