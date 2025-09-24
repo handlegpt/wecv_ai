@@ -7,19 +7,12 @@ import { useAuthStore } from "@/store/useAuthStore";
 import { Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 
 export default function AuthCallbackPage() {
   const router = useRouter();
   const { setUser, setIsAuthenticated } = useAuthStore();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [error, setError] = useState<string>('');
-  const [isClient, setIsClient] = useState(false);
-
-  // 确保只在客户端渲染
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   useEffect(() => {
     const handleAuthCallback = async () => {
@@ -54,12 +47,8 @@ export default function AuthCallbackPage() {
           setIsAuthenticated(true);
           setStatus('success');
           
-          toast.success('登录成功！');
-          
-          // 延迟跳转到仪表板
-          setTimeout(() => {
-            router.push('/dashboard');
-          }, 1500);
+          // 立即跳转到仪表板
+          router.push('/dashboard');
         } else {
           throw new Error('未找到用户信息');
         }
@@ -67,31 +56,11 @@ export default function AuthCallbackPage() {
         console.error('认证回调错误:', error);
         setError(error.message || '登录失败');
         setStatus('error');
-        toast.error('登录失败，请重试');
       }
     };
 
     handleAuthCallback();
   }, [router, setUser, setIsAuthenticated]);
-
-  // 服务端渲染时显示加载状态
-  if (!isClient) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <CardTitle className="flex items-center justify-center gap-2">
-              <Loader2 className="h-5 w-5 animate-spin" />
-              正在验证登录...
-            </CardTitle>
-            <CardDescription>
-              请稍候，正在处理您的登录请求...
-            </CardDescription>
-          </CardHeader>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
