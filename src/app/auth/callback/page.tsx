@@ -14,6 +14,12 @@ export default function AuthCallbackPage() {
   const { setUser, setIsAuthenticated } = useAuthStore();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [error, setError] = useState<string>('');
+  const [isClient, setIsClient] = useState(false);
+
+  // 确保只在客户端渲染
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     const handleAuthCallback = async () => {
@@ -68,6 +74,25 @@ export default function AuthCallbackPage() {
     handleAuthCallback();
   }, [router, setUser, setIsAuthenticated]);
 
+  // 服务端渲染时显示加载状态
+  if (!isClient) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle className="flex items-center justify-center gap-2">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              正在验证登录...
+            </CardTitle>
+            <CardDescription>
+              请稍候，正在处理您的登录请求...
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
       <Card className="w-full max-w-md">
@@ -90,10 +115,10 @@ export default function AuthCallbackPage() {
           {status === 'error' && (
             <div className="space-y-4">
               <Button 
-                onClick={() => router.push('/dashboard/settings/auth')}
+                onClick={() => router.push('/dashboard/settings')}
                 className="w-full"
               >
-                返回登录页面
+                返回设置页面
               </Button>
             </div>
           )}
