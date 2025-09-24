@@ -65,7 +65,20 @@
     "enableSyncSuccess": "已启用云端同步",
     "disableSyncSuccess": "已禁用云端同步",
     "operations": "操作",
-    "loginOrRegister": "登录或注册"
+    "loginOrRegister": "登录或注册",
+    "magicLinkLogin": "邮箱登录",
+    "magicLinkDescription": "使用Magic Link邮箱验证登录，安全便捷",
+    "emailPlaceholder": "请输入您的邮箱地址",
+    "sendLoginLink": "发送登录链接",
+    "sending": "发送中...",
+    "loginLinkSent": "登录链接已发送",
+    "checkEmail": "请查收您的邮箱，点击邮件中的链接完成登录",
+    "resend": "重新发送",
+    "useEmailLogin": "请使用上方的邮箱登录功能",
+    "enterEmail": "请输入邮箱地址",
+    "authNotConfigured": "认证服务未配置，请联系管理员",
+    "loginLinkSentSuccess": "登录链接已发送到您的邮箱，请查收邮件并点击链接完成登录",
+    "sendLoginLinkFailed": "发送登录链接失败"
   },
   "sync": {
     "title": "同步状态",

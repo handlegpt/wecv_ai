@@ -58,12 +58,12 @@ export default function AuthSettingsPage() {
   // 处理Magic Link登录
   const handleMagicLinkLogin = async () => {
     if (!email.trim()) {
-      toast.error("请输入邮箱地址");
+      toast.error(t("enterEmail"));
       return;
     }
 
     if (!supabaseConfigured) {
-      toast.error("认证服务未配置，请联系管理员");
+      toast.error(t("authNotConfigured"));
       return;
     }
 
@@ -82,9 +82,9 @@ export default function AuthSettingsPage() {
       }
 
       setMagicLinkSent(true);
-      toast.success("登录链接已发送到您的邮箱，请查收邮件并点击链接完成登录");
+      toast.success(t("loginLinkSentSuccess"));
     } catch (error: any) {
-      toast.error(error.message || "发送登录链接失败");
+      toast.error(error.message || t("sendLoginLinkFailed"));
     } finally {
       setIsSendingMagicLink(false);
     }
@@ -212,21 +212,21 @@ export default function AuthSettingsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Mail className="h-5 w-5" />
-              邮箱登录
+              {t("magicLinkLogin")}
             </CardTitle>
             <CardDescription>
-              使用Magic Link邮箱验证登录，安全便捷
+              {t("magicLinkDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {!magicLinkSent ? (
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email">邮箱地址</Label>
+                  <Label htmlFor="email">{t("email")}</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="请输入您的邮箱地址"
+                    placeholder={t("emailPlaceholder")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={isSendingMagicLink}
@@ -240,19 +240,19 @@ export default function AuthSettingsPage() {
                   {isSendingMagicLink ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      发送中...
+                      {t("sending")}
                     </>
                   ) : (
                     <>
                       <Mail className="mr-2 h-4 w-4" />
-                      发送登录链接
+                      {t("sendLoginLink")}
                     </>
                   )}
                 </Button>
                 {!supabaseConfigured && (
                   <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
                     <AlertCircle className="h-4 w-4" />
-                    <span className="text-sm">认证服务未配置，请联系管理员</span>
+                    <span className="text-sm">{t("authNotConfigured")}</span>
                   </div>
                 )}
               </div>
@@ -260,10 +260,10 @@ export default function AuthSettingsPage() {
               <div className="text-center space-y-4">
                 <div className="flex items-center justify-center gap-2 text-green-600 dark:text-green-400">
                   <CheckCircle className="h-5 w-5" />
-                  <span className="font-medium">登录链接已发送</span>
+                  <span className="font-medium">{t("loginLinkSent")}</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  请查收您的邮箱，点击邮件中的链接完成登录
+                  {t("checkEmail")}
                 </p>
                 <Button 
                   variant="outline" 
@@ -273,7 +273,7 @@ export default function AuthSettingsPage() {
                   }}
                   className="w-full"
                 >
-                  重新发送
+                  {t("resend")}
                 </Button>
               </div>
             )}
@@ -382,7 +382,7 @@ export default function AuthSettingsPage() {
           ) : (
             <div className="text-center p-4">
               <p className="text-muted-foreground mb-4">
-                请使用上方的邮箱登录功能
+                {t("useEmailLogin")}
               </p>
             </div>
           )}
