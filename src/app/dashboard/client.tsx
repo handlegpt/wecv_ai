@@ -54,11 +54,6 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       title: t("sidebar.ai"),
       url: "/dashboard/ai",
       icon: Bot
-    },
-    {
-      title: t("sidebar.auth"),
-      url: "/dashboard/settings/auth",
-      icon: User
     }
   ];
 
