@@ -23,7 +23,8 @@ import {
 import { toast } from "sonner";
 
 export default function PreferencesPage() {
-  const t = useTranslations("preferences");
+  const t = useTranslations();
+  const tAuth = useTranslations("auth");
   const { user, updateUser } = useAuthStore();
   
   const [isLoading, setIsLoading] = useState(false);
@@ -123,9 +124,9 @@ export default function PreferencesPage() {
         document.documentElement.removeAttribute('data-theme');
       }
 
-      toast.success("偏好设置已保存");
+      toast.success(tAuth("preferencesSaved"));
     } catch (error: any) {
-      toast.error(error.message || "保存失败");
+      toast.error(error.message || tAuth("saveFailed"));
     } finally {
       setIsSaving(false);
     }
@@ -135,7 +136,7 @@ export default function PreferencesPage() {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <p className="text-muted-foreground">请先登录以管理偏好设置</p>
+          <p className="text-muted-foreground">{tAuth("loginRequiredPreferences")}</p>
         </div>
       </div>
     );
@@ -144,8 +145,8 @@ export default function PreferencesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">偏好设置</h1>
-        <p className="text-muted-foreground">自定义您的应用体验</p>
+        <h1 className="text-2xl font-bold">{tAuth("preferencesTitle")}</h1>
+        <p className="text-muted-foreground">{tAuth("preferencesDescription")}</p>
       </div>
 
       {/* 外观设置 */}
@@ -153,26 +154,26 @@ export default function PreferencesPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Palette className="h-5 w-5" />
-            外观设置
+            {tAuth("appearanceSettings")}
           </CardTitle>
           <CardDescription>
-            自定义应用的外观和主题
+            {tAuth("appearanceDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="theme">主题模式</Label>
+            <Label htmlFor="theme">{tAuth("themeMode")}</Label>
             <Select 
               value={preferences.theme} 
               onValueChange={(value) => handleDirectPreferenceChange('theme', value)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="选择主题" />
+                <SelectValue placeholder={tAuth("selectTheme")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="light">浅色模式</SelectItem>
-                <SelectItem value="dark">深色模式</SelectItem>
-                <SelectItem value="system">跟随系统</SelectItem>
+                <SelectItem value="light">{tAuth("lightMode")}</SelectItem>
+                <SelectItem value="dark">{tAuth("darkMode")}</SelectItem>
+                <SelectItem value="system">{tAuth("followSystem")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -184,26 +185,26 @@ export default function PreferencesPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Globe className="h-5 w-5" />
-            语言设置
+            {tAuth("languageSettings")}
           </CardTitle>
           <CardDescription>
-            选择您偏好的界面语言
+            {tAuth("languageDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="language">界面语言</Label>
+            <Label htmlFor="language">{tAuth("interfaceLanguage")}</Label>
             <Select 
               value={preferences.language} 
               onValueChange={(value) => handleDirectPreferenceChange('language', value)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="选择语言" />
+                <SelectValue placeholder={tAuth("selectLanguage")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="zh">中文</SelectItem>
-                <SelectItem value="en">English</SelectItem>
-                <SelectItem value="ja">日本語</SelectItem>
+                <SelectItem value="zh">{tAuth("chinese")}</SelectItem>
+                <SelectItem value="en">{tAuth("english")}</SelectItem>
+                <SelectItem value="ja">{tAuth("japanese")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -215,18 +216,18 @@ export default function PreferencesPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Settings className="h-5 w-5" />
-            同步设置
+            {tAuth("syncSettings")}
           </CardTitle>
           <CardDescription>
-            管理您的数据同步偏好
+            {tAuth("syncDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label htmlFor="sync-enabled">启用云端同步</Label>
+              <Label htmlFor="sync-enabled">{tAuth("enableCloudSync")}</Label>
               <p className="text-sm text-muted-foreground">
-                将您的简历数据同步到云端，支持多设备访问
+                {tAuth("syncDescriptionText")}
               </p>
             </div>
             <Switch
@@ -243,19 +244,19 @@ export default function PreferencesPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Bell className="h-5 w-5" />
-            通知设置
+            {tAuth("notificationSettings")}
           </CardTitle>
           <CardDescription>
-            管理您希望接收的通知类型
+            {tAuth("notificationDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label htmlFor="email-notifications">邮件通知</Label>
+                <Label htmlFor="email-notifications">{tAuth("emailNotifications")}</Label>
                 <p className="text-sm text-muted-foreground">
-                  接收重要更新和系统通知
+                  {tAuth("emailNotificationDesc")}
                 </p>
               </div>
               <Switch
@@ -269,9 +270,9 @@ export default function PreferencesPage() {
             
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label htmlFor="push-notifications">推送通知</Label>
+                <Label htmlFor="push-notifications">{tAuth("pushNotifications")}</Label>
                 <p className="text-sm text-muted-foreground">
-                  接收实时推送通知
+                  {tAuth("pushNotificationDesc")}
                 </p>
               </div>
               <Switch
@@ -285,9 +286,9 @@ export default function PreferencesPage() {
             
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label htmlFor="update-notifications">更新通知</Label>
+                <Label htmlFor="update-notifications">{tAuth("updateNotifications")}</Label>
                 <p className="text-sm text-muted-foreground">
-                  接收产品更新和新功能通知
+                  {tAuth("updateNotificationDesc")}
                 </p>
               </div>
               <Switch
@@ -305,19 +306,19 @@ export default function PreferencesPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Shield className="h-5 w-5" />
-            隐私设置
+            {tAuth("privacySettings")}
           </CardTitle>
           <CardDescription>
-            管理您的隐私和数据使用偏好
+            {tAuth("privacyDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label htmlFor="profile-public">公开个人资料</Label>
+                <Label htmlFor="profile-public">{tAuth("publicProfile")}</Label>
                 <p className="text-sm text-muted-foreground">
-                  允许其他用户查看您的基本信息
+                  {tAuth("publicProfileDesc")}
                 </p>
               </div>
               <Switch
@@ -331,9 +332,9 @@ export default function PreferencesPage() {
             
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label htmlFor="data-sharing">数据共享</Label>
+                <Label htmlFor="data-sharing">{tAuth("dataSharing")}</Label>
                 <p className="text-sm text-muted-foreground">
-                  允许匿名数据用于产品改进
+                  {tAuth("dataSharingDesc")}
                 </p>
               </div>
               <Switch
@@ -347,9 +348,9 @@ export default function PreferencesPage() {
             
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label htmlFor="analytics">使用分析</Label>
+                <Label htmlFor="analytics">{tAuth("analytics")}</Label>
                 <p className="text-sm text-muted-foreground">
-                  帮助我们改进产品体验
+                  {tAuth("analyticsDesc")}
                 </p>
               </div>
               <Switch
@@ -372,12 +373,12 @@ export default function PreferencesPage() {
           {isSaving ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              保存中...
+              {tAuth("saving")}
             </>
           ) : (
             <>
               <Save className="mr-2 h-4 w-4" />
-              保存设置
+              {tAuth("saveSettings")}
             </>
           )}
         </Button>
