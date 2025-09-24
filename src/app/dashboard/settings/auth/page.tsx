@@ -382,20 +382,8 @@ export default function AuthSettingsPage() {
           ) : (
             <div className="text-center p-4">
               <p className="text-muted-foreground mb-4">
-                认证功能正在开发中，请稍后再试
+                请使用上方的邮箱登录功能
               </p>
-              <Button
-                onClick={() => {
-                  if (typeof window !== 'undefined') {
-                    window.location.assign('/dashboard');
-                  }
-                }}
-                variant="outline"
-                className="w-full"
-              >
-                <User className="mr-2 h-4 w-4" />
-                返回仪表板
-              </Button>
             </div>
           )}
         </CardContent>
