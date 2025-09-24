@@ -20,7 +20,7 @@ export function middleware(request: NextRequest) {
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
     "font-src 'self' https://fonts.gstatic.com; " +
     "img-src 'self' data: blob: https:; " +
-    "connect-src 'self' https://*.supabase.co https://*.tencentscf.com https://api.openai.com https://api.deepseek.com https://cloudflareinsights.com; " +
+    "connect-src 'self' https://*.supabase.co https://*.tencentscf.com https://api.openai.com https://api.deepseek.com https://cloudflareinsights.com https://www.google-analytics.com https://analytics.google.com; " +
     "frame-ancestors 'none';"
   );
 
