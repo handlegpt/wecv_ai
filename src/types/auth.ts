@@ -3,12 +3,23 @@ export interface User {
   email: string;
   name: string;
   avatar?: string;
+  bio?: string;
   createdAt: string;
   updatedAt: string;
   preferences?: {
     language: string;
     theme: 'light' | 'dark' | 'system';
     syncEnabled: boolean;
+    notifications?: {
+      email: boolean;
+      push: boolean;
+      updates: boolean;
+    };
+    privacy?: {
+      profilePublic: boolean;
+      dataSharing: boolean;
+      analytics: boolean;
+    };
   };
 }
 
