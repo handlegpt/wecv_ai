@@ -171,6 +171,8 @@
     "preferencesSaved": "設定が正常に保存されました",
     "saveFailed": "保存に失敗しました",
     "loginRequiredPreferences": "設定を管理するにはログインしてください",
+    "syncing": "同期中...",
+    "never": "未実行",
     "welcome": {
       "title": "WeCV AIへようこそ",
       "description": "お好みの方法を選択して、プロフェッショナルな履歴書を作成しましょう",

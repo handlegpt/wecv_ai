@@ -171,6 +171,8 @@
     "preferencesSaved": "Preferences saved successfully",
     "saveFailed": "Save failed",
     "loginRequiredPreferences": "Please login to manage preferences",
+    "syncing": "Syncing...",
+    "never": "Never",
     "welcome": {
       "title": "Welcome to WeCV AI",
       "description": "Choose your preferred way to start creating professional resumes",

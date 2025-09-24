@@ -379,11 +379,31 @@ const SettingsPage = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm">{tAuth("lastSync")}</span>
-                      <span className="text-sm text-muted-foreground">刚刚</span>
+                      <span className="text-sm text-muted-foreground">
+                        {syncStatus.lastSyncAt 
+                          ? new Date(syncStatus.lastSyncAt).toLocaleString()
+                          : tAuth("never")
+                        }
+                      </span>
                     </div>
-                    <Button variant="outline" size="sm" className="w-full">
-                      <RefreshCw className="h-4 w-4 mr-2" />
-                      {tAuth("syncNow")}
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full"
+                      onClick={handleManualSync}
+                      disabled={isSyncing}
+                    >
+                      {isSyncing ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          {tAuth("syncing")}
+                        </>
+                      ) : (
+                        <>
+                          <RefreshCw className="h-4 w-4 mr-2" />
+                          {tAuth("syncNow")}
+                        </>
+                      )}
                     </Button>
                   </CardContent>
                 </Card>

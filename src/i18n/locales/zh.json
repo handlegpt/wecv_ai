@@ -170,7 +170,9 @@
     "saving": "保存中...",
     "preferencesSaved": "偏好设置已保存",
     "saveFailed": "保存失败",
-    "loginRequiredPreferences": "请先登录以管理偏好设置"
+    "loginRequiredPreferences": "请先登录以管理偏好设置",
+    "syncing": "同步中...",
+    "never": "从未"
   },
   "sync": {
     "title": "同步状态",
