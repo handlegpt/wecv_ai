@@ -20,6 +20,7 @@ import { toast } from "sonner";
 
 const SettingsPage = () => {
   const t = useTranslations();
+  const tAuth = useTranslations("auth");
   const { 
     isAuthenticated, 
     user, 
@@ -46,12 +47,12 @@ const SettingsPage = () => {
   // 处理Magic Link登录
   const handleMagicLinkLogin = async () => {
     if (!email.trim()) {
-      toast.error(t("enterEmail"));
+      toast.error(tAuth("enterEmail"));
       return;
     }
 
     if (!supabaseConfigured) {
-      toast.error(t("authNotConfigured"));
+      toast.error(tAuth("authNotConfigured"));
       return;
     }
 
@@ -70,9 +71,9 @@ const SettingsPage = () => {
       }
 
       setMagicLinkSent(true);
-      toast.success(t("loginLinkSentSuccess"));
+      toast.success(tAuth("loginLinkSentSuccess"));
     } catch (error: any) {
-      toast.error(error.message || t("sendLoginLinkFailed"));
+      toast.error(error.message || tAuth("sendLoginLinkFailed"));
     } finally {
       setIsSendingMagicLink(false);
     }
@@ -83,9 +84,9 @@ const SettingsPage = () => {
     setIsLoggingOut(true);
     try {
       await logout();
-      toast.success(t("logoutSuccess"));
+      toast.success(tAuth("logoutSuccess"));
     } catch (error) {
-      toast.error(t("logoutFailed"));
+      toast.error(tAuth("logoutFailed"));
     } finally {
       setIsLoggingOut(false);
     }
@@ -95,10 +96,10 @@ const SettingsPage = () => {
   const handleSyncToggle = async (checked: boolean) => {
     if (checked) {
       enableSync();
-      toast.success(t("enableSyncSuccess"));
+      toast.success(tAuth("enableSyncSuccess"));
     } else {
       disableSync();
-      toast.success(t("disableSyncSuccess"));
+      toast.success(tAuth("disableSyncSuccess"));
     }
   };
 
@@ -106,9 +107,9 @@ const SettingsPage = () => {
     setIsSyncing(true);
     try {
       await syncData();
-      toast.success(t("syncComplete"));
+      toast.success(tAuth("syncComplete"));
     } catch (error) {
-      toast.error(t("syncFailed"));
+      toast.error(tAuth("syncFailed"));
     } finally {
       setIsSyncing(false);
     }
@@ -137,21 +138,21 @@ const SettingsPage = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Mail className="h-5 w-5" />
-                {t("magicLinkLogin")}
+                {tAuth("magicLinkLogin")}
               </CardTitle>
               <CardDescription>
-                {t("magicLinkDescription")}
+                {tAuth("magicLinkDescription")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {!magicLinkSent ? (
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email">{t("email")}</Label>
+                    <Label htmlFor="email">{tAuth("email")}</Label>
                     <Input
                       id="email"
                       type="email"
-                      placeholder={t("emailPlaceholder")}
+                      placeholder={tAuth("emailPlaceholder")}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       disabled={isSendingMagicLink}
@@ -165,19 +166,19 @@ const SettingsPage = () => {
                     {isSendingMagicLink ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        {t("sending")}
+                        {tAuth("sending")}
                       </>
                     ) : (
                       <>
                         <Mail className="mr-2 h-4 w-4" />
-                        {t("sendLoginLink")}
+                        {tAuth("sendLoginLink")}
                       </>
                     )}
                   </Button>
                   {!supabaseConfigured && (
                     <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
                       <AlertCircle className="h-4 w-4" />
-                      <span className="text-sm">{t("authNotConfigured")}</span>
+                      <span className="text-sm">{tAuth("authNotConfigured")}</span>
                     </div>
                   )}
                 </div>
@@ -185,10 +186,10 @@ const SettingsPage = () => {
                 <div className="text-center space-y-4">
                   <div className="flex items-center justify-center gap-2 text-green-600 dark:text-green-400">
                     <CheckCircle className="h-5 w-5" />
-                    <span className="font-medium">{t("loginLinkSent")}</span>
+                    <span className="font-medium">{tAuth("loginLinkSent")}</span>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    {t("checkEmail")}
+                    {tAuth("checkEmail")}
                   </p>
                   <Button 
                     variant="outline" 
@@ -198,7 +199,7 @@ const SettingsPage = () => {
                     }}
                     className="w-full"
                   >
-                    {t("resend")}
+                    {tAuth("resend")}
                   </Button>
                 </div>
               )}
@@ -231,7 +232,7 @@ const SettingsPage = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <User className="h-5 w-5" />
-                  {t("userInfo")}
+                  {tAuth("userInfo")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -249,11 +250,11 @@ const SettingsPage = () => {
                 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <p className="text-muted-foreground">{t("registerTime")}</p>
+                    <p className="text-muted-foreground">{tAuth("registerTime")}</p>
                     <p>{new Date(user.createdAt).toLocaleDateString()}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">{t("lastUpdate")}</p>
+                    <p className="text-muted-foreground">{tAuth("lastUpdate")}</p>
                     <p>{new Date(user.updatedAt).toLocaleDateString()}</p>
                   </div>
                 </div>
@@ -320,12 +321,12 @@ const SettingsPage = () => {
                   {isLoggingOut ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      {t("loggingOut")}
+                      {tAuth("loggingOut")}
                     </>
                   ) : (
                     <>
                       <LogOut className="mr-2 h-4 w-4" />
-                      {t("logout")}
+                      {tAuth("logout")}
                     </>
                   )}
                 </Button>
