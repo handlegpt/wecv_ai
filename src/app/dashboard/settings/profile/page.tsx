@@ -24,7 +24,7 @@ import {
 import { toast } from "sonner";
 
 export default function ProfilePage() {
-  const t = useTranslations("profile");
+  const t = useTranslations();
   const { user, updateUser } = useAuthStore();
   
   const [isLoading, setIsLoading] = useState(false);

@@ -46,7 +46,7 @@ export const isSupabaseConfigured = (): boolean => {
   // 调试信息
   if (typeof window !== 'undefined') {
     console.log('Supabase配置检查:', {
-      url,
+      url: url || 'undefined',
       key: key ? `${key.substring(0, 20)}...` : 'undefined',
       isConfigured: Boolean(url && url !== 'https://placeholder.supabase.co' && 
                      key && key !== 'placeholder-key')
