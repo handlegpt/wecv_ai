@@ -83,9 +83,14 @@ const SettingsPage = () => {
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
+      console.log("开始登出，当前状态:", { isAuthenticated, user: user?.name });
       await logout();
+      console.log("登出完成，新状态:", { isAuthenticated, user: user?.name });
       toast.success(tAuth("logoutSuccess"));
+      // 强制刷新页面以确保状态更新
+      window.location.reload();
     } catch (error) {
+      console.error("登出失败:", error);
       toast.error(tAuth("logoutFailed"));
     } finally {
       setIsLoggingOut(false);

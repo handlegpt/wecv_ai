@@ -200,10 +200,21 @@ export const useAuthStore = create<AuthStore>()(
       },
       
       logout: async () => {
+        console.log("logout 方法被调用");
         if (isSupabaseConfigured()) {
+          console.log("Supabase 已配置，执行 signOut");
           const supabase = getSupabaseClient();
-          await supabase.auth.signOut();
+          const { error } = await supabase.auth.signOut();
+          if (error) {
+            console.error("Supabase signOut 错误:", error);
+          } else {
+            console.log("Supabase signOut 成功");
+          }
+        } else {
+          console.log("Supabase 未配置，跳过 signOut");
         }
+        
+        console.log("更新本地状态");
         set({
           isAuthenticated: false,
           user: null,
@@ -217,6 +228,7 @@ export const useAuthStore = create<AuthStore>()(
             isSyncing: false,
           },
         });
+        console.log("状态更新完成");
       },
       
       refreshToken: async () => {
