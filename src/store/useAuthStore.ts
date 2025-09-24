@@ -13,6 +13,10 @@ interface AuthStore extends AuthState {
   logout: () => void;
   refreshToken: () => Promise<void>;
   
+  // Supabase 认证方法
+  setUser: (user: User) => void;
+  setIsAuthenticated: (authenticated: boolean) => void;
+  
   // 用户管理
   updateUser: (userData: Partial<User>) => Promise<void>;
   updatePreferences: (preferences: Partial<User['preferences']>) => Promise<void>;
@@ -363,6 +367,18 @@ export const useAuthStore = create<AuthStore>()(
       // 模式管理
       setAuthMode: (mode: AuthMode) => {
         set({ authMode: mode });
+      },
+      
+      // Supabase 认证方法
+      setUser: (user: User) => {
+        set({ user, isAuthenticated: true });
+      },
+      
+      setIsAuthenticated: (authenticated: boolean) => {
+        set({ isAuthenticated: authenticated });
+        if (!authenticated) {
+          set({ user: null, token: null });
+        }
       },
       
       // 工具方法

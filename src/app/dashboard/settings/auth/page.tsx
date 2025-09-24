@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/store/useAuthStore";
 import SyncStatusCard from "@/components/sync/SyncStatusCard";
+import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 
 export const dynamic = 'force-dynamic';
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { 
   User, 
@@ -21,7 +23,9 @@ import {
   RefreshCw,
   CheckCircle,
   AlertCircle,
-  Loader2
+  Loader2,
+  Mail,
+  ArrowRight
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -41,6 +45,50 @@ export default function AuthSettingsPage() {
   
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isSendingMagicLink, setIsSendingMagicLink] = useState(false);
+  const [magicLinkSent, setMagicLinkSent] = useState(false);
+  const [supabaseConfigured, setSupabaseConfigured] = useState(false);
+
+  // 检查Supabase配置
+  useEffect(() => {
+    setSupabaseConfigured(isSupabaseConfigured());
+  }, []);
+
+  // 处理Magic Link登录
+  const handleMagicLinkLogin = async () => {
+    if (!email.trim()) {
+      toast.error("请输入邮箱地址");
+      return;
+    }
+
+    if (!supabaseConfigured) {
+      toast.error("认证服务未配置，请联系管理员");
+      return;
+    }
+
+    setIsSendingMagicLink(true);
+    try {
+      const supabase = getSupabaseClient();
+      const { error } = await supabase.auth.signInWithOtp({
+        email: email.trim(),
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`
+        }
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      setMagicLinkSent(true);
+      toast.success("登录链接已发送到您的邮箱，请查收邮件并点击链接完成登录");
+    } catch (error: any) {
+      toast.error(error.message || "发送登录链接失败");
+    } finally {
+      setIsSendingMagicLink(false);
+    }
+  };
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
@@ -157,6 +205,81 @@ export default function AuthSettingsPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Magic Link 登录 */}
+      {!isAuthenticated && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Mail className="h-5 w-5" />
+              邮箱登录
+            </CardTitle>
+            <CardDescription>
+              使用Magic Link邮箱验证登录，安全便捷
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {!magicLinkSent ? (
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="email">邮箱地址</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="请输入您的邮箱地址"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={isSendingMagicLink}
+                  />
+                </div>
+                <Button 
+                  onClick={handleMagicLinkLogin}
+                  disabled={isSendingMagicLink || !email.trim()}
+                  className="w-full"
+                >
+                  {isSendingMagicLink ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      发送中...
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="mr-2 h-4 w-4" />
+                      发送登录链接
+                    </>
+                  )}
+                </Button>
+                {!supabaseConfigured && (
+                  <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+                    <AlertCircle className="h-4 w-4" />
+                    <span className="text-sm">认证服务未配置，请联系管理员</span>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-center space-y-4">
+                <div className="flex items-center justify-center gap-2 text-green-600 dark:text-green-400">
+                  <CheckCircle className="h-5 w-5" />
+                  <span className="font-medium">登录链接已发送</span>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  请查收您的邮箱，点击邮件中的链接完成登录
+                </p>
+                <Button 
+                  variant="outline" 
+                  onClick={() => {
+                    setMagicLinkSent(false);
+                    setEmail("");
+                  }}
+                  className="w-full"
+                >
+                  重新发送
+                </Button>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {/* 用户信息 */}
       {isAuthenticated && user && (
