@@ -1,0 +1,7 @@
+body {
+  @apply bg-white text-gray-900 dark:bg-neutral-900 dark:text-neutral-200;
+}
+
+.main-content, .container, .prose {
+  @apply dark:bg-neutral-900;
+} 

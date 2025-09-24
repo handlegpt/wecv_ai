@@ -1,0 +1,126 @@
+# 基础排除
+Dockerfile
+.dockerignore
+README.md
+.next
+.git
+
+# 依赖管理 - 在镜像中重建
+node_modules
+
+# 环境变量文件
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 恶意文件常用目录
+temp
+tmp
+uploads
+exports
+
+# 可执行文件和脚本
+*.sh
+*.bin
+*.out
+*.log
+*.py
+
+# 开发工具
+.vscode
+.DS_Store
+
+# 安全防护 - 排除敏感文件
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+*.jks
+*.keystore
+
+# 排除开发工具和配置文件
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# 排除测试和文档
+test/
+tests/
+__tests__/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+coverage/
+.nyc_output/
+docs/
+*.md
+
+# 排除构建工具和缓存
+.eslintcache
+.stylelintcache
+.cache/
+.parcel-cache/
+.turbo/
+.pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 排除临时文件
+tmp/
+temp/
+*.tmp
+*.temp
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# 排除版本控制
+.gitignore
+.gitattributes
+.gitmodules
+.git/
+.hg/
+.svn/
+
+# 排除 CI/CD 配置
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+azure-pipelines.yml
+Jenkinsfile
+
+# 排除监控和日志
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# 排除数据库文件
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# 排除备份文件
+*.bak
+*.backup
+*.old
+*.orig

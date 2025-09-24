@@ -1,0 +1,1054 @@
+{
+  "common": {
+    "title": "WeCV",
+    "subtitle": "Professional Resume Builder & Editor",
+    "description": "We CV is an open-source resume editor that is free and privacy-focused. No registration required, all data is stored locally, supports data backup and export, ensuring your resume data is always available.",
+    "dashboard": "Dashboard",
+    "edit": "Edit",
+    "delete": "Delete",
+    "newResume": "New Resume",
+    "copy": "Copy",
+    "free": "Free",
+    "unnamedSection": "Untitled Section"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Name",
+    "loginTitle": "Login to your account",
+    "registerTitle": "Create new account",
+    "loginButton": "Login",
+    "registerButton": "Register",
+    "loggingIn": "Logging in...",
+    "registering": "Registering...",
+    "loggingOut": "Logging out...",
+    "continueLocal": "Continue with local mode",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful",
+    "logoutSuccess": "Logged out successfully",
+    "loginFailed": "Login failed",
+    "registerFailed": "Registration failed",
+    "logoutFailed": "Logout failed",
+    "fillAllFields": "Please fill in all required fields",
+    "passwordMismatch": "Password confirmation does not match",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "currentMode": "Current Mode",
+    "modeDescription": "Your current data storage and sync mode",
+    "localMode": "Local Mode",
+    "cloudMode": "Cloud Mode",
+    "hybridMode": "Hybrid Mode",
+    "localDescription": "Data stored locally, privacy protected",
+    "cloudDescription": "Data stored in cloud, multi-device sync",
+    "hybridDescription": "Local storage + cloud sync",
+    "privacyFirst": "Privacy First",
+    "cloudSync": "Cloud Sync",
+    "hybridMode": "Hybrid Mode",
+    "userInfo": "User Information",
+    "registerTime": "Registration Time",
+    "lastUpdate": "Last Update",
+    "syncSettings": "Sync Settings",
+    "syncDescription": "Manage your data sync options",
+    "enableCloudSync": "Enable cloud sync",
+    "syncDescription2": "Sync your resume data across devices",
+    "lastSyncTime": "Last sync time",
+    "neverSynced": "Never synced",
+    "pendingChanges": "Pending changes",
+    "items": "items",
+    "syncNow": "Sync now",
+    "syncing": "Syncing...",
+    "syncComplete": "Sync completed",
+    "syncFailed": "Sync failed",
+    "enableSyncSuccess": "Cloud sync enabled",
+    "disableSyncSuccess": "Cloud sync disabled",
+    "operations": "Operations",
+    "loginOrRegister": "Login or Register",
+    "welcome": {
+      "title": "Welcome to WeCV AI",
+      "description": "Choose your preferred way to start creating professional resumes",
+      "note": "You can switch modes anytime in settings"
+    },
+    "modes": {
+      "recommended": "Recommended",
+      "local": {
+        "title": "Local Mode",
+        "description": "Data stored locally, privacy-first, no registration required",
+        "badge": "Privacy First",
+        "button": "Get Started",
+        "features": {
+          "privacy": "Data stored locally, maximum privacy",
+          "offline": "Works offline, no internet required",
+          "noAccount": "No registration needed, start immediately",
+          "instant": "Instant access, no waiting time"
+        }
+      },
+      "cloud": {
+        "title": "Cloud Mode",
+        "description": "Data synced across devices, multi-device access, team collaboration",
+        "badge": "Cloud Sync",
+        "login": "Login",
+        "register": "Register",
+        "features": {
+          "sync": "Real-time sync across devices",
+          "backup": "Automatic cloud backup",
+          "collaboration": "Team collaboration support",
+          "access": "Access from anywhere"
+        }
+      }
+    },
+    "login": {
+      "title": "Login",
+      "description": "Login to your account to enable cloud sync features",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submit": "Login",
+      "loading": "Logging in...",
+      "success": "Login successful",
+      "error": "Login failed",
+      "noAccount": "Don't have an account?",
+      "switchToRegister": "Register now",
+      "continueLocal": "Continue with local mode"
+    },
+    "register": {
+      "title": "Register",
+      "description": "Create an account to enable cloud sync features",
+      "name": "Name",
+      "namePlaceholder": "Enter your name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password (min 6 characters)",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Enter password again",
+      "passwordHint": "Password must be at least 6 characters",
+      "submit": "Register",
+      "loading": "Registering...",
+      "success": "Registration successful",
+      "error": "Registration failed",
+      "passwordMismatch": "Passwords do not match",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "hasAccount": "Already have an account?",
+      "switchToLogin": "Login now",
+      "continueLocal": "Continue with local mode"
+    }
+  },
+  "home": {
+    "title": "Design Stunning Resumes with Professional Precision",
+    "header": {
+      "title": "WeCV AI",
+      "startButton": "Start Now",
+      "features": "Features",
+      "pricing": "Pricing",
+      "about": "About",
+      "login": "Login",
+      "register": "Register",
+      "dashboard": "Dashboard",
+      "product": "Product",
+      "guide": "User Guide",
+      "testimonials": "Testimonials",
+      "privacy": "Privacy",
+      "support": "Support",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "contactUs": "Contact Us"
+    },
+    "hero": {
+      "badge": "Free Smart Resume Builder",
+      "title": "Create Smart Resumes, Make Job Hunting Easier",
+      "subtitle": "No registration required, free to use.",
+      "cta": "Get Started",
+      "secondary": "Browse Templates",
+      "realtimePreview": "Real-time Preview",
+      "aiSuggestions": "AI Suggestions",
+      "feature1": "AI Smart",
+      "feature1_desc": "Intelligent content optimization, secure and reliable",
+      "feature2": "Local Storage",
+      "feature2_desc": "Local data storage, multi-format export, industry leading",
+      "feature3": "Global Users",
+      "feature3_desc": "AI-driven, powerful features, start creating your resume now"
+    },
+    "howToUse": {
+      "title": "How to Use",
+      "subtitle": "Follow these simple steps to create your professional resume",
+      "badge": "User Guide",
+      "step1": {
+        "title": "Choose Template",
+        "description": "Select from our professional templates to get started"
+      },
+      "step2": {
+        "title": "Fill Information",
+        "description": "Enter your personal information, work experience, and education"
+      },
+      "step3": {
+        "title": "Customize Design",
+        "description": "Adjust colors, fonts, and layout to match your style"
+      },
+      "step4": {
+        "title": "Export Resume",
+        "description": "Download your resume in PDF format or save as JSON"
+      }
+    },
+    "stats": {
+      "title": "Statistics",
+      "subtitle": "Our growth journey and user trust",
+      "badge": "Data Statistics",
+      "users": {
+        "value": "10,000+",
+        "label": "Active Users",
+        "description": "Professionals from various industries"
+      },
+      "resumes": {
+        "value": "50,000+",
+        "label": "Resumes Created",
+        "description": "Successfully created resumes"
+      },
+      "exports": {
+        "value": "100,000+",
+        "label": "PDF Exports",
+        "description": "High-quality resume file exports"
+      },
+      "rating": {
+        "value": "4.9",
+        "label": "User Rating",
+        "description": "Based on real user feedback"
+      }
+    },
+    "features": {
+      "title": "Why Choose We CV?",
+      "subtitle": "We provide an all-in-one resume solution to make your job search journey smoother",
+      "badge": "Powerful Features",
+      "ai": {
+        "badge": "AI Smart Check",
+        "title": "Smart Detection, Professional Advice",
+        "description": "Built-in smart grammar check, automatically identifies inappropriate expressions, provides professional modification suggestions, making your resume more outstanding.",
+        "item1": "Intelligent enhancement",
+        "item1_description": "AI automatically optimizes content expression, making your resume more professional",
+        "item2": "Grammar check",
+        "item2_description": "Automatically detects and corrects grammar and spelling errors"
+      },
+      "storage": {
+        "badge": "Local Storage",
+        "title": "Data Security, Privacy First",
+        "description": "All resume data is fully stored locally, no need to worry about privacy leaks. Support data export backup, ensure your resume data is always available.",
+        "item1": "Local file storage",
+        "item1_description": "Resume data securely stored on your computer's hard drive",
+        "item2": "Multiple export formats",
+        "item2_description": "Support PDF and JSON format export",
+        "item3": "Support data export backup"
+      },
+      "preview": {
+        "badge": "Real-time Preview",
+        "title": "What You See Is What You Get",
+        "item1": "Real-time preview of editing effects",
+        "item2": "Multiple export format support"
+      },
+      "export": {
+        "title": "Multi-format Export",
+        "description": "Export your resume in multiple professional formats",
+        "item1": "PDF Export",
+        "item1_description": "High-quality PDF format for job applications",
+        "item2": "Word & HTML",
+        "item2_description": "Editable formats for further customization"
+      }
+    },
+    "news": {
+      "label": "",
+      "content": ""
+    },
+    "privacyPolicy": "Privacy Policy",
+    "footer": {
+      "copyright": "© 2025 WeCV AI. All rights reserved.",
+      "product": "Product",
+      "features": "Features",
+      "guide": "User Guide",
+      "testimonials": "Testimonials",
+      "privacy": "Privacy",
+      "support": "Support",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "contactUs": "Contact Us",
+      "description": "AI-powered professional resume creation tool. Free to use, privacy-focused, with local data storage."
+    },
+    "cta": {
+      "title": "Buy us a coffee ☕",
+      "description": "If helpful, buy us a coffee ☕",
+      "button": "Support Us",
+      "badge": "Support Open Source",
+      "mainTitle": "Buy us a coffee ☕",
+      "mainDescription": "WeCV AI is completely free and open-source. If helpful, buy us a coffee ☕",
+      "primary": "Get Started",
+      "secondary": "Browse Templates"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": [
+        {
+          "question": "Is We CV free to use?",
+          "answer": "We CV is completely free and includes professional resume creation features. We are committed to keeping core features free forever, enabling everyone to create professional resumes."
+        },
+        {
+          "question": "Is my resume data secure?",
+          "answer": "Absolutely secure. We CV uses local storage technology, meaning all your data stays on your own device without any cloud uploads. You have complete control over your personal information."
+        },
+        {
+          "question": "What export formats are supported?",
+          "answer": "We support standard PDF export format, ensuring your resume maintains consistent professional formatting across all devices. We also support JSON format export for easy backup and migration of your resume data."
+        },
+        {
+          "question": "How can I sync across devices?",
+          "answer": "We provide convenient JSON configuration export, allowing you to save and import your resume settings on any device. You can also set up local folder backup for added data security."
+        },
+        {
+          "question": "What customization options are available?",
+          "answer": "We CV offers rich personalization options, including multiple professional templates, custom color themes, flexible layout adjustments, font settings, and more. You can create a unique resume style based on your preferences and industry requirements."
+        }
+      ]
+    },
+    "testimonials": {
+      "title": "User Testimonials",
+      "subtitle": "Real feedback from our users",
+      "badge": "User Reviews",
+      "averageRating": "Average Rating",
+      "userSatisfaction": "User Satisfaction",
+      "freeToUse": "Free to Use",
+      "startNow": "Start Now",
+      "professionalTemplates": "Professional Templates",
+      "beautifulDesigns": "Beautiful Designs",
+      "completelyFree": "Completely Free",
+      "noHiddenFees": "No Hidden Fees",
+      "recommended": "Recommended",
+      "user1": {
+        "name": "John Smith",
+        "role": "Frontend Engineer",
+        "content": "We CV helped me quickly create a professional resume. The AI suggestions made my resume stand out. Highly recommended!",
+        "date": "2 days ago"
+      },
+      "user2": {
+        "name": "Lisa Brown",
+        "role": "Product Manager",
+        "content": "The interface is clean and powerful. Local storage makes me feel safe about my data. Great job!",
+        "date": "1 week ago"
+      },
+      "user3": {
+        "name": "David Lee",
+        "role": "Designer",
+        "content": "Lots of templates and real-time preview. PDF export quality is excellent, ready to use for job applications.",
+        "date": "3 days ago"
+      }
+    }
+  },
+  "dashboard": {
+    "sidebar": {
+      "resumes": "Resumes",
+      "settings": "Settings",
+      "templates": "Templates",
+      "ai": "AI Config",
+      "auth": "Account Settings"
+    },
+    "resumes": {
+      "created": "Created At",
+      "synced": "Synced Files",
+      "view": "View",
+      "myResume": "My Resumes",
+      "subtitle": "Create and manage your professional resumes",
+      "create": "Create Resume",
+      "newResume": "New Resume",
+      "newResumeDescription": "Create a new resume to get started.",
+      "import": "Import JSON Config",
+      "untitled": "Untitled Resume",
+      "importSuccess": "Configuration imported successfully",
+      "importError": "Import failed, please check the file format",
+      "resumeNotFound": "Resume not found",
+      "navigationError": "Error navigating to resume",
+      "notice": {
+        "title": "Attention",
+        "description": "It is recommended to configure a resume backup folder in the settings to prevent your data from being lost when the browser cache is cleared",
+        "goToSettings": "Go to Settings"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "syncDirectory": {
+        "title": "Sync Directory",
+        "description": "Choose a folder to sync and backup your resumes.",
+        "currentSyncFolder": "Current Sync Folder",
+        "noFolderConfigured": "No folder configured",
+        "changeFolder": "Change Folder",
+        "selectFolder": "Select Folder"
+      },
+      "sync": {
+        "title": "Sync Directory",
+        "description": "Choose a folder to sync and backup your resumes.",
+        "select": "Select Folder"
+      },
+      "ai": {
+        "title": "AI Configuration",
+        "currentModel": "Current Model",
+        "selectModel": "Select Model",
+        "getApiKey": "Get API Key",
+        "doubao": {
+          "title": "Doubao",
+          "description": "Get API key from Volcengine",
+          "apiKey": "Doubao API Key",
+          "modelId": "Model ID"
+        },
+        "deepseek": {
+          "title": "DeepSeek",
+          "description": "Get API key from DeepSeek Platform",
+          "apiKey": "DeepSeek API Key"
+        },
+        "openai": {
+          "title": "OpenAI",
+          "description": "Obtain the API key at OpenAI or an open platform compatible with the OpenAI format",
+          "apiKey": "OpenAI API Key",
+          "modelId": "Model ID",
+          "apiEndpoint": "API Endpoint, example: https://openai.example.org/v1"
+        }
+      }
+    },
+    "templates": {
+      "title": "Templates",
+      "useTemplate": "Use Template",
+      "preview": "Preview",
+      "switchTemplate": "Switch Template",
+      "card": {
+        "name": "Card Layout",
+        "description": "Modern card-based design with clean sections"
+      },
+      "classic": {
+        "name": "Classic",
+        "description": "Traditional and minimalist layout, suitable for most job applications"
+      },
+      "modern": {
+        "name": "Two Column",
+        "description": "Classic two-column layout, highlighting personal characteristics"
+      },
+      "leftRight": {
+        "name": "Section Title Background",
+        "description": "Distinctive section titles with background color"
+      },
+      "timeline": {
+        "name": "Timeline Layout",
+        "description": "Timeline style, emphasizing chronological order of experiences"
+      }
+    }
+  },
+  "sync": {
+    "title": "Sync Status",
+    "description": "Manage your resume data synchronization",
+    "status": {
+      "synced": "Synced",
+      "syncing": "Syncing...",
+      "pending": "Pending",
+      "error": "Sync Failed"
+    },
+    "conflicts": {
+      "title": "Sync Conflict Resolution",
+      "description": "Detected {count} resume version conflicts, please choose how to handle each conflict.",
+      "localVersion": "Local Version",
+      "cloudVersion": "Cloud Version",
+      "resolution": {
+        "local": "Use Local Version",
+        "cloud": "Use Cloud Version",
+        "merge": "Manual Merge"
+      },
+      "recommended": "Recommended",
+      "advanced": "Advanced"
+    },
+    "actions": {
+      "syncNow": "Sync Now",
+      "refreshStatus": "Refresh Status",
+      "resolveConflicts": "Resolve Conflicts",
+      "refreshing": "Refreshing..."
+    },
+    "messages": {
+      "syncSuccess": "Sync completed",
+      "syncFailed": "Sync failed",
+      "refreshFailed": "Failed to refresh status",
+      "refreshSuccess": "Status refreshed",
+      "pendingChanges": "You have unsynced changes",
+      "syncRecommendation": "We recommend regular syncing to ensure data safety"
+    }
+  },
+  "pdfExport": {
+    "button": {
+      "export": "Export",
+      "exportPdf": "Export PDF (Server)",
+      "exportJson": "Export JSON Config",
+      "exporting": "Exporting...",
+      "exportingJson": "Exporting...",
+      "print": "Browser Print"
+    },
+    "toast": {
+      "success": "PDF exported successfully",
+      "error": "PDF export failed",
+      "jsonSuccess": "Configuration exported successfully",
+      "jsonError": "Configuration export failed"
+    }
+  },
+  "previewDock": {
+    "switchTemplate": "Switch Template",
+    "grammarCheck": {
+      "idle": "AI Grammar Check",
+      "checking": "Checking...",
+      "configurePrompt": "Please configure AI Model",
+      "configureButton": "Configure",
+      "errorToast": "Grammar check failed, please try again"
+    },
+    "sidePanel": {
+      "expand": "Expand Side Panel",
+      "collapse": "Collapse Side Panel"
+    },
+    "editPanel": {
+      "expand": "Expand Edit Panel",
+      "collapse": "Collapse Edit Panel"
+    },
+    "github": "GitHub",
+    "backToDashboard": "Back to Dashboard",
+    "copyResume": {
+      "tooltip": "Copy Resume",
+      "success": "Resume copied successfully",
+      "error": "Failed to copy resume"
+    }
+  },
+  "workbench": {
+    "editPanel": {
+      "title": "Edit Panel",
+      "save": "Save",
+      "cancel": "Cancel",
+      "add": "Add",
+      "delete": "Delete",
+      "edit": "Edit",
+      "reset": "Reset",
+      "close": "Close",
+      "confirm": "Confirm",
+      "success": "Saved successfully",
+      "error": "Save failed, please try again",
+      "clickToEdit": "Click to edit"
+    },
+    "sidePanel": {
+      "layout": {
+        "title": "Layout",
+        "addCustomSection": "Add Custom Section"
+      },
+      "theme": {
+        "title": "Theme Color",
+        "custom": "Custom"
+      },
+      "typography": {
+        "title": "Typography",
+        "font": {
+          "title": "Font",
+          "sans": "Sans-serif",
+          "serif": "Serif",
+          "mono": "Monospace"
+        },
+        "lineHeight": {
+          "title": "Line Height",
+          "normal": "Default",
+          "relaxed": "Relaxed",
+          "loose": "Loose"
+        },
+        "baseFontSize": {
+          "title": "Base Font Size"
+        },
+        "headerSize": {
+          "title": "Section Header Size"
+        },
+        "subheaderSize": {
+          "title": "Subsection Header Size"
+        }
+      },
+      "spacing": {
+        "title": "Spacing",
+        "pagePadding": {
+          "title": "Page Padding"
+        },
+        "sectionSpacing": {
+          "title": "Section Spacing"
+        },
+        "paragraphSpacing": {
+          "title": "Paragraph Spacing"
+        },
+        "sectionGap": "Section Gap",
+        "itemGap": "Item Gap",
+        "contentPadding": "Content Padding"
+      },
+      "mode": {
+        "title": "Mode",
+        "useIconMode": {
+          "title": "Icon Mode"
+        },
+        "centerSubtitle": {
+          "title": "Center Subtitle"
+        }
+      }
+    },
+    "basicPanel": {
+      "title": "Profile",
+      "avatar": "Avatar",
+      "basicField": "Basic",
+      "customField": "Custom",
+      "layout": "Align",
+      "customFields": {
+        "placeholders": {
+          "label": "Label",
+          "value": "Value"
+        },
+        "addButton": "Add Custom Field"
+      },
+      "basicFields": {
+        "name": "Name",
+        "title": "Title",
+        "email": "Email",
+        "phone": "Phone",
+        "website": "Website",
+        "location": "Location",
+        "birthDate": "Birth Date",
+        "employementStatus": "Employ"
+      },
+      "fieldVisibility": {
+        "show": "Show",
+        "hide": "Hide"
+      },
+      "githubContributions": "GitHub Contributions"
+    },
+    "experiencePanel": {
+      "title": "Work Experience",
+      "addButton": "Add Work Experience",
+      "defaultProject": {
+        "company": "Tech Company Ltd.",
+        "position": "Senior Frontend Engineer",
+        "date": "2020-Present",
+        "details": "Responsible for core product development..."
+      },
+      "placeholders": {
+        "company": "company name",
+        "position": "job title",
+        "date": "employment period",
+        "details": "job responsibilities and achievements"
+      }
+    },
+    "experienceItem": {
+      "labels": {
+        "company": "Company Name",
+        "position": "Position",
+        "date": "Employment Period",
+        "details": "Job Responsibilities"
+      },
+      "placeholders": {
+        "company": "Enter company name",
+        "position": "e.g., Frontend Engineer",
+        "date": "e.g., 2020-Present",
+        "details": "Describe your responsibilities and achievements in this role"
+      },
+      "buttons": {
+        "edit": "Edit",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      },
+      "visibility": {
+        "show": "Show",
+        "hide": "Hide"
+      }
+    },
+    "projectPanel": {
+      "title": "Project Experience",
+      "addButton": "Add Project",
+      "defaultProject": {
+        "name": "Personal Project",
+        "description": "Project Description",
+        "role": "Responsibilities",
+        "date": "2023.01 - 2023.06"
+      },
+      "placeholders": {
+        "name": "Project Name",
+        "description": "Briefly describe project background and goals",
+        "role": "Your role and responsibilities in the project",
+        "date": "Project time range",
+        "link": "Project link "
+      }
+    },
+    "projectItem": {
+      "labels": {
+        "name": "Project Name",
+        "role": "Project Role",
+        "date": "Project Period",
+        "description": "Project Description",
+        "technologies": "Tech Stack",
+        "link": "Project Link"
+      },
+      "placeholders": {
+        "name": "Enter project name",
+        "role": "Your role in the project",
+        "date": "Project time range",
+        "description": "Briefly describe project background and goals",
+        "technologies": "Technologies and tools used",
+        "link": "Project link"
+      },
+      "buttons": {
+        "edit": "Edit",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      },
+      "visibility": {
+        "show": "Show",
+        "hide": "Hide"
+      }
+    },
+    "educationPanel": {
+      "title": "Education",
+      "addButton": "Add Education",
+      "defaultProject": {
+        "school": "School Name",
+        "degree": "Degree",
+        "major": "Major",
+        "date": "2020.09 - 2024.06"
+      },
+      "placeholders": {
+        "school": "Enter school name",
+        "degree": "Select degree",
+        "major": "Enter major",
+        "date": "Enter study period"
+      }
+    },
+    "educationItem": {
+      "labels": {
+        "school": "School Name",
+        "degree": "Degree",
+        "major": "Major",
+        "date": "Study Period",
+        "description": "Description",
+        "gpa": "GPA",
+        "location": "Location",
+        "startDate": "Start Date",
+        "endDate": "End Date"
+      },
+      "placeholders": {
+        "school": "Enter school name",
+        "degree": "Select degree",
+        "major": "Enter major",
+        "date": "Enter study time range",
+        "description": "Enter school description",
+        "gpa": "Enter GPA",
+        "location": "Enter location"
+      },
+      "buttons": {
+        "edit": "Edit",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      },
+      "visibility": {
+        "show": "Show",
+        "hide": "Hide"
+      }
+    },
+    "customPanel": {
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "dateRange": "Date Range",
+      "description": "Description",
+      "dateRangePlaceholder": "Enter date range (e.g., 2020-2023)",
+      "descriptionPlaceholder": "Enter detailed description",
+      "add": "Add Custom Item"
+    },
+    "skillPanel": {
+      "placeholder": "Enter your skills and technologies"
+    },
+    "editPanelBasic": {
+      "basic": "Basic Information",
+      "experience": "Work Experience",
+      "education": "Education",
+      "skills": "Skills",
+      "projects": "Projects",
+      "custom": "Custom"
+    }
+  },
+  "field": {
+    "selectDate": "Select Date",
+    "enterYear": "Enter Year"
+  },
+  "richEditor": {
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "textColor": "Text Color",
+    "backgroundColor": "Background Color",
+    "alignLeft": "Align Left",
+    "alignCenter": "Align Center",
+    "alignRight": "Align Right",
+    "alignJustify": "Justify",
+    "bulletList": "Bullet List",
+    "orderedList": "Ordered List",
+    "undo": "Undo",
+    "redo": "Redo",
+    "aiPolish": "AI Polish",
+    "paragraph": "Paragraph",
+    "heading1": "Heading 1",
+    "heading2": "Heading 2",
+    "heading3": "Heading 3",
+    "colors": {
+      "black": "Black",
+      "darkGray": "Dark Gray",
+      "gray": "Gray",
+      "red": "Red",
+      "orange": "Orange",
+      "orangeYellow": "Orange Yellow",
+      "yellow": "Yellow",
+      "yellowGreen": "Yellow Green",
+      "green": "Green",
+      "cyan": "Cyan",
+      "lightBlue": "Light Blue",
+      "blue": "Blue",
+      "purple": "Purple",
+      "magenta": "Magenta",
+      "pink": "Pink"
+    }
+  },
+  "iconSelector": {
+    "all": "All",
+    "searchPlaceholder": "Search icons...",
+    "noMatchingIcons": "No matching icons found",
+    "tryOtherKeywords": "Please try other search keywords",
+    "selectOtherCategory": "Please select another category",
+    "categories": {
+      "personal": "Personal Info",
+      "education": "Education",
+      "experience": "Work Experience",
+      "skills": "Skills",
+      "languages": "Languages",
+      "projects": "Projects",
+      "achievements": "Achievements",
+      "hobbies": "Hobbies",
+      "social": "Social Media",
+      "others": "Others"
+    },
+    "icons": {
+      "user": "User",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "website": "Website",
+      "mobile": "Mobile",
+      "education": "Education",
+      "school": "School",
+      "major": "Major",
+      "library": "Library",
+      "scholarship": "Scholarship",
+      "work": "Work",
+      "company": "Company",
+      "office": "Office",
+      "dateRange": "Date Range",
+      "workTime": "Work Time",
+      "programming": "Programming",
+      "system": "System",
+      "database": "Database",
+      "terminal": "Terminal",
+      "techStack": "Tech Stack",
+      "language": "Language",
+      "speaking": "Speaking",
+      "communication": "Communication",
+      "project": "Project",
+      "branch": "Branch",
+      "release": "Release",
+      "target": "Target",
+      "trophy": "Trophy",
+      "medal": "Medal",
+      "star": "Star",
+      "interest": "Interest",
+      "music": "Music",
+      "art": "Art",
+      "photography": "Photography",
+      "linkedin": "LinkedIn",
+      "twitter": "Twitter",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "github": "GitHub",
+      "profile": "Profile",
+      "review": "Review",
+      "filter": "Filter",
+      "link": "Link",
+      "salary": "Salary",
+      "idea": "Idea",
+      "send": "Send",
+      "share": "Share",
+      "settings": "Settings",
+      "search": "Search",
+      "flag": "Flag",
+      "bookmark": "Bookmark",
+      "thumbsUp": "Thumbs Up",
+      "skill": "Skill"
+    }
+  },
+  "aiPolishDialog": {
+    "title": "AI Polish",
+    "description": {
+      "polishing": "Polishing your content...",
+      "finished": "Content has been optimized, please check the result"
+    },
+    "error": {
+      "configRequired": "Please configure AI model first",
+      "polishFailed": "Polish failed",
+      "applied": "Polish content applied"
+    },
+    "content": {
+      "original": "Original Content",
+      "polished": "Polished Content"
+    },
+    "button": {
+      "regenerate": "Regenerate",
+      "generating": "Generating...",
+      "apply": "Apply Content"
+    }
+  },
+  "photoConfig": {
+    "title": "Photo Settings",
+    "description": "Customize your resume photo",
+    "upload": {
+      "title": "Online Link",
+      "dragHint": "Drag and drop or click to upload image",
+      "sizeLimit": "Image size must not exceed 2MB",
+      "typeLimit": "Please upload an image file",
+      "urlPlaceholder": "Enter image link",
+      "invalidUrl": "Invalid image URL or inaccessible, please try another image link",
+      "timeout": "Loading timeout",
+      "loadError": "Failed to load image"
+    },
+    "config": {
+      "aspectRatio": "Aspect Ratio",
+      "size": "Size",
+      "width": "Width",
+      "height": "Height",
+      "border-radius": "Border Radius",
+      "widthPlaceholder": "Width",
+      "heightPlaceholder": "Height",
+      "ratios": {
+        "1:1": "1:1 Square",
+        "4:3": "4:3 Landscape",
+        "3:4": "3:4 Portrait",
+        "16:9": "16:9 Widescreen",
+        "custom": "Custom"
+      },
+      "borderRadius": {
+        "none": "None",
+        "medium": "Medium",
+        "full": "Circle",
+        "custom": "Custom",
+        "customPlaceholder": "Custom border radius"
+      }
+    },
+    "actions": {
+      "reset": "Reset",
+      "close": "Close",
+      "cancel": "Cancel",
+      "removePhoto": "Remove Photo"
+    }
+  },
+  "templates": {
+    "switchTemplate": "Switch Template"
+  },
+  "themeModal": {
+    "delete": {
+      "title": "Confirm Deletion",
+      "description": "Are you sure you want to delete {title}?",
+      "confirmText": "Delete",
+      "cancelText": "Cancel"
+    }
+  },
+  "privacy": {
+    "lastUpdated": "Last updated: August 1, 2025",
+    "commitment": {
+      "title": "Privacy Protection Commitment",
+      "content": "WeCV AI is committed to protecting your privacy. We use local storage technology to ensure that your resume data is completely stored on your device and will not be uploaded to our servers."
+    },
+    "dataCollection": {
+      "title": "Data Collection and Use",
+      "localStorage": {
+        "title": "Local Data Storage",
+        "content": "Your resume data is completely stored in your browser's local storage, including:",
+        "items": [
+          "Personal basic information",
+          "Educational background",
+          "Work experience",
+          "Skills and project experience",
+          "Resume template selection"
+        ]
+      },
+      "technicalData": {
+        "title": "Technical Data Collection",
+        "content": "To provide better service, we may collect the following technical information:",
+        "items": [
+          "Browser type and version",
+          "Operating system information",
+          "Access time and page browsing",
+          "Error logs (excluding personal information)"
+        ]
+      }
+    },
+    "dataSecurity": {
+      "title": "Data Security",
+      "content": "We use multiple security measures to protect your data:",
+      "measures": [
+        "Local storage: All resume data is stored locally on your device and will not be transmitted to our servers",
+        "HTTPS encryption: All data transmission uses HTTPS encryption",
+        "No server storage: We do not store your personal resume data on servers",
+        "Regular cleanup: Technical logs are regularly cleaned and do not retain sensitive information"
+      ]
+    },
+    "cookies": {
+      "title": "Cookies and Local Storage",
+      "content": "We use the following technologies to improve user experience:",
+      "technologies": [
+        "Local Storage: Store your resume data and settings",
+        "Session Storage: Temporarily store session information",
+        "Cookies: Only used to remember your language preferences and theme settings"
+      ],
+      "note": "You can clear this data at any time through your browser settings."
+    },
+    "thirdParty": {
+      "title": "Third-Party Services",
+      "content": "We may use the following third-party services to improve user experience:",
+      "services": [
+        "AI services: For grammar checking and content optimization (only when you actively use them)",
+        "Analytics tools: To understand website usage (anonymous data)"
+      ],
+      "note": "These third-party services have their own privacy policies. We recommend reviewing the relevant terms."
+    },
+    "dataControl": {
+      "title": "Data Export and Deletion",
+      "content": "You have complete control over your data:",
+      "rights": [
+        "Data export: You can export your resume data at any time",
+        "Data deletion: You can clear local data in your browser at any time",
+        "Data backup: We recommend regularly backing up important resume data"
+      ]
+    },
+    "children": {
+      "title": "Children's Privacy Protection",
+      "content": "Our service is not directed to children under 13 years of age. We do not knowingly collect personal information from children under 13. If we discover that we have collected personal information from children under 13, we will immediately delete such information."
+    },
+    "updates": {
+      "title": "Privacy Policy Updates",
+      "content": "We may update this privacy policy from time to time. Any changes will be posted on this page and the \"Last Updated\" date will be updated at the top of the page. We recommend reviewing this privacy policy regularly to stay informed of any changes."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "content": "If you have any questions or suggestions about this privacy policy, please contact us through the following methods:",
+      "methods": [
+        "Email: hello [at] wecv.ai"
+      ]
+    },
+    "promise": {
+      "title": "Privacy Protection Promise",
+      "content": "We promise: Your resume data will never leave your device. We will not collect, store, or share your personal resume information. Your privacy and security are our top priority."
+    }
+  }
+}

@@ -1,0 +1,956 @@
+{
+  "common": {
+    "title": "WeCV",
+    "subtitle": "プロフェッショナル履歴書ビルダー＆エディター",
+    "description": "We CVはオープンソースの履歴書エディターで、無料、プライバシー重視です。登録不要、すべてのデータはローカルに保存され、データバックアップとエクスポートをサポートし、履歴書データが常に利用可能であることを保証します。",
+    "dashboard": "ダッシュボード",
+    "edit": "編集",
+    "delete": "削除",
+    "newResume": "新しい履歴書",
+    "copy": "コピー",
+    "free": "無料",
+    "unnamedSection": "無題のセクション"
+  },
+  "auth": {
+    "login": "ログイン",
+    "register": "登録",
+    "logout": "ログアウト",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "confirmPassword": "パスワード確認",
+    "name": "名前",
+    "loginTitle": "アカウントにログイン",
+    "registerTitle": "新しいアカウントを作成",
+    "loginButton": "ログイン",
+    "registerButton": "登録",
+    "loggingIn": "ログイン中...",
+    "registering": "登録中...",
+    "loggingOut": "ログアウト中...",
+    "continueLocal": "ローカルモードで続行",
+    "loginSuccess": "ログイン成功",
+    "registerSuccess": "登録成功",
+    "logoutSuccess": "ログアウト成功",
+    "loginFailed": "ログイン失敗",
+    "registerFailed": "登録失敗",
+    "logoutFailed": "ログアウト失敗",
+    "fillAllFields": "すべての必須フィールドを入力してください",
+    "passwordMismatch": "パスワード確認が一致しません",
+    "passwordTooShort": "パスワードは6文字以上である必要があります",
+    "currentMode": "現在のモード",
+    "modeDescription": "現在のデータストレージと同期モード",
+    "localMode": "ローカルモード",
+    "cloudMode": "クラウドモード",
+    "hybridMode": "ハイブリッドモード",
+    "localDescription": "データはローカルに保存され、プライバシーが保護されます",
+    "cloudDescription": "データはクラウドに保存され、マルチデバイス同期が可能です",
+    "hybridDescription": "ローカルストレージ + クラウド同期",
+    "privacyFirst": "プライバシー優先",
+    "cloudSync": "クラウド同期",
+    "hybridMode": "ハイブリッドモード",
+    "userInfo": "ユーザー情報",
+    "registerTime": "登録時間",
+    "lastUpdate": "最終更新",
+    "syncSettings": "同期設定",
+    "syncDescription": "データ同期オプションを管理",
+    "enableCloudSync": "クラウド同期を有効にする",
+    "syncDescription2": "デバイス間で履歴書データを同期",
+    "lastSyncTime": "最後の同期時間",
+    "neverSynced": "同期したことがありません",
+    "pendingChanges": "保留中の変更",
+    "items": "項目",
+    "syncNow": "今すぐ同期",
+    "syncing": "同期中...",
+    "syncComplete": "同期完了",
+    "syncFailed": "同期失敗",
+    "enableSyncSuccess": "クラウド同期が有効になりました",
+    "disableSyncSuccess": "クラウド同期が無効になりました",
+    "operations": "操作",
+    "loginOrRegister": "ログインまたは登録",
+    "welcome": {
+      "title": "WeCV AIへようこそ",
+      "description": "お好みの方法を選択して、プロフェッショナルな履歴書を作成しましょう",
+      "note": "設定でいつでもモードを切り替えることができます"
+    },
+    "modes": {
+      "recommended": "おすすめ",
+      "local": {
+        "title": "ローカルモード",
+        "description": "データは完全にローカルに保存され、プライバシーを保護し、登録不要",
+        "badge": "プライバシー優先",
+        "button": "今すぐ開始",
+        "features": {
+          "privacy": "データは完全にローカルに保存され、プライバシーを保護",
+          "offline": "オフラインで使用可能、インターネット接続不要",
+          "noAccount": "登録不要、すぐに使用開始",
+          "instant": "即座に開始、待機時間なし"
+        }
+      },
+      "cloud": {
+        "title": "クラウドモード",
+        "description": "データをクラウドで同期、マルチデバイスアクセス、チーム協力",
+        "badge": "クラウド同期",
+        "login": "ログイン",
+        "register": "登録",
+        "features": {
+          "sync": "デバイス間でリアルタイム同期",
+          "backup": "自動クラウドバックアップ",
+          "collaboration": "チーム協力サポート",
+          "access": "どこからでもアクセス可能"
+        }
+      }
+    },
+    "login": {
+      "title": "ログイン",
+      "description": "アカウントにログインしてクラウド同期機能を有効にします",
+      "email": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力してください",
+      "password": "パスワード",
+      "passwordPlaceholder": "パスワードを入力してください",
+      "submit": "ログイン",
+      "loading": "ログイン中...",
+      "success": "ログイン成功",
+      "error": "ログイン失敗",
+      "noAccount": "アカウントをお持ちでない場合",
+      "switchToRegister": "今すぐ登録",
+      "continueLocal": "ローカルモードで続行"
+    },
+    "register": {
+      "title": "登録",
+      "description": "アカウントを作成してクラウド同期機能を有効にします",
+      "name": "お名前",
+      "namePlaceholder": "お名前を入力してください",
+      "email": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力してください",
+      "password": "パスワード",
+      "passwordPlaceholder": "パスワードを入力してください（最低6文字）",
+      "confirmPassword": "パスワード確認",
+      "confirmPasswordPlaceholder": "パスワードを再入力してください",
+      "passwordHint": "パスワードは最低6文字必要です",
+      "submit": "登録",
+      "loading": "登録中...",
+      "success": "登録成功",
+      "error": "登録失敗",
+      "passwordMismatch": "パスワードが一致しません",
+      "passwordTooShort": "パスワードは最低6文字必要です",
+      "hasAccount": "すでにアカウントをお持ちの場合",
+      "switchToLogin": "今すぐログイン",
+      "continueLocal": "ローカルモードで続行"
+    }
+  },
+  "home": {
+    "title": "プロフェッショナルな精度で素晴らしい履歴書をデザイン",
+    "header": {
+      "title": "WeCV AI",
+      "startButton": "今すぐ開始",
+      "features": "機能",
+      "pricing": "料金",
+      "about": "について",
+      "guide": "使用ガイド",
+      "testimonials": "ユーザーレビュー",
+      "login": "ログイン",
+      "register": "登録",
+      "dashboard": "ダッシュボード"
+    },
+    "hero": {
+      "badge": "無料スマート履歴書ビルダー",
+      "title": "スマートな履歴書を作成し、就職活動をより簡単に",
+      "subtitle": "登録不要、無料で使用できます。",
+      "cta": "始める",
+      "secondary": "テンプレートを閲覧",
+      "realtimePreview": "リアルタイムプレビュー",
+      "aiSuggestions": "AI提案",
+      "feature1": "AIスマート",
+      "feature1_desc": "インテリジェントなコンテンツ最適化、安全で信頼性が高い",
+      "feature2": "ローカルストレージ",
+      "feature2_desc": "ローカルデータストレージ、マルチフォーマットエクスポート、業界リーダー",
+      "feature3": "グローバルユーザー",
+      "feature3_desc": "AI駆動、強力な機能、今すぐ履歴書作成を開始"
+    },
+    "howToUse": {
+      "title": "使用方法",
+      "subtitle": "プロフェッショナルな履歴書を作成するための簡単な手順に従ってください",
+      "badge": "ユーザーガイド",
+      "step1": {
+        "title": "テンプレートを選択",
+        "description": "開始するためにプロフェッショナルなテンプレートから選択してください"
+      },
+      "step2": {
+        "title": "情報を入力",
+        "description": "個人情報、職歴、学歴を入力してください"
+      },
+      "step3": {
+        "title": "デザインをカスタマイズ",
+        "description": "色、フォント、レイアウトを調整してスタイルに合わせてください"
+      },
+      "step4": {
+        "title": "履歴書をエクスポート",
+        "description": "PDF形式で履歴書をダウンロードするか、JSONとして保存してください"
+      }
+    },
+    "stats": {
+      "title": "信頼される履歴書作成プラットフォーム",
+      "subtitle": "何千人ものユーザーがWe CVでプロフェッショナルな履歴書を作成しています",
+      "badge": "データ統計",
+      "users": {
+        "value": "10,000+",
+        "label": "アクティブユーザー",
+        "description": "信頼できる履歴書作成ツール"
+      },
+      "resumes": {
+        "value": "50,000+",
+        "label": "作成された履歴書",
+        "description": "プロフェッショナルな履歴書"
+      },
+      "exports": {
+        "value": "100,000+",
+        "label": "PDFエクスポート",
+        "description": "成功したエクスポート"
+      },
+      "rating": {
+        "value": "4.9",
+        "label": "ユーザー評価",
+        "description": "満足度の高いユーザー"
+      }
+    },
+    "features": {
+      "title": "なぜWe CVを選ぶのか？",
+      "subtitle": "求職の旅をよりスムーズにするためのオールインワン履歴書ソリューションを提供します",
+      "badge": "強力な機能",
+      "ai": {
+        "badge": "AIスマートチェック",
+        "title": "スマート検出、プロフェッショナルアドバイス",
+        "description": "内蔵のスマート文法チェック、不適切な表現を自動識別、プロフェッショナルな修正提案を提供し、履歴書をより際立たせます。",
+        "item1": "インテリジェント強化",
+        "item1_description": "AIが自動的にコンテンツ表現を最適化し、履歴書をよりプロフェッショナルにします",
+        "item2": "文法チェック",
+        "item2_description": "文法とスペルエラーを自動検出・修正"
+      },
+      "storage": {
+        "badge": "ローカルストレージ",
+        "title": "データセキュリティ、プライバシー第一",
+        "description": "すべての履歴書データは完全にローカルに保存され、プライバシー漏洩を心配する必要がありません。データエクスポートバックアップをサポートし、履歴書データが常に利用可能であることを保証します。",
+        "item1": "ローカルファイルストレージ",
+        "item1_description": "履歴書データはコンピューターのハードドライブに安全に保存",
+        "item2": "複数のエクスポート形式",
+        "item2_description": "PDFとJSON形式のエクスポートをサポート",
+        "item3": "データエクスポートバックアップをサポート"
+      },
+      "preview": {
+        "badge": "リアルタイムプレビュー",
+        "title": "見たままが得られる",
+        "item1": "編集効果のリアルタイムプレビュー",
+        "item2": "複数のエクスポート形式サポート"
+      },
+      "export": {
+        "title": "マルチフォーマットエクスポート",
+        "description": "複数のプロフェッショナルフォーマットで履歴書をエクスポート",
+        "item1": "PDFエクスポート",
+        "item1_description": "求人応募用の高品質PDFフォーマット",
+        "item2": "Word & HTML",
+        "item2_description": "さらなるカスタマイズのための編集可能フォーマット"
+      }
+    },
+    "news": {
+      "label": "",
+      "content": ""
+    },
+    "privacyPolicy": "プライバシーポリシー",
+    "footer": {
+      "copyright": "© 2025 WeCV AI. All rights reserved.",
+      "product": "製品",
+      "features": "機能特性",
+      "guide": "使用ガイド",
+      "testimonials": "ユーザーレビュー",
+      "privacy": "プライバシー",
+      "support": "サポート",
+      "privacyPolicy": "プライバシーポリシー",
+      "termsOfService": "利用規約",
+      "contactUs": "お問い合わせ",
+      "description": "AI技術を活用したプロフェッショナルな履歴書作成ツール。無料で、プライバシーを重視し、ローカルデータストレージを提供します。"
+    },
+    "cta": {
+      "title": "コーヒーをおごってください ☕",
+      "description": "お役に立てる場合は、コーヒーをおごってください ☕",
+      "button": "サポート",
+      "badge": "オープンソースをサポート",
+      "mainTitle": "コーヒーをおごってください ☕",
+      "mainDescription": "WeCV AIは完全無料オープンソース。お役に立てる場合は、コーヒーをおごってください ☕",
+      "primary": "始める",
+      "secondary": "テンプレートを閲覧"
+    },
+    "faq": {
+      "title": "よくある質問",
+      "items": [
+        {
+          "question": "We CVは無料で使用できますか？",
+          "answer": "We CVは完全に無料で、プロフェッショナルな履歴書作成機能を含んでいます。コア機能を永遠に無料で提供し、誰もがプロフェッショナルな履歴書を作成できるようにすることを約束します。"
+        },
+        {
+          "question": "履歴書データは安全ですか？",
+          "answer": "絶対に安全です。We CVはローカルストレージ技術を使用しており、すべてのデータはクラウドアップロードなしで自分のデバイスに留まります。個人情報を完全にコントロールできます。"
+        },
+        {
+          "question": "どのエクスポート形式がサポートされていますか？",
+          "answer": "標準的なPDFエクスポート形式をサポートし、履歴書がすべてのデバイスで一貫したプロフェッショナルなフォーマットを維持することを保証します。また、履歴書データの簡単なバックアップと移行のためのJSON形式エクスポートもサポートしています。"
+        },
+        {
+          "question": "デバイス間で同期するにはどうすればよいですか？",
+          "answer": "便利なJSON設定エクスポートを提供し、任意のデバイスで履歴書設定を保存・インポートできます。また、データセキュリティを強化するためにローカルフォルダバックアップを設定することもできます。"
+        },
+        {
+          "question": "どのようなカスタマイズオプションが利用できますか？",
+          "answer": "We CVは豊富なパーソナライゼーションオプションを提供し、複数のプロフェッショナルテンプレート、カスタムカラーテーマ、柔軟なレイアウト調整、フォント設定などを含みます。好みと業界要件に基づいてユニークな履歴書スタイルを作成できます。"
+        }
+      ]
+    },
+    "testimonials": {
+      "title": "ユーザーの声",
+      "subtitle": "実際のユーザーからのフィードバック",
+      "badge": "ユーザーレビュー",
+      "averageRating": "平均評価",
+      "userSatisfaction": "ユーザー満足度",
+      "freeToUse": "無料使用",
+      "startNow": "今すぐ開始",
+      "professionalTemplates": "プロフェッショナルテンプレート",
+      "beautifulDesigns": "美しいデザイン",
+      "completelyFree": "完全無料",
+      "noHiddenFees": "隠し料金なし",
+      "recommended": "おすすめ",
+      "user1": {
+        "name": "田中太郎",
+        "role": "フロントエンドエンジニア",
+        "content": "We CVのおかげで素早くプロフェッショナルな履歴書を作成できました。AIの提案により履歴書が際立ちました。強くお勧めします！",
+        "date": "2日前"
+      },
+      "user2": {
+        "name": "佐藤花子",
+        "role": "プロダクトマネージャー",
+        "content": "インターフェースが清潔で強力です。ローカルストレージによりデータの安全性を感じます。素晴らしい仕事です！",
+        "date": "1週間前"
+      },
+      "user3": {
+        "name": "鈴木一郎",
+        "role": "デザイナー",
+        "content": "多くのテンプレートとリアルタイムプレビュー。PDFエクスポートの品質が優れており、求人応募にすぐに使用できます。",
+        "date": "3日前"
+      }
+    }
+  },
+  "dashboard": {
+    "sidebar": {
+      "resumes": "履歴書",
+      "settings": "設定",
+      "templates": "テンプレート",
+      "ai": "AI設定",
+      "auth": "アカウント設定"
+    },
+    "resumes": {
+      "created": "作成日",
+      "synced": "同期ファイル",
+      "view": "表示",
+      "myResume": "マイ履歴書",
+      "subtitle": "プロフェッショナルな履歴書を作成・管理",
+      "create": "履歴書作成",
+      "newResume": "新しい履歴書",
+      "newResumeDescription": "新しい履歴書を作成して開始します。",
+      "import": "JSON設定をインポート",
+      "untitled": "無題の履歴書",
+      "importSuccess": "設定が正常にインポートされました",
+      "importError": "インポートに失敗しました。ファイル形式を確認してください",
+      "resumeNotFound": "履歴書が見つかりません",
+      "navigationError": "履歴書への移動中にエラーが発生しました",
+      "notice": {
+        "title": "注意",
+        "description": "ブラウザのキャッシュがクリアされた際にデータが失われないよう、設定で履歴書のバックアップフォルダを設定することをお勧めします",
+        "goToSettings": "設定に移動"
+      }
+    },
+    "settings": {
+      "title": "設定",
+      "syncDirectory": {
+        "title": "同期ディレクトリ",
+        "description": "履歴書を同期・バックアップするフォルダを選択してください。",
+        "currentSyncFolder": "現在の同期フォルダ",
+        "noFolderConfigured": "フォルダが設定されていません",
+        "changeFolder": "フォルダを変更",
+        "selectFolder": "フォルダを選択"
+      },
+      "sync": {
+        "title": "同期ディレクトリ",
+        "description": "履歴書を同期・バックアップするフォルダを選択してください。",
+        "select": "フォルダを選択"
+      },
+      "ai": {
+        "title": "AI設定",
+        "currentModel": "現在のモデル",
+        "selectModel": "モデルを選択",
+        "getApiKey": "APIキーを取得",
+        "doubao": {
+          "title": "DouBao",
+          "description": "火山引擎からAPIキーを取得",
+          "apiKey": "DouBao APIキー",
+          "modelId": "モデルID"
+        },
+        "deepseek": {
+          "title": "DeepSeek",
+          "description": "DeepSeekプラットフォームからAPIキーを取得",
+          "apiKey": "DeepSeek APIキー"
+        },
+        "openai": {
+          "title": "OpenAI",
+          "description": "OpenAIまたはOpenAI形式と互換性のあるオープンプラットフォームでAPIキーを取得",
+          "apiKey": "OpenAI APIキー",
+          "modelId": "モデルID",
+          "apiEndpoint": "APIエンドポイント、例：https://openai.example.org/v1"
+        }
+      }
+    },
+    "templates": {
+      "title": "テンプレート",
+      "useTemplate": "テンプレートを使用",
+      "preview": "プレビュー",
+      "switchTemplate": "テンプレートを切り替え",
+      "classic": {
+        "name": "クラシック",
+        "description": "伝統的でミニマリストなレイアウト、ほとんどの求人応募に適しています"
+      },
+      "modern": {
+        "name": "2カラム",
+        "description": "クラシックな2カラムレイアウト、個人の特徴を強調"
+      },
+      "leftRight": {
+        "name": "セクションタイトル背景",
+        "description": "背景色付きの特徴的なセクションタイトル"
+      },
+      "timeline": {
+        "name": "タイムラインレイアウト",
+        "description": "タイムラインスタイル、経験の時系列順序を強調"
+      },
+      "card": {
+        "name": "カードレイアウト",
+        "description": "モダンなカードベースのデザイン、クリーンなセクション"
+      }
+    }
+  },
+  "sync": {
+    "title": "同期状態",
+    "description": "履歴書データの同期を管理",
+    "status": {
+      "synced": "同期済み",
+      "syncing": "同期中...",
+      "pending": "同期待ち",
+      "error": "同期失敗"
+    },
+    "conflicts": {
+      "title": "同期競合の解決",
+      "description": "{count}個の履歴書でバージョン競合が検出されました。各競合の処理方法を選択してください。",
+      "localVersion": "ローカルバージョン",
+      "cloudVersion": "クラウドバージョン",
+      "resolution": {
+        "local": "ローカルバージョンを使用",
+        "cloud": "クラウドバージョンを使用",
+        "merge": "手動マージ"
+      },
+      "recommended": "推奨",
+      "advanced": "高度"
+    },
+    "actions": {
+      "syncNow": "今すぐ同期",
+      "refreshStatus": "状態を更新",
+      "resolveConflicts": "競合を解決",
+      "refreshing": "更新中..."
+    },
+    "messages": {
+      "syncSuccess": "同期が完了しました",
+      "syncFailed": "同期に失敗しました",
+      "refreshFailed": "状態の更新に失敗しました",
+      "refreshSuccess": "状態が更新されました",
+      "pendingChanges": "未同期の変更があります",
+      "syncRecommendation": "データの安全性を確保するため、定期的な同期をお勧めします"
+    }
+  },
+  "pdfExport": {
+    "button": {
+      "export": "エクスポート",
+      "exportPdf": "PDFエクスポート（サーバー）",
+      "exportJson": "JSON設定エクスポート",
+      "exporting": "エクスポート中...",
+      "exportingJson": "エクスポート中...",
+      "print": "ブラウザ印刷"
+    },
+    "toast": {
+      "success": "PDFが正常にエクスポートされました",
+      "error": "PDFエクスポートに失敗しました",
+      "jsonSuccess": "設定が正常にエクスポートされました",
+      "jsonError": "設定エクスポートに失敗しました"
+    }
+  },
+  "previewDock": {
+    "switchTemplate": "テンプレートを切り替え",
+    "grammarCheck": {
+      "idle": "AI文法チェック",
+      "checking": "チェック中...",
+      "configurePrompt": "AIモデルを設定してください",
+      "configureButton": "設定",
+      "errorToast": "文法チェックに失敗しました。もう一度お試しください"
+    },
+    "sidePanel": {
+      "expand": "サイドパネルを展開",
+      "collapse": "サイドパネルを折りたたみ"
+    },
+    "editPanel": {
+      "expand": "編集パネルを展開",
+      "collapse": "編集パネルを折りたたみ"
+    },
+    "github": "GitHub",
+    "backToDashboard": "ダッシュボードに戻る",
+    "copyResume": {
+      "tooltip": "履歴書をコピー",
+      "success": "履歴書が正常にコピーされました",
+      "error": "履歴書のコピーに失敗しました"
+    }
+  },
+  "workbench": {
+    "sidePanel": {
+      "layout": {
+        "title": "レイアウト",
+        "addCustomSection": "カスタムセクションを追加"
+      },
+      "theme": {
+        "title": "テーマカラー",
+        "custom": "カスタム"
+      },
+      "typography": {
+        "title": "タイポグラフィ",
+        "font": {
+          "title": "フォント",
+          "sans": "サンセリフ",
+          "serif": "セリフ",
+          "mono": "等幅"
+        },
+        "lineHeight": {
+          "title": "行間",
+          "normal": "デフォルト",
+          "relaxed": "ゆったり",
+          "loose": "広い"
+        },
+        "baseFontSize": {
+          "title": "基本フォントサイズ"
+        },
+        "headerSize": {
+          "title": "セクションヘッダーサイズ"
+        },
+        "subheaderSize": {
+          "title": "サブセクションヘッダーサイズ"
+        }
+      },
+      "spacing": {
+        "title": "間隔",
+        "pagePadding": {
+          "title": "ページパディング"
+        },
+        "sectionSpacing": {
+          "title": "セクション間隔"
+        },
+        "paragraphSpacing": {
+          "title": "段落間隔"
+        },
+        "sectionGap": "セクション間隔",
+        "itemGap": "アイテム間隔",
+        "contentPadding": "コンテンツパディング"
+      },
+      "mode": {
+        "title": "表示モード",
+        "useIconMode": {
+          "title": "アイコンモード"
+        },
+        "centerSubtitle": {
+          "title": "サブタイトルを中央揃え"
+        }
+      }
+    },
+    "editPanel": {
+      "basic": "基本情報",
+      "experience": "職歴",
+      "education": "学歴",
+      "skills": "スキル",
+      "projects": "プロジェクト",
+      "custom": "カスタム"
+    },
+    "basicPanel": {
+      "title": "プロフィール",
+      "avatar": "アバター",
+      "basicField": "基本",
+      "customField": "カスタム",
+      "layout": "配置",
+      "customFields": {
+        "placeholders": {
+          "label": "ラベル",
+          "value": "値"
+        },
+        "addButton": "カスタムフィールドを追加"
+      },
+      "basicFields": {
+        "name": "名前",
+        "title": "職種",
+        "email": "メール",
+        "phone": "電話",
+        "website": "ウェブサイト",
+        "location": "所在地",
+        "birthDate": "生年月日",
+        "employementStatus": "雇用状況"
+      },
+      "fieldVisibility": {
+        "show": "表示",
+        "hide": "非表示"
+      },
+      "githubContributions": "GitHub貢献"
+    },
+    "experiencePanel": {
+      "title": "職歴",
+      "addButton": "職歴を追加",
+      "defaultProject": {
+        "company": "テック企業株式会社",
+        "position": "シニアフロントエンドエンジニア",
+        "date": "2020-現在",
+        "details": "コア製品開発を担当..."
+      },
+      "placeholders": {
+        "company": "会社名",
+        "position": "職種",
+        "date": "在職期間",
+        "details": "職務内容と成果"
+      }
+    },
+    "experienceItem": {
+      "labels": {
+        "company": "会社名",
+        "position": "職種",
+        "date": "在職期間",
+        "details": "職務内容"
+      },
+      "placeholders": {
+        "company": "会社名を入力",
+        "position": "例：フロントエンドエンジニア",
+        "date": "例：2020-現在",
+        "details": "この職務での責任と成果を説明"
+      },
+      "buttons": {
+        "edit": "編集",
+        "save": "保存",
+        "cancel": "キャンセル",
+        "delete": "削除"
+      },
+      "visibility": {
+        "show": "表示",
+        "hide": "非表示"
+      }
+    },
+    "projectPanel": {
+      "title": "プロジェクト経験",
+      "addButton": "プロジェクトを追加",
+      "defaultProject": {
+        "name": "個人プロジェクト",
+        "description": "プロジェクト説明",
+        "role": "責任範囲",
+        "date": "2023.01 - 2023.06"
+      },
+      "placeholders": {
+        "name": "プロジェクト名",
+        "description": "プロジェクトの背景と目標を簡潔に説明",
+        "role": "プロジェクトでの役割と責任",
+        "date": "プロジェクト期間",
+        "link": "プロジェクトリンク"
+      }
+    },
+    "projectItem": {
+      "labels": {
+        "name": "プロジェクト名",
+        "role": "プロジェクトでの役割",
+        "date": "プロジェクト期間",
+        "description": "プロジェクト説明",
+        "technologies": "技術スタック",
+        "link": "プロジェクトリンク"
+      },
+      "placeholders": {
+        "name": "プロジェクト名を入力",
+        "role": "プロジェクトでの役割",
+        "date": "プロジェクト期間",
+        "description": "プロジェクトの背景と目標を簡潔に説明",
+        "technologies": "使用した技術とツール",
+        "link": "プロジェクトリンク"
+      },
+      "buttons": {
+        "edit": "編集",
+        "save": "保存",
+        "cancel": "キャンセル",
+        "delete": "削除"
+      },
+      "visibility": {
+        "show": "表示",
+        "hide": "非表示"
+      }
+    },
+    "educationPanel": {
+      "title": "学歴",
+      "addButton": "学歴を追加",
+      "defaultProject": {
+        "school": "学校名",
+        "degree": "学位",
+        "major": "専攻",
+        "date": "2020.09 - 2024.06"
+      },
+      "placeholders": {
+        "school": "学校名を入力",
+        "degree": "学位を選択",
+        "major": "専攻を入力",
+        "date": "在学期間を入力"
+      }
+    },
+    "educationItem": {
+      "labels": {
+        "school": "学校名",
+        "degree": "学位",
+        "major": "専攻",
+        "date": "在学期間",
+        "description": "説明",
+        "gpa": "GPA",
+        "location": "所在地",
+        "startDate": "開始日",
+        "endDate": "終了日"
+      },
+      "placeholders": {
+        "school": "学校名を入力",
+        "degree": "学位を選択",
+        "major": "専攻を入力",
+        "date": "在学期間を入力",
+        "description": "学校の説明を入力",
+        "gpa": "GPAを入力",
+        "location": "所在地を入力"
+      },
+      "buttons": {
+        "edit": "編集",
+        "save": "保存",
+        "cancel": "キャンセル",
+        "delete": "削除"
+      },
+      "visibility": {
+        "show": "表示",
+        "hide": "非表示"
+      }
+    },
+    "customPanel": {
+      "title": "タイトル",
+      "subtitle": "サブタイトル",
+      "dateRange": "期間",
+      "description": "説明",
+      "dateRangePlaceholder": "期間を入力（例：2020-2023）",
+      "descriptionPlaceholder": "詳細な説明を入力",
+      "add": "カスタムアイテムを追加"
+    },
+    "skillPanel": {
+      "placeholder": "スキルや技術を入力してください"
+    }
+  },
+  "iconSelector": {
+    "all": "すべて",
+    "searchPlaceholder": "アイコンを検索...",
+    "noMatchingIcons": "一致するアイコンが見つかりません",
+    "tryOtherKeywords": "他の検索キーワードをお試しください",
+    "selectOtherCategory": "他のカテゴリを選択してください",
+    "categories": {
+      "personal": "個人情報",
+      "education": "教育",
+      "experience": "職歴",
+      "skills": "スキル",
+      "languages": "言語",
+      "projects": "プロジェクト",
+      "achievements": "実績",
+      "hobbies": "趣味",
+      "social": "ソーシャルメディア",
+      "others": "その他"
+    },
+    "icons": {
+      "user": "ユーザー",
+      "email": "メール",
+      "phone": "電話",
+      "address": "住所",
+      "website": "ウェブサイト",
+      "mobile": "モバイル",
+      "education": "教育",
+      "school": "学校",
+      "major": "専攻",
+      "library": "図書館",
+      "scholarship": "奨学金",
+      "work": "仕事",
+      "company": "会社",
+      "office": "オフィス",
+      "dateRange": "期間",
+      "workTime": "勤務時間",
+      "programming": "プログラミング",
+      "system": "システム",
+      "database": "データベース",
+      "terminal": "ターミナル",
+      "techStack": "技術スタック",
+      "language": "言語",
+      "speaking": "スピーキング",
+      "communication": "コミュニケーション",
+      "project": "プロジェクト",
+      "branch": "ブランチ",
+      "release": "リリース",
+      "target": "ターゲット",
+      "trophy": "トロフィー",
+      "medal": "メダル",
+      "star": "星",
+      "interest": "興味",
+      "music": "音楽",
+      "art": "アート",
+      "photography": "写真",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "twitter": "Twitter",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "profile": "プロフィール",
+      "review": "レビュー",
+      "filter": "フィルター",
+      "link": "リンク",
+      "salary": "給与",
+      "idea": "アイデア",
+      "send": "送信",
+      "share": "共有",
+      "settings": "設定",
+      "search": "検索",
+      "flag": "フラグ",
+      "bookmark": "ブックマーク",
+      "thumbsUp": "いいね",
+      "skill": "スキル"
+    }
+  },
+  "field": {
+    "selectDate": "日付を選択",
+    "enterYear": "年を入力"
+  },
+  "richEditor": {
+    "bold": "太字",
+    "italic": "斜体",
+    "underline": "下線",
+    "strikethrough": "取り消し線",
+    "textColor": "文字色",
+    "backgroundColor": "背景色",
+    "alignLeft": "左揃え",
+    "alignCenter": "中央揃え",
+    "alignRight": "右揃え",
+    "alignJustify": "両端揃え",
+    "link": "リンク",
+    "unlink": "リンク解除",
+    "bulletList": "箇条書き",
+    "numberedList": "番号付きリスト",
+    "blockquote": "引用",
+    "code": "コード",
+    "undo": "元に戻す",
+    "redo": "やり直し",
+    "aiPolish": "AI文章改善",
+    "paragraph": "段落",
+    "heading1": "見出し 1",
+    "heading2": "見出し 2",
+    "heading3": "見出し 3"
+  },
+  "aiPolishDialog": {
+    "title": "AI文章改善",
+    "description": "AIがあなたの文章をより良く改善します",
+    "original": "原文",
+    "improved": "改善後",
+    "apply": "適用",
+    "cancel": "キャンセル",
+    "regenerate": "再生成"
+  },
+  "privacy": {
+    "lastUpdated": "最終更新日：2025年8月1日",
+    "commitment": {
+      "title": "プライバシー保護への取り組み",
+      "content": "WeCV AIは、お客様のプライバシー保護に取り組んでいます。ローカルストレージ技術を使用して、履歴書データが完全にお客様のデバイスに保存され、当社のサーバーにアップロードされないことを保証しています。"
+    },
+    "dataCollection": {
+      "title": "データの収集と使用",
+      "localStorage": {
+        "title": "ローカルデータストレージ",
+        "content": "お客様の履歴書データは、ブラウザのローカルストレージに完全に保存されます。これには以下が含まれます：",
+        "items": [
+          "個人の基本情報",
+          "学歴",
+          "職歴",
+          "スキルとプロジェクト経験",
+          "履歴書テンプレートの選択"
+        ]
+      },
+      "technicalData": {
+        "title": "技術データの収集",
+        "content": "より良いサービスを提供するため、以下の技術情報を収集する場合があります：",
+        "items": [
+          "ブラウザの種類とバージョン",
+          "オペレーティングシステム情報",
+          "アクセス時間とページ閲覧",
+          "エラーログ（個人情報は含まれません）"
+        ]
+      }
+    },
+    "dataSecurity": {
+      "title": "データセキュリティ",
+      "content": "お客様のデータを保護するため、複数のセキュリティ対策を採用しています：",
+      "measures": [
+        "ローカルストレージ：すべての履歴書データはお客様のデバイスにローカルに保存され、当社のサーバーに送信されることはありません",
+        "HTTPS暗号化：すべてのデータ送信はHTTPS暗号化を使用します",
+        "サーバーストレージなし：お客様の個人履歴書データをサーバーに保存することはありません",
+        "定期的なクリーンアップ：技術ログは定期的にクリーンアップされ、機密情報は保持されません"
+      ]
+    },
+    "cookies": {
+      "title": "Cookieとローカルストレージ",
+      "content": "ユーザーエクスペリエンスを向上させるため、以下の技術を使用しています：",
+      "technologies": [
+        "ローカルストレージ：お客様の履歴書データと設定を保存",
+        "セッションストレージ：セッション情報を一時的に保存",
+        "Cookie：言語設定とテーマ設定を記憶するためのみ使用"
+      ],
+      "note": "これらのデータは、ブラウザ設定からいつでもクリアできます。"
+    },
+    "thirdParty": {
+      "title": "第三者サービス",
+      "content": "ユーザーエクスペリエンスを向上させるため、以下の第三者サービスを使用する場合があります：",
+      "services": [
+        "AIサービス：文法チェックとコンテンツ最適化（お客様が積極的に使用する場合のみ）",
+        "分析ツール：ウェブサイトの使用状況を理解するため（匿名データ）"
+      ],
+      "note": "これらの第三者サービスにはそれぞれのプライバシーポリシーがあります。関連する条項を確認することをお勧めします。"
+    },
+    "dataControl": {
+      "title": "データのエクスポートと削除",
+      "content": "お客様は自分のデータを完全にコントロールできます：",
+      "rights": [
+        "データエクスポート：いつでも履歴書データをエクスポートできます",
+        "データ削除：いつでもブラウザのローカルデータをクリアできます",
+        "データバックアップ：重要な履歴書データを定期的にバックアップすることをお勧めします"
+      ]
+    },
+    "children": {
+      "title": "児童のプライバシー保護",
+      "content": "当社のサービスは13歳未満の児童を対象としていません。13歳未満の児童から個人情報を故意に収集することはありません。13歳未満の児童から個人情報を収集したことが判明した場合、その情報を直ちに削除します。"
+    },
+    "updates": {
+      "title": "プライバシーポリシーの更新",
+      "content": "このプライバシーポリシーを随時更新する場合があります。変更はこのページに掲載され、ページ上部の「最終更新日」が更新されます。変更を把握するため、このプライバシーポリシーを定期的に確認することをお勧めします。"
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "content": "このプライバシーポリシーについてご質問やご提案がございましたら、以下の方法でお問い合わせください：",
+      "methods": [
+        "メール：hello [at] wecv.ai"
+      ]
+    },
+    "promise": {
+      "title": "プライバシー保護への約束",
+      "content": "お約束します：お客様の履歴書データがお客様のデバイスから出ることはありません。お客様の個人履歴書情報を収集、保存、共有することはありません。お客様のプライバシーとセキュリティが私たちの最優先事項です。"
+    }
+  }
+} 

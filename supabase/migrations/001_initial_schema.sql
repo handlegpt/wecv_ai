@@ -1,0 +1,126 @@
+-- 启用必要的扩展
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- 创建用户资料表
+CREATE TABLE IF NOT EXISTS public.profiles (
+    id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
+    email TEXT NOT NULL,
+    name TEXT NOT NULL,
+    avatar_url TEXT,
+    preferences JSONB DEFAULT '{
+        "language": "zh",
+        "theme": "system",
+        "sync_enabled": true
+    }'::jsonb,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 创建简历表
+CREATE TABLE IF NOT EXISTS public.resumes (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
+    title TEXT NOT NULL,
+    data JSONB NOT NULL,
+    template_id TEXT NOT NULL,
+    is_public BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    version INTEGER DEFAULT 1
+);
+
+-- 创建同步日志表
+CREATE TABLE IF NOT EXISTS public.sync_logs (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
+    action TEXT NOT NULL CHECK (action IN ('create', 'update', 'delete', 'sync')),
+    resume_id UUID REFERENCES public.resumes(id) ON DELETE CASCADE,
+    local_version INTEGER NOT NULL,
+    cloud_version INTEGER NOT NULL,
+    status TEXT NOT NULL CHECK (status IN ('pending', 'synced', 'conflict', 'error')),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 创建索引
+CREATE INDEX IF NOT EXISTS idx_resumes_user_id ON public.resumes(user_id);
+CREATE INDEX IF NOT EXISTS idx_resumes_updated_at ON public.resumes(updated_at);
+CREATE INDEX IF NOT EXISTS idx_sync_logs_user_id ON public.sync_logs(user_id);
+CREATE INDEX IF NOT EXISTS idx_sync_logs_status ON public.sync_logs(status);
+
+-- 启用 Row Level Security (RLS)
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.resumes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.sync_logs ENABLE ROW LEVEL SECURITY;
+
+-- 创建 RLS 策略
+-- 用户只能访问自己的资料
+CREATE POLICY "Users can view own profile" ON public.profiles
+    FOR SELECT USING (auth.uid() = id);
+
+CREATE POLICY "Users can update own profile" ON public.profiles
+    FOR UPDATE USING (auth.uid() = id);
+
+CREATE POLICY "Users can insert own profile" ON public.profiles
+    FOR INSERT WITH CHECK (auth.uid() = id);
+
+-- 用户只能访问自己的简历
+CREATE POLICY "Users can view own resumes" ON public.resumes
+    FOR SELECT USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can insert own resumes" ON public.resumes
+    FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update own resumes" ON public.resumes
+    FOR UPDATE USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete own resumes" ON public.resumes
+    FOR DELETE USING (auth.uid() = user_id);
+
+-- 用户只能访问自己的同步日志
+CREATE POLICY "Users can view own sync logs" ON public.sync_logs
+    FOR SELECT USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can insert own sync logs" ON public.sync_logs
+    FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+-- 创建触发器函数来更新 updated_at 字段
+CREATE OR REPLACE FUNCTION public.handle_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 为相关表添加触发器
+CREATE TRIGGER handle_updated_at_profiles
+    BEFORE UPDATE ON public.profiles
+    FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
+
+CREATE TRIGGER handle_updated_at_resumes
+    BEFORE UPDATE ON public.resumes
+    FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
+
+-- 创建函数来自动创建用户资料
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO public.profiles (id, email, name, preferences)
+    VALUES (
+        NEW.id,
+        NEW.email,
+        COALESCE(NEW.raw_user_meta_data->>'name', '用户'),
+        '{
+            "language": "zh",
+            "theme": "system",
+            "sync_enabled": true
+        }'::jsonb
+    );
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- 创建触发器来自动创建用户资料
+CREATE TRIGGER on_auth_user_created
+    AFTER INSERT ON auth.users
+    FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();

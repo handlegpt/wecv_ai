@@ -1,0 +1,955 @@
+{
+  "common": {
+    "title": "WeCV",
+    "subtitle": "AI驱动的简历构建器 & 编辑器",
+    "description": "We CV 是一个开源的简历编辑器，免费且注重隐私。无需注册，所有数据本地存储，支持数据备份和导出，确保您的简历数据始终可用。",
+    "dashboard": "仪表板",
+    "edit": "编辑",
+    "delete": "删除",
+    "newResume": "新建简历",
+    "copy": "复制",
+    "free": "免费",
+    "unnamedSection": "未命名模块"
+  },
+  "auth": {
+    "login": "登录",
+    "register": "注册",
+    "logout": "退出登录",
+    "email": "邮箱",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "name": "姓名",
+    "loginTitle": "登录您的账户",
+    "registerTitle": "创建新账户",
+    "loginButton": "登录",
+    "registerButton": "注册",
+    "loggingIn": "登录中...",
+    "registering": "注册中...",
+    "loggingOut": "退出中...",
+    "continueLocal": "继续使用本地模式",
+    "loginSuccess": "登录成功",
+    "registerSuccess": "注册成功",
+    "logoutSuccess": "已退出登录",
+    "loginFailed": "登录失败",
+    "registerFailed": "注册失败",
+    "logoutFailed": "退出登录失败",
+    "fillAllFields": "请填写所有必填字段",
+    "passwordMismatch": "密码确认不匹配",
+    "passwordTooShort": "密码长度至少6位",
+    "currentMode": "当前模式",
+    "modeDescription": "您当前使用的数据存储和同步模式",
+    "localMode": "本地模式",
+    "cloudMode": "云端模式",
+    "hybridMode": "混合模式",
+    "localDescription": "数据完全存储在本地，保护隐私",
+    "cloudDescription": "数据云端存储，多设备同步",
+    "hybridDescription": "本地存储 + 云端同步",
+    "privacyFirst": "隐私优先",
+    "cloudSync": "云端同步",
+    "hybridMode": "混合模式",
+    "userInfo": "用户信息",
+    "registerTime": "注册时间",
+    "lastUpdate": "最后更新",
+    "syncSettings": "同步设置",
+    "syncDescription": "管理您的数据同步选项",
+    "enableCloudSync": "启用云端同步",
+    "syncDescription2": "在多设备间同步您的简历数据",
+    "lastSyncTime": "最后同步时间",
+    "neverSynced": "从未同步",
+    "pendingChanges": "待同步更改",
+    "items": "项",
+    "syncNow": "立即同步",
+    "syncing": "同步中...",
+    "syncComplete": "同步完成",
+    "syncFailed": "同步失败",
+    "enableSyncSuccess": "已启用云端同步",
+    "disableSyncSuccess": "已禁用云端同步",
+    "operations": "操作",
+    "loginOrRegister": "登录或注册"
+  },
+  "sync": {
+    "title": "同步状态",
+    "description": "管理您的简历数据同步",
+    "status": {
+      "synced": "已同步",
+      "syncing": "同步中...",
+      "pending": "待同步",
+      "error": "同步失败"
+    },
+    "conflicts": {
+      "title": "同步冲突解决",
+      "description": "检测到 {count} 个简历存在版本冲突，请选择如何处理每个冲突。",
+      "localVersion": "本地版本",
+      "cloudVersion": "云端版本",
+      "resolution": {
+        "local": "使用本地版本",
+        "cloud": "使用云端版本",
+        "merge": "手动合并"
+      },
+      "recommended": "推荐",
+      "advanced": "高级"
+    },
+    "actions": {
+      "syncNow": "立即同步",
+      "refreshStatus": "刷新状态",
+      "resolveConflicts": "解决冲突"
+    },
+    "messages": {
+      "syncSuccess": "同步完成",
+      "syncFailed": "同步失败",
+      "refreshFailed": "刷新状态失败",
+      "pendingChanges": "有未同步的更改",
+      "syncRecommendation": "建议定期同步以确保数据安全"
+    }
+  },
+  "home": {
+    "header": {
+      "title": "WeCV AI",
+      "startButton": "开始使用",
+      "features": "功能特点",
+      "pricing": "定价",
+      "about": "关于我们",
+      "login": "登录",
+      "register": "注册",
+      "dashboard": "控制台",
+      "guide": "使用指南",
+      "testimonials": "用户评价"
+    },
+    "hero": {
+      "badge": "免费智能简历创作",
+      "title": "智能简历制作，让求职更轻松",
+      "subtitle": "无需注册，免费使用。",
+      "cta": "立即开始",
+      "secondary": "浏览模板",
+      "realtimePreview": "实时预览",
+      "aiSuggestions": "AI 建议",
+      "feature1": "AI 智能",
+      "feature1_desc": "智能优化内容，安全可靠",
+      "feature2": "本地存储",
+      "feature2_desc": "本地数据存储，多格式导出，行业领先",
+      "feature3": "全球用户",
+      "feature3_desc": "AI 驱动，强大功能，立即开始创建你的简历"
+    },
+    "features": {
+      "title": "为什么选择We CV？",
+      "subtitle": "我们提供一站式简历解决方案，让您的求职之路更加顺畅",
+      "badge": "强大功能",
+      "ai": {
+        "badge": "AI 智能纠错",
+        "title": "智能识别，专业建议",
+        "description": "内置智能语法检查，自动识别不恰当的表达，提供专业的修改建议，让您的简历更加出色。",
+        "item1": "智能润色",
+        "item1_description": "AI 自动优化文案表达，让简历更专业",
+        "item2": "语法检查",
+        "item2_description": "自动检测并修正语法和拼写错误"
+      },
+      "storage": {
+        "badge": "本地存储",
+        "title": "数据安全，隐私优先",
+        "description": "所有简历数据完全存储在您的本地设备中，无需担心隐私泄露。支持数据导出备份，确保您的简历数据随时可用。",
+        "item1": "本地文件存储",
+        "item1_description": "简历数据安全存储在您的电脑硬盘中",
+        "item2": "多种导出格式",
+        "item2_description": "支持PDF和JSON格式导出",
+        "item3": "支持数据导出备份"
+      },
+      "export": {
+        "badge": "多格式导出",
+        "title": "灵活导出，随时使用",
+        "description": "支持多种格式导出，满足不同场景需求。PDF、Word、HTML等格式，让您的简历在任何地方都能完美展示。",
+        "item1": "PDF格式",
+        "item1_description": "高质量PDF导出，适合打印和投递",
+        "item2": "Word格式",
+        "item2_description": "可编辑Word文档，方便后续修改"
+      },
+      "preview": {
+        "badge": "实时预览",
+        "title": "所见即所得",
+        "description": "边编辑边预览，实时查看简历效果。支持多种专业模板，让您的简历既美观又规范。快速导出PDF，随时投递简历。",
+        "item1": "实时预览编辑效果",
+        "item2": "多种导出格式支持"
+      }
+    },
+    "news": {
+      "label": "",
+      "content": ""
+    },
+    "privacyPolicy": "隐私政策",
+    "cta": {
+      "title": "赞助一杯咖啡 ☕",
+      "description": "如果对您有帮助，欢迎赞助一杯咖啡 ☕",
+      "button": "支持我们",
+      "badge": "支持开源项目",
+      "mainTitle": "赞助一杯咖啡 ☕",
+      "mainDescription": "WeCV AI 完全免费开源。如果对您有帮助，欢迎赞助一杯咖啡 ☕",
+      "primary": "立即开始",
+      "secondary": "浏览模板"
+    },
+    "footer": {
+      "copyright": "© 2025 WeCV AI. 保留所有权利.",
+      "product": "产品",
+      "features": "功能特性",
+      "guide": "使用指南",
+      "testimonials": "用户评价",
+      "privacy": "隐私政策",
+      "support": "支持",
+      "privacyPolicy": "隐私政策",
+      "termsOfService": "服务条款",
+      "contactUs": "联系我们",
+      "description": "AI技术驱动的专业简历制作工具。免费使用，注重隐私保护，提供本地数据存储。"
+    },
+    "faq": {
+      "title": "常见问题",
+      "items": [
+        {
+          "question": "We CV是免费的吗？",
+          "answer": "We CV完全免费，包含专业的简历创建功能。我们承诺核心功能永久免费，让每个人都能创建专业的简历。"
+        },
+        {
+          "question": "我的简历数据安全吗？",
+          "answer": "绝对安全。We CV使用本地存储技术，这意味着所有数据都保存在您自己的设备上，不会上传到云端。您对个人信息拥有完全的控制权。"
+        },
+        {
+          "question": "支持哪些导出格式？",
+          "answer": "我们支持标准的PDF导出格式，确保您的简历在所有设备上保持一致的专业排版。我们还支持JSON格式导出，方便您备份和迁移简历数据。"
+        },
+        {
+          "question": "如何在不同设备间同步？",
+          "answer": "我们提供便捷的JSON配置导出，让您可以在任何设备上保存和导入简历设置。您还可以设置本地文件夹备份，增加数据安全性。"
+        },
+        {
+          "question": "有哪些自定义选项？",
+          "answer": "We CV提供丰富的个性化选项，包括多个专业模板、自定义配色主题、灵活的布局调整、字体设置等。您可以根据个人喜好和行业要求创建独特的简历风格。"
+        }
+      ]
+    },
+    "stats": {
+      "title": "数据统计",
+      "subtitle": "我们的成长历程和用户信任",
+      "badge": "数据统计",
+      "users": {
+        "value": "10,000+",
+        "label": "活跃用户",
+        "description": "来自各行各业的专业人才"
+      },
+      "resumes": {
+        "value": "50,000+",
+        "label": "简历创建",
+        "description": "成功创建的简历数量"
+      },
+      "exports": {
+        "value": "100,000+",
+        "label": "PDF 导出",
+        "description": "高质量简历文件导出"
+      },
+      "rating": {
+        "value": "4.9",
+        "label": "用户评分",
+        "description": "基于真实用户反馈"
+      }
+    },
+    "howToUse": {
+      "title": "使用步骤",
+      "subtitle": "简单四步，创建专业简历",
+      "badge": "使用指南",
+      "step1": {
+        "title": "选择模板",
+        "description": "从多种专业模板中选择最适合的简历样式"
+      },
+      "step2": {
+        "title": "编辑内容",
+        "description": "使用智能编辑器填写个人信息，AI 提供专业建议"
+      },
+      "step3": {
+        "title": "导出简历",
+        "description": "一键导出高质量 PDF 文件，随时投递简历"
+      },
+      "step4": {
+        "title": "获得工作",
+        "description": "用专业的简历赢得面试机会，开启职业新篇章"
+      }
+    },
+    "testimonials": {
+      "title": "用户评价",
+      "subtitle": "来自真实用户的使用体验和反馈",
+      "badge": "用户评价",
+      "averageRating": "平均评分",
+      "userSatisfaction": "用户满意度",
+      "freeToUse": "免费使用",
+      "startNow": "立即开始",
+      "professionalTemplates": "专业模板",
+      "beautifulDesigns": "多种精美设计",
+      "completelyFree": "完全免费",
+      "noHiddenFees": "无隐藏费用",
+      "recommended": "推荐",
+      "user1": {
+        "name": "张小明",
+        "role": "前端工程师",
+        "content": "We CV 帮我快速创建了专业的简历，AI 建议让我的简历更加突出。非常推荐！",
+        "date": "2024年12月"
+      },
+      "user2": {
+        "name": "李小红",
+        "role": "产品经理",
+        "content": "界面简洁美观，功能强大。本地存储让我很放心，数据安全有保障。",
+        "date": "2024年11月"
+      },
+      "user3": {
+        "name": "王大力",
+        "role": "设计师",
+        "content": "多种模板选择，实时预览效果。导出 PDF 质量很高，直接可以投递。",
+        "date": "2024年10月"
+      }
+    }
+  },
+  "dashboard": {
+    "sidebar": {
+      "resumes": "我的简历",
+      "settings": "通用设置",
+      "templates": "简历模板",
+      "ai": "AI服务商",
+      "auth": "账户设置"
+    },
+    "resumes": {
+      "created": "创建于",
+      "synced": "已备份文件夹",
+      "view": "去查看",
+      "myResume": "我的简历",
+      "subtitle": "创建和管理您的专业简历",
+      "create": "新建简历",
+      "newResume": "新建简历",
+      "newResumeDescription": "创建一个新简历以开始。",
+      "import": "导入 JSON 配置",
+      "untitled": "未命名简历",
+      "importSuccess": "配置导入成功",
+      "importError": "配置导入失败，请检查文件格式",
+      "resumeNotFound": "简历不存在",
+      "navigationError": "导航到简历时出错",
+      "notice": {
+        "title": "注意",
+        "description": "建议在设置里中配置简历备份文件夹，防止您的数据可能会在浏览器清除缓存后丢失",
+        "goToSettings": "前往设置"
+      }
+    },
+    "settings": {
+      "title": "设置",
+      "syncDirectory": {
+        "title": "同步目录",
+        "description": "选择一个文件夹来同步和备份您的简历。",
+        "currentSyncFolder": "当前同步文件夹",
+        "noFolderConfigured": "尚未配置同步文件夹",
+        "changeFolder": "更改文件夹",
+        "selectFolder": "选择文件夹"
+      },
+      "sync": {
+        "title": "同步目录",
+        "description": "选择一个文件夹来同步和备份您的简历。",
+        "select": "选择文件夹"
+      },
+      "ai": {
+        "title": "AI 配置",
+        "currentModel": "当前使用的模型",
+        "selectModel": "选择模型",
+        "getApiKey": "获取 API Key",
+        "doubao": {
+          "title": "DouBao",
+          "description": "在火山引擎获取 API 密钥",
+          "apiKey": "API Key",
+          "modelId": "模型 ID"
+        },
+        "deepseek": {
+          "title": "DeepSeek",
+          "description": "在 DeepSeek 开放平台获取 API 密钥",
+          "apiKey": "API Key"
+        },
+        "openai": {
+          "title": "OpenAI",
+          "description": "在 OpenAI 或兼容 OpenAI 格式的开放平台获取 API 密钥",
+          "apiKey": "API Key",
+          "modelId": "模型 ID",
+          "apiEndpoint": "API 端点，如：https://openai.example.org/v1"
+        }
+      }
+    },
+    "templates": {
+      "title": "模板",
+      "useTemplate": "使用此模板",
+      "preview": "预览",
+      "switchTemplate": "切换模版",
+      "classic": {
+        "name": "经典模板",
+        "description": "传统简约的简历布局，适合大多数求职场景"
+      },
+      "modern": {
+        "name": "两栏布局",
+        "description": "经典两栏，突出个人特色"
+      },
+      "leftRight": {
+        "name": "简约",
+        "description": "模块标题背景鲜明，突出美观特色"
+      },
+      "timeline": {
+        "name": "时间轴布局",
+        "description": "时间轴风格，突出经历的时间顺序"
+      },
+      "card": {
+        "name": "卡片式布局",
+        "description": "现代化卡片设计，突出内容层次"
+      }
+    }
+  },
+  "pdfExport": {
+    "button": {
+      "export": "导出",
+      "exportPdf": "PDF(服务端)",
+      "exportJson": "JSON配置",
+      "exporting": "导出中...",
+      "exportingJson": "导出中...",
+      "print": "PDF(浏览器打印)"
+    },
+    "toast": {
+      "success": "PDF导出成功",
+      "error": "PDF导出失败",
+      "jsonSuccess": "配置导出成功",
+      "jsonError": "配置导出失败"
+    }
+  },
+  "workbench": {
+    "editPanel": {
+      "title": "编辑面板",
+      "save": "保存",
+      "cancel": "取消",
+      "add": "添加",
+      "delete": "删除",
+      "edit": "编辑",
+      "reset": "重置",
+      "close": "关闭",
+      "confirm": "确认",
+      "success": "保存成功",
+      "error": "保存失败，请重试",
+      "clickToEdit": "点击编辑"
+    },
+    "sidePanel": {
+      "layout": {
+        "title": "布局",
+        "addCustomSection": "添加自定义模块"
+      },
+      "theme": {
+        "title": "主题色",
+        "custom": "自定义"
+      },
+      "typography": {
+        "title": "排版",
+        "font": {
+          "title": "字体",
+          "sans": "无衬线体",
+          "serif": "衬线体",
+          "mono": "等宽体"
+        },
+        "lineHeight": {
+          "title": "行高",
+          "normal": "默认",
+          "relaxed": "适中",
+          "loose": "宽松"
+        },
+        "baseFontSize": {
+          "title": "基础字号"
+        },
+        "headerSize": {
+          "title": "模块标题字号"
+        },
+        "subheaderSize": {
+          "title": "模块项一级标题字号"
+        }
+      },
+      "spacing": {
+        "title": "间距",
+        "pagePadding": {
+          "title": "页边距"
+        },
+        "sectionSpacing": {
+          "title": "模块间距"
+        },
+        "paragraphSpacing": {
+          "title": "段落间距"
+        }
+      },
+      "mode": {
+        "title": "模式",
+        "useIconMode": {
+          "title": "图标模式"
+        },
+        "centerSubtitle": {
+          "title": "副标题居中"
+        }
+      }
+    },
+    "basicPanel": {
+      "title": "资料",
+      "basicField": "基础字段",
+      "customField": "自定义字段",
+      "githubContributions": "Github贡献",
+      "layout": "布局",
+      "layoutLeft": "居左",
+      "layoutCenter": "居中",
+      "layoutRight": "居右",
+      "avatar": "头像",
+      "customFields": {
+        "placeholders": {
+          "label": "标签",
+          "value": "值"
+        },
+        "addButton": "添加自定义字段"
+      },
+      "basicFields": {
+        "name": "姓名",
+        "title": "职位",
+        "email": "邮箱",
+        "phone": "电话",
+        "website": "个人网站",
+        "location": "地址",
+        "birthDate": "生日",
+        "employementStatus": "状态"
+      },
+      "fieldVisibility": {
+        "show": "显示",
+        "hide": "隐藏"
+      }
+    },
+    "experiencePanel": {
+      "title": "工作经历",
+      "addButton": "添加工作经历",
+      "defaultProject": {
+        "company": "某科技有限公司",
+        "position": "高级前端工程师",
+        "date": "2020-至今",
+        "details": "负责公司核心产品..."
+      },
+      "placeholders": {
+        "company": "请输入公司名称",
+        "position": "请输入职位",
+        "date": "请输入工作时间",
+        "details": "请输入工作职责和成就"
+      }
+    },
+    "experienceItem": {
+      "labels": {
+        "company": "公司名称",
+        "position": "岗位",
+        "date": "工作时间",
+        "details": "工作职责"
+      },
+      "placeholders": {
+        "company": "请输入公司名称",
+        "position": "如：前端工程师",
+        "date": "如：2020-至今",
+        "details": "描述你在这份工作中的职责和成就"
+      },
+      "buttons": {
+        "edit": "编辑",
+        "save": "保存",
+        "cancel": "取消",
+        "delete": "删除"
+      },
+      "visibility": {
+        "show": "显示",
+        "hide": "隐藏"
+      }
+    },
+    "projectPanel": {
+      "title": "项目经历",
+      "addButton": "添加项目",
+      "defaultProject": {
+        "name": "个人项目",
+        "description": "项目描述",
+        "role": "负责内容",
+        "technologies": "技术栈",
+        "date": "2023.01 - 2023.06"
+      },
+      "placeholders": {
+        "name": "项目名称",
+        "description": "简要描述项目背景和目标",
+        "role": "你在项目中的角色和职责",
+        "technologies": "使用的技术和工具",
+        "date": "项目时间范围",
+        "link": "项目链接"
+      }
+    },
+    "projectItem": {
+      "labels": {
+        "name": "项目名称",
+        "role": "项目角色",
+        "date": "项目时间",
+        "description": "项目描述",
+        "link": "项目链接"
+      },
+      "placeholders": {
+        "name": "请输入项目名称",
+        "role": "你在项目中的角色",
+        "date": "项目时间范围",
+        "description": "简要描述项目背景和目标",
+        "link": "项目链接（可选）"
+      },
+      "buttons": {
+        "edit": "编辑",
+        "save": "保存",
+        "cancel": "取消",
+        "delete": "删除"
+      },
+      "visibility": {
+        "show": "显示",
+        "hide": "隐藏"
+      }
+    },
+    "educationPanel": {
+      "title": "教育背景",
+      "addButton": "添加教育经历",
+      "defaultProject": {
+        "school": "学校名称",
+        "degree": "学历",
+        "major": "专业",
+        "date": "2020.09 - 2024.06"
+      },
+      "placeholders": {
+        "school": "请输入学校名称",
+        "degree": "请选择学历",
+        "major": "请输入专业名称",
+        "date": "请输入就读时间范围"
+      }
+    },
+    "educationItem": {
+      "labels": {
+        "school": "学校名称",
+        "degree": "学历",
+        "major": "专业",
+        "date": "就读时间",
+        "description": "学校简介",
+        "gpa": "GPA",
+        "startDate": "开始时间",
+        "endDate": "结束时间"
+      },
+      "placeholders": {
+        "school": "请输入学校名称",
+        "degree": "请选择学历",
+        "major": "请输入专业名称",
+        "date": "请输入就读时间范围",
+        "description": "请输入学校简介",
+        "gpa": "请输入GPA"
+      },
+      "buttons": {
+        "edit": "编辑",
+        "save": "保存",
+        "cancel": "取消",
+        "delete": "删除"
+      },
+      "visibility": {
+        "show": "显示",
+        "hide": "隐藏"
+      }
+    }
+  },
+  "field": {
+    "selectDate": "选择日期",
+    "enterYear": "输入年份"
+  },
+  "richEditor": {
+    "bold": "加粗",
+    "italic": "斜体",
+    "underline": "下划线",
+    "textColor": "文字颜色",
+    "backgroundColor": "背景颜色",
+    "alignLeft": "左对齐",
+    "alignCenter": "居中对齐",
+    "alignRight": "右对齐",
+    "alignJustify": "两端对齐",
+    "bulletList": "无序列表",
+    "orderedList": "有序列表",
+    "undo": "撤销",
+    "redo": "重做",
+    "aiPolish": "AI 润色",
+    "paragraph": "正文",
+    "heading1": "标题 1",
+    "heading2": "标题 2",
+    "heading3": "标题 3",
+    "colors": {
+      "black": "黑色",
+      "darkGray": "深灰",
+      "gray": "灰色",
+      "red": "红色",
+      "orange": "橙色",
+      "orangeYellow": "橙黄",
+      "yellow": "黄色",
+      "yellowGreen": "黄绿",
+      "green": "绿色",
+      "cyan": "青色",
+      "lightBlue": "浅蓝",
+      "blue": "蓝色",
+      "purple": "紫色",
+      "magenta": "紫红",
+      "pink": "粉色"
+    }
+  },
+  "iconSelector": {
+    "all": "全部",
+    "searchPlaceholder": "搜索图标...",
+    "noMatchingIcons": "未找到匹配的图标",
+    "tryOtherKeywords": "请尝试其他搜索关键词",
+    "selectOtherCategory": "请选择其他分类",
+    "categories": {
+      "personal": "个人信息",
+      "education": "教育背景",
+      "experience": "工作经验",
+      "skills": "技能",
+      "languages": "语言",
+      "projects": "项目",
+      "achievements": "成就证书",
+      "hobbies": "兴趣爱好",
+      "social": "社交媒体",
+      "others": "其他"
+    },
+    "icons": {
+      "user": "用户",
+      "email": "邮箱",
+      "phone": "电话",
+      "address": "地址",
+      "website": "网站",
+      "mobile": "手机",
+      "education": "学历",
+      "school": "学校",
+      "major": "专业",
+      "library": "图书馆",
+      "scholarship": "奖学金",
+      "work": "工作",
+      "company": "公司",
+      "office": "办公室",
+      "dateRange": "日期范围",
+      "workTime": "工作时间",
+      "programming": "编程",
+      "system": "系统",
+      "database": "数据库",
+      "terminal": "终端",
+      "techStack": "技术栈",
+      "language": "语言",
+      "speaking": "口语",
+      "communication": "交流",
+      "project": "项目",
+      "branch": "分支",
+      "release": "发布",
+      "target": "目标",
+      "trophy": "奖杯",
+      "medal": "奖牌",
+      "star": "星级",
+      "interest": "兴趣",
+      "music": "音乐",
+      "art": "艺术",
+      "photography": "摄影",
+      "linkedin": "领英",
+      "twitter": "推特",
+      "facebook": "脸书",
+      "instagram": "照片",
+      "github": "GitHub",
+      "profile": "简介",
+      "review": "审核",
+      "filter": "筛选",
+      "link": "链接",
+      "salary": "薪资",
+      "idea": "创意",
+      "send": "发送",
+      "share": "分享",
+      "settings": "设置",
+      "search": "搜索",
+      "flag": "标记",
+      "bookmark": "收藏",
+      "thumbsUp": "点赞",
+      "skill": "技能"
+    }
+  },
+  "photoConfig": {
+    "title": "头像设置",
+    "description": "自定义您的简历头像",
+    "upload": {
+      "title": "在线链接",
+      "dragHint": "拖拽或点击上传图片",
+      "sizeLimit": "图片大小不能超过2MB",
+      "typeLimit": "请上传图片文件",
+      "urlPlaceholder": "输入图片链接",
+      "invalidUrl": "图片链接无效或无法访问，请尝试使用其他图片链接",
+      "timeout": "加载超时",
+      "loadError": "图片加载失败"
+    },
+    "config": {
+      "aspectRatio": "宽高比",
+      "size": "尺寸",
+      "width": "宽度",
+      "height": "高度",
+      "border-radius": "圆角",
+      "widthPlaceholder": "宽度",
+      "heightPlaceholder": "高度",
+      "ratios": {
+        "1:1": "1:1 正方形",
+        "4:3": "4:3 横版",
+        "3:4": "3:4 竖版",
+        "16:9": "16:9 宽屏",
+        "custom": "自定义"
+      },
+      "borderRadius": {
+        "none": "无",
+        "medium": "中等",
+        "full": "圆形",
+        "custom": "自定义",
+        "customPlaceholder": "自定义圆角大小"
+      }
+    },
+    "actions": {
+      "reset": "重置",
+      "close": "关闭",
+      "cancel": "取消",
+      "removePhoto": "删除头像"
+    }
+  },
+  "previewDock": {
+    "switchTemplate": "切换模版",
+    "grammarCheck": {
+      "idle": "AI语法纠错",
+      "checking": "检查中...",
+      "configurePrompt": "请先配置 ApiKey 和 模型Id",
+      "configureButton": "去配置",
+      "errorToast": "语法检查失败，请重试"
+    },
+    "sidePanel": {
+      "expand": "展开侧边栏",
+      "collapse": "收起侧边栏"
+    },
+    "editPanel": {
+      "expand": "展开编辑面板",
+      "collapse": "收起编辑面板"
+    },
+    "github": "GitHub",
+    "backToDashboard": "返回仪表盘",
+    "copyResume": {
+      "tooltip": "复制简历",
+      "success": "简历复制成功",
+      "error": "简历复制失败"
+    }
+  },
+  "aiPolishDialog": {
+    "title": "AI 润色",
+    "description": {
+      "polishing": "正在为您润色内容...",
+      "finished": "已经为您优化了内容，请查看效果"
+    },
+    "error": {
+      "configRequired": "请先配置 AI 模型",
+      "polishFailed": "润色失败",
+      "applied": "已应用润色内容"
+    },
+    "content": {
+      "original": "原始内容",
+      "polished": "润色后的内容"
+    },
+    "button": {
+      "regenerate": "重新生成",
+      "generating": "生成中...",
+      "apply": "应用内容"
+    }
+  },
+  "templates": {
+    "switchTemplate": "切换模板"
+  },
+  "themeModal": {
+    "delete": {
+      "title": "确定要删除吗",
+      "description": "您确定要删除{title}吗？",
+      "confirmText": "删除",
+      "cancelText": "取消"
+    }
+  },
+  "privacy": {
+    "lastUpdated": "最后更新日期：2025年8月1日",
+    "commitment": {
+      "title": "隐私保护承诺",
+      "content": "WeCV AI 致力于保护您的隐私。我们采用本地存储技术，确保您的简历数据完全存储在您的设备上，不会上传到我们的服务器。"
+    },
+    "dataCollection": {
+      "title": "数据收集与使用",
+      "localStorage": {
+        "title": "本地数据存储",
+        "content": "您的简历数据完全存储在您的浏览器本地存储中，包括：",
+        "items": [
+          "个人基本信息",
+          "教育背景", 
+          "工作经历",
+          "技能和项目经验",
+          "简历模板选择"
+        ]
+      },
+      "technicalData": {
+        "title": "技术数据收集",
+        "content": "为了提供更好的服务，我们可能会收集以下技术信息：",
+        "items": [
+          "浏览器类型和版本",
+          "操作系统信息",
+          "访问时间和页面浏览情况",
+          "错误日志（不包含个人信息）"
+        ]
+      }
+    },
+    "dataSecurity": {
+      "title": "数据安全",
+      "content": "我们采用多种安全措施保护您的数据：",
+      "measures": [
+        "本地存储：所有简历数据存储在您的设备本地，不会传输到我们的服务器",
+        "HTTPS 加密：所有数据传输都使用 HTTPS 加密",
+        "无服务器存储：我们不会在服务器上存储您的个人简历数据",
+        "定期清理：技术日志会定期清理，不保留敏感信息"
+      ]
+    },
+    "cookies": {
+      "title": "Cookie 和本地存储",
+      "content": "我们使用以下技术来改善用户体验：",
+      "technologies": [
+        "本地存储（LocalStorage）：存储您的简历数据和设置",
+        "会话存储（SessionStorage）：临时存储会话信息",
+        "Cookie：仅用于记住您的语言偏好和主题设置"
+      ],
+      "note": "您可以随时通过浏览器设置清除这些数据。"
+    },
+    "thirdParty": {
+      "title": "第三方服务",
+      "content": "我们可能会使用以下第三方服务来改善用户体验：",
+      "services": [
+        "AI 服务：用于语法检查和内容优化（仅在您主动使用时）",
+        "分析工具：用于了解网站使用情况（匿名数据）"
+      ],
+      "note": "这些第三方服务都有各自的隐私政策，我们建议您查看相关条款。"
+    },
+    "dataControl": {
+      "title": "数据导出与删除",
+      "content": "您完全控制自己的数据：",
+      "rights": [
+        "数据导出：您可以随时导出您的简历数据",
+        "数据删除：您可以随时清除浏览器中的本地数据",
+        "数据备份：建议您定期备份重要的简历数据"
+      ]
+    },
+    "children": {
+      "title": "儿童隐私保护",
+      "content": "我们的服务不面向 13 岁以下的儿童。我们不会故意收集 13 岁以下儿童的个人信息。如果我们发现收集了 13 岁以下儿童的个人信息，我们将立即删除这些信息。"
+    },
+    "updates": {
+      "title": "隐私政策更新",
+      "content": "我们可能会不时更新本隐私政策。任何更改都会在此页面上发布，并在页面顶部更新\"最后更新日期\"。我们建议您定期查看本隐私政策以了解任何更改。"
+    },
+    "contact": {
+      "title": "联系我们",
+      "content": "如果您对本隐私政策有任何疑问或建议，请通过以下方式联系我们：",
+      "methods": [
+        "邮箱：hello [at] wecv.ai"
+      ]
+    },
+    "promise": {
+      "title": "隐私保护承诺",
+      "content": "我们承诺：您的简历数据永远不会离开您的设备，我们不会收集、存储或分享您的个人简历信息。您的隐私安全是我们的首要任务。"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_GA_ID=G-KNJRZ9YXL7
+      - NEXT_PUBLIC_APP_URL=http://wecv.ai
+      - NEXT_PUBLIC_SUPABASE_URL=https://placeholder.supabase.co
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+    env_file:
+      - .env
+    restart: always
+    # 安全配置
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:unconfined
+    # 只读根文件系统
+    read_only: true
+    # 临时目录挂载
+    tmpfs:
+      - /tmp:noexec,nosuid,size=100m
+      - /var/tmp:noexec,nosuid,size=100m
+    # 用户和组
+    user: "1001:1001"
+    # 资源限制
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    # 健康检查
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # 网络配置
+    networks:
+      - wecv-network
+
+networks:
+  wecv-network:
+    driver: bridge
