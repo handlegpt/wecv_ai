@@ -132,13 +132,35 @@ export const useResumeStore = create(
       activeResume: null,
 
       createResume: (templateId = null) => {
-        const locale =
-          typeof document !== "undefined"
-            ? document.cookie
-                .split("; ")
-                .find((row) => row.startsWith("NEXT_LOCALE="))
-                ?.split("=")[1] || "zh"
-            : "zh";
+        // 更可靠的语言检测方式
+        let locale = "zh"; // 默认中文
+        
+        if (typeof window !== "undefined") {
+          // 1. 检查 URL 路径
+          const pathname = window.location.pathname;
+          if (pathname.startsWith('/en')) {
+            locale = "en";
+          } else if (pathname.startsWith('/ja')) {
+            locale = "ja";
+          } else {
+            // 2. 检查 cookie
+            const cookieLocale = document.cookie
+              .split("; ")
+              .find((row) => row.startsWith("NEXT_LOCALE="))
+              ?.split("=")[1];
+            if (cookieLocale) {
+              locale = cookieLocale;
+            } else {
+              // 3. 检查浏览器语言
+              const browserLang = navigator.language.split('-')[0];
+              if (browserLang === 'en' || browserLang === 'ja') {
+                locale = browserLang;
+              }
+            }
+          }
+        }
+
+        console.log("检测到的语言环境:", locale);
 
         const initialResumeData =
           locale === "en" 

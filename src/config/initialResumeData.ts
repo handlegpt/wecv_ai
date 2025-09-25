@@ -1,5 +1,17 @@
 import { DEFAULT_FIELD_ORDER } from ".";
 import { GlobalSettings, DEFAULT_CONFIG, ResumeData } from "../types/resume";
+
+// 根据语言环境获取初始简历数据
+export const getInitialResumeState = (locale: string = 'zh') => {
+  switch (locale) {
+    case 'en':
+      return initialResumeStateEn;
+    case 'ja':
+      return initialResumeStateJa;
+    default:
+      return initialResumeState;
+  }
+};
 const initialGlobalSettings: GlobalSettings = {
   baseFontSize: 16,
   pagePadding: 32,

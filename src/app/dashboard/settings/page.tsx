@@ -50,10 +50,10 @@ const SettingsPage = () => {
     setSupabaseConfigured(isSupabaseConfigured());
   }, []);
 
-  // 初始化认证状态
+  // 初始化认证状态（只执行一次）
   useEffect(() => {
     initializeAuth();
-  }, [initializeAuth]);
+  }, []); // 移除依赖，避免无限循环
 
   // 处理Magic Link登录
   const handleMagicLinkLogin = async () => {
