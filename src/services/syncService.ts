@@ -35,9 +35,23 @@ class SyncService {
     console.log("🔍 正在获取云端简历...");
     
     try {
+      // 先测试连接
+      console.log("🔗 测试 Supabase 连接...");
+      const { data: testData, error: testError } = await this.supabase
+        .from('resumes')
+        .select('count')
+        .limit(1);
+      
+      if (testError) {
+        console.error("❌ Supabase 连接测试失败:", testError);
+        throw new Error(`连接失败: ${testError.message}`);
+      }
+      
+      console.log("✅ Supabase 连接正常");
+      
       // 添加超时处理
       const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error('获取云端简历超时')), 10000); // 10秒超时
+        setTimeout(() => reject(new Error('获取云端简历超时')), 15000); // 增加到15秒超时
       });
       
       const queryPromise = this.supabase
@@ -83,7 +97,14 @@ class SyncService {
         throw new Error('用户未登录，无法上传简历');
       }
       
-      const { error } = await this.supabase
+      console.log("👤 用户ID:", user.id);
+      
+      // 添加上传超时处理
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('上传简历超时')), 10000); // 10秒超时
+      });
+      
+      const uploadPromise = this.supabase
         .from('resumes')
         .upsert({
           id: resumeData.id,
@@ -94,6 +115,8 @@ class SyncService {
           version: resumeData.version,
           updated_at: resumeData.lastModified,
         });
+      
+      const { error } = await Promise.race([uploadPromise, timeoutPromise]) as any;
 
       if (error) {
         console.error("❌ 上传失败:", resumeData.title, error);
@@ -101,8 +124,11 @@ class SyncService {
       }
 
       console.log("✅ 上传成功:", resumeData.title);
-    } catch (error) {
+    } catch (error: any) {
       console.error("❌ 上传失败:", resumeData.title, error);
+      if (error.message.includes('超时')) {
+        throw new Error('上传超时，请检查网络连接后重试');
+      }
       throw error;
     }
   }
