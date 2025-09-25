@@ -142,30 +142,37 @@ const SettingsPage = () => {
     });
     
     if (!isAuthenticated) {
+      console.log("❌ 用户未登录，无法同步");
       toast.error(tAuth("loginRequired"));
       return;
     }
     
     if (!syncStatus.isEnabled) {
+      console.log("❌ 云同步功能未启用");
       toast.error(tAuth("syncNotEnabled"));
       return;
     }
     
+    console.log("✅ 开始执行同步...");
     setIsSyncing(true);
     try {
       await syncData();
+      console.log("✅ 同步完成");
       
       // 检查是否有简历数据
-      const localData = localStorage.getItem('resume-data');
+      const localData = localStorage.getItem('resume-storage');
+      console.log("📊 本地存储数据:", localData);
       const hasLocalResumes = localData && Object.keys(JSON.parse(localData || '{}')).length > 0;
       
       if (!hasLocalResumes) {
+        console.log("💡 没有本地简历数据");
         toast.info("💡 提示：您还没有创建任何简历。请先到简历页面创建简历，然后再进行同步。");
       } else {
+        console.log("✅ 同步成功，有本地简历数据");
         toast.success(tAuth("syncComplete"));
       }
     } catch (error) {
-      console.error("同步失败:", error);
+      console.error("❌ 同步失败:", error);
       toast.error(tAuth("syncFailed"));
     } finally {
       setIsSyncing(false);

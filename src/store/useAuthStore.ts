@@ -334,14 +334,20 @@ export const useAuthStore = create<AuthStore>()(
       },
       
       syncData: async () => {
+        console.log("🔄 syncData 方法被调用");
         const { token, syncStatus } = get();
+        console.log("🔍 当前状态:", { token: !!token, syncStatus });
+        
         if (!token) {
+          console.log("❌ 用户未登录，无法同步数据");
           throw new Error('用户未登录，无法同步数据');
         }
         if (!syncStatus.isEnabled) {
+          console.log("❌ 云同步功能未启用");
           throw new Error('云同步功能未启用');
         }
         
+        console.log("✅ 开始设置同步状态");
         set(state => ({
           syncStatus: {
             ...state.syncStatus,
@@ -350,12 +356,16 @@ export const useAuthStore = create<AuthStore>()(
         }));
         
         try {
+          console.log("🔄 开始执行 syncService.performSync()");
           // 执行真正的数据同步
           const result: SyncResult = await syncService.performSync();
+          console.log("📊 同步结果:", result);
           
           if (result.success) {
+            console.log("✅ 同步成功，更新状态");
             // 获取更新后的同步状态
             const status = await syncService.getSyncStatus();
+            console.log("📈 同步状态:", status);
             
             set(state => ({
               syncStatus: {
@@ -366,9 +376,11 @@ export const useAuthStore = create<AuthStore>()(
               },
             }));
           } else {
+            console.log("❌ 同步失败:", result.errors);
             throw new Error(result.errors.join('; '));
           }
         } catch (error) {
+          console.error("❌ 同步过程中发生错误:", error);
           set(state => ({
             syncStatus: {
               ...state.syncStatus,
