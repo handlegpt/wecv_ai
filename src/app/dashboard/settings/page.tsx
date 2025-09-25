@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { User, Settings, Shield, Palette, Bell, Mail, LogOut, Loader2, CheckCircle, AlertCircle, Cloud, CloudOff, RefreshCw, Database, ShieldCheck, Clock } from "lucide-react";
+import { User, Settings, Shield, Palette, Bell, Mail, LogOut, Loader2, CheckCircle, AlertCircle, Cloud, CloudOff, RefreshCw, Database, ShieldCheck, Clock, Share2, Lock } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -403,6 +403,117 @@ const SettingsPage = () => {
                     </CardContent>
                   </Card>
                 </Link>
+              </div>
+            </div>
+
+            {/* 分享与链接 */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">{tAuth("sharingAndLinks")}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                {/* 分享链接管理 */}
+                <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm">
+                  <CardHeader className="space-y-4">
+                    <CardTitle className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-orange-50 dark:bg-orange-950">
+                        <Share2 className="h-6 w-6 text-orange-500 dark:text-orange-400" />
+                      </div>
+                      <span>{tAuth("shareLinks")}</span>
+                    </CardTitle>
+                    <CardDescription className="text-base">
+                      {tAuth("shareLinksDescription")}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm">{tAuth("publicProfile")}</span>
+                        <Badge variant="outline" className="text-xs">
+                          wecv.com/{user?.name?.toLowerCase().replace(/\s+/g, '') || 'username'}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm">{tAuth("viewCount")}</span>
+                        <span className="text-sm text-muted-foreground">0</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full min-h-[44px] text-sm md:text-base"
+                        onClick={() => {/* TODO: 实现分享链接功能 */}}
+                      >
+                        <Share2 className="h-4 w-4 mr-2" />
+                        {tAuth("manageShareLinks")}
+                      </Button>
+                      <div className="space-y-1">
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="w-full text-xs"
+                          onClick={() => {/* TODO: 复制链接 */}}
+                        >
+                          📋 复制链接
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="w-full text-xs"
+                          onClick={() => {/* TODO: 查看统计 */}}
+                        >
+                          📊 查看统计
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* 密码保护 */}
+                <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm">
+                  <CardHeader className="space-y-4">
+                    <CardTitle className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950">
+                        <Lock className="h-6 w-6 text-blue-500 dark:text-blue-400" />
+                      </div>
+                      <span>{tAuth("passwordProtection")}</span>
+                    </CardTitle>
+                    <CardDescription className="text-base">
+                      {tAuth("passwordProtectionDescription")}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm">{tAuth("protectionStatus")}</span>
+                        <Badge variant="secondary" className="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                          <Lock className="h-3 w-3 mr-1" />
+                          {tAuth("disabled")}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full min-h-[44px] text-sm md:text-base"
+                        onClick={() => {/* TODO: 设置密码保护 */}}
+                      >
+                        <Lock className="h-4 w-4 mr-2" />
+                        {tAuth("setPassword")}
+                      </Button>
+                      <div className="space-y-1">
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="w-full text-xs"
+                          onClick={() => {/* TODO: 查看访问记录 */}}
+                        >
+                          📝 访问记录
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
 
