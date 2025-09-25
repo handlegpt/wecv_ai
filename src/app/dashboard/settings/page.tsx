@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/card";
 import { useAuthStore } from "@/store/useAuthStore";
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
+import { syncService } from "@/services/syncService";
 import { toast } from "sonner";
 
 const SettingsPage = () => {
@@ -138,6 +139,16 @@ const SettingsPage = () => {
       toast.error(tAuth("syncFailed"));
     } finally {
       setIsSyncing(false);
+    }
+  };
+
+  const handleCheckCloudData = async () => {
+    try {
+      await syncService.checkCloudData();
+      toast.success("云端数据检查完成，请查看控制台");
+    } catch (error) {
+      console.error("检查云端数据失败:", error);
+      toast.error("检查云端数据失败");
     }
   };
 
@@ -405,25 +416,35 @@ const SettingsPage = () => {
                         }
                       </span>
                     </div>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="w-full min-h-[44px] text-sm md:text-base"
-                      onClick={handleManualSync}
-                      disabled={isSyncing}
-                    >
-                      {isSyncing ? (
-                        <>
-                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                          {tAuth("syncing")}
-                        </>
-                      ) : (
-                        <>
-                          <RefreshCw className="h-4 w-4 mr-2" />
-                          {tAuth("syncNow")}
-                        </>
-                      )}
-                    </Button>
+                    <div className="space-y-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full min-h-[44px] text-sm md:text-base"
+                        onClick={handleManualSync}
+                        disabled={isSyncing}
+                      >
+                        {isSyncing ? (
+                          <>
+                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                            {tAuth("syncing")}
+                          </>
+                        ) : (
+                          <>
+                            <RefreshCw className="h-4 w-4 mr-2" />
+                            {tAuth("syncNow")}
+                          </>
+                        )}
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="w-full text-xs"
+                        onClick={handleCheckCloudData}
+                      >
+                        🔍 检查云端数据
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
 

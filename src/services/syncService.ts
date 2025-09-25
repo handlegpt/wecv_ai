@@ -32,16 +32,19 @@ class SyncService {
    * 获取云端简历列表
    */
   async getCloudResumes(): Promise<ResumeSyncData[]> {
+    console.log("🔍 正在获取云端简历...");
     const { data, error } = await this.supabase
       .from('resumes')
       .select('*')
       .order('updated_at', { ascending: false });
 
     if (error) {
+      console.error("❌ 获取云端简历失败:", error);
       throw new Error(`获取云端简历失败: ${error.message}`);
     }
 
-      return data.map((resume: any) => ({
+    console.log("📊 云端简历数据:", data);
+    return data.map((resume: any) => ({
       id: resume.id,
       title: resume.title,
       data: resume.data,
@@ -193,9 +196,14 @@ class SyncService {
     };
 
     try {
+      console.log("🔄 开始执行同步...");
+      
       // 1. 获取本地和云端数据
       const localResumes = this.getLocalResumes();
+      console.log("📱 本地简历数量:", localResumes.length, localResumes.map(r => r.title));
+      
       const cloudResumes = await this.getCloudResumes();
+      console.log("☁️ 云端简历数量:", cloudResumes.length, cloudResumes.map(r => r.title));
 
       // 2. 检测冲突
       const conflicts = this.detectConflicts(localResumes, cloudResumes);
@@ -216,11 +224,16 @@ class SyncService {
         const existsInCloud = cloudResumes.some(r => r.id === localResume.id);
         if (!existsInCloud) {
           try {
+            console.log("⬆️ 上传简历到云端:", localResume.title);
             await this.uploadResume(localResume);
             result.syncedResumes++;
+            console.log("✅ 上传成功:", localResume.title);
           } catch (error: any) {
+            console.error("❌ 上传失败:", localResume.title, error);
             result.errors.push(`上传简历失败 (${localResume.title}): ${error.message}`);
           }
+        } else {
+          console.log("⏭️ 简历已存在于云端:", localResume.title);
         }
       }
 
@@ -239,8 +252,16 @@ class SyncService {
 
       // 6. 记录同步日志
       await this.logSync(result);
+      
+      console.log("🎉 同步完成:", {
+        success: result.success,
+        syncedResumes: result.syncedResumes,
+        conflicts: result.conflicts,
+        errors: result.errors.length
+      });
 
     } catch (error: any) {
+      console.error("💥 同步失败:", error);
       result.success = false;
       result.errors.push(`同步失败: ${error.message}`);
     }
@@ -263,6 +284,28 @@ class SyncService {
         });
     } catch (error) {
       console.error('记录同步日志失败:', error);
+    }
+  }
+
+  /**
+   * 检查云端数据（调试用）
+   */
+  async checkCloudData(): Promise<void> {
+    try {
+      console.log("🔍 检查云端数据...");
+      const { data, error } = await this.supabase
+        .from('resumes')
+        .select('id, title, created_at, updated_at, version');
+      
+      if (error) {
+        console.error("❌ 检查云端数据失败:", error);
+        return;
+      }
+      
+      console.log("📊 云端简历列表:", data);
+      console.log("📈 云端简历总数:", data.length);
+    } catch (error) {
+      console.error("💥 检查云端数据异常:", error);
     }
   }
 
