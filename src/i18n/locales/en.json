@@ -694,6 +694,13 @@
         "centerSubtitle": {
           "title": "Center Subtitle"
         }
+      },
+      "mobile": {
+        "selectSection": "Select Section",
+        "settings": "Settings",
+        "hidden": "Hidden",
+        "addCustomSection": "Add Custom Section",
+        "currentSection": "Current Section"
       }
     },
     "basicPanel": {

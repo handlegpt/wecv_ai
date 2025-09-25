@@ -674,6 +674,13 @@
         "centerSubtitle": {
           "title": "サブタイトルを中央揃え"
         }
+      },
+      "mobile": {
+        "selectSection": "セクションを選択",
+        "settings": "設定",
+        "hidden": "非表示",
+        "addCustomSection": "カスタムセクションを追加",
+        "currentSection": "現在のセクション"
       }
     },
     "editPanel": {

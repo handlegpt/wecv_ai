@@ -589,6 +589,13 @@
         "centerSubtitle": {
           "title": "副标题居中"
         }
+      },
+      "mobile": {
+        "selectSection": "选择部分",
+        "settings": "设置",
+        "hidden": "隐藏",
+        "addCustomSection": "添加自定义部分",
+        "currentSection": "当前部分"
       }
     },
     "basicPanel": {

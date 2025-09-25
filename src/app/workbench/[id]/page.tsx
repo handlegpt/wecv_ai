@@ -8,6 +8,8 @@ import { EditorHeader } from "@/components/editor/EditorHeader";
 import { SidePanel } from "@/components/editor/SidePanel";
 import { EditPanel } from "@/components/editor/EditPanel";
 import PreviewPanel from "@/components/preview";
+import MobileBottomNav from "@/components/editor/MobileBottomNav";
+import MobileSettingsPanel from "@/components/editor/MobileSettingsPanel";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -160,13 +162,16 @@ export default function Home() {
   const params = useParams();
   const router = useRouter();
   const resumeId = params.id as string;
-  const { setActiveResume, resumes } = useResumeStore();
+  const { setActiveResume, resumes, activeResume, updateResume } = useResumeStore();
   const isMobile = useIsMobile();
   
   const [sidePanelCollapsed, setSidePanelCollapsed] = useState(false);
   const [editPanelCollapsed, setEditPanelCollapsed] = useState(false);
   const [previewPanelCollapsed, setPreviewPanelCollapsed] = useState(false);
   const [panelSizes, setPanelSizes] = useState<number[]>(LAYOUT_CONFIG.DEFAULT);
+  
+  // 移动端状态
+  const [showMobileSettings, setShowMobileSettings] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   // 根据路由参数设置activeResume
@@ -414,7 +419,7 @@ export default function Home() {
           </div>
           
           {/* 移动端内容区域 */}
-          <div className="flex-1 overflow-hidden">
+          <div className="flex-1 overflow-hidden pb-20">
             {!editPanelCollapsed && (
               <div className="h-full overflow-y-auto">
                 <EditPanel />
@@ -436,6 +441,41 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* 移动端底部导航 */}
+      {isMobile && activeResume && (
+        <MobileBottomNav
+          activeSection={activeResume.activeSection || "basic"}
+          setActiveSection={(id) => {
+            if (activeResume) {
+              updateResume(activeResume.id, { activeSection: id });
+            }
+          }}
+          toggleSectionVisibility={(id) => {
+            if (activeResume) {
+              const updatedSections = activeResume.menuSections?.map(section =>
+                section.id === id ? { ...section, enabled: !section.enabled } : section
+              ) || [];
+              updateResume(activeResume.id, { menuSections: updatedSections });
+            }
+          }}
+          updateMenuSections={(sections) => {
+            if (activeResume) {
+              updateResume(activeResume.id, { menuSections: sections });
+            }
+          }}
+          menuSections={activeResume.menuSections || []}
+          onSettingsClick={() => setShowMobileSettings(true)}
+        />
+      )}
+
+      {/* 移动端设置面板 */}
+      {isMobile && (
+        <MobileSettingsPanel
+          isOpen={showMobileSettings}
+          onClose={() => setShowMobileSettings(false)}
+        />
+      )}
     </main>
   );
 }
