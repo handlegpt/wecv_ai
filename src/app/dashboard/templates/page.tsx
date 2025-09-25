@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useResumeStore } from "@/store/useResumeStore";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import TemplatePreview from "@/components/templates/TemplatePreview";
 
 import { cn } from "@/lib/utils";
@@ -156,18 +156,27 @@ const TemplatesPage = () => {
         >
           {previewTemplate && (
             <DialogContent className="max-w-[680px] max-h-[90vh] p-0 overflow-hidden border-0 shadow-lg rounded-xl bg-white dark:bg-gray-900">
+              <DialogHeader className="border-b border-gray-100 dark:border-gray-800 px-4 py-4 flex-shrink-0">
+                <DialogTitle className="text-lg font-medium">
+                  {t(
+                    `${
+                      previewTemplate.id === "left-right"
+                        ? "leftRight"
+                        : previewTemplate.id
+                    }.name`
+                  )}
+                </DialogTitle>
+                <DialogDescription>
+                  {t(
+                    `${
+                      previewTemplate.id === "left-right"
+                        ? "leftRight"
+                        : previewTemplate.id
+                    }.description`
+                  )}
+                </DialogDescription>
+              </DialogHeader>
               <div className="flex flex-col h-full">
-                <div className="border-b border-gray-100 dark:border-gray-800 px-4 py-4 flex-shrink-0">
-                  <DialogTitle className="text-lg font-medium">
-                    {t(
-                      `${
-                        previewTemplate.id === "left-right"
-                          ? "leftRight"
-                          : previewTemplate.id
-                      }.name`
-                    )}
-                  </DialogTitle>
-                </div>
                 <div className="flex-1 overflow-auto flex items-center justify-center bg-gray-50 dark:bg-gray-950 p-4">
                   <div className="relative w-full max-w-[600px] min-h-[600px] overflow-hidden rounded-md shadow-sm bg-white">
                     <TemplatePreview 
