@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Cog, FileText, SwatchBook, Settings, Bot, User } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Sidebar,
   SidebarContent,
@@ -34,6 +35,7 @@ interface MenuItem {
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const t = useTranslations("dashboard");
+  const isMobile = useIsMobile();
   const sidebarItems: MenuItem[] = [
     {
       title: t("sidebar.resumes"),
@@ -77,6 +79,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     } else {
       // 如果没有子菜单，直接导航
       router.push(item.url || item.href || "/");
+      
+      // 在移动端自动关闭侧边栏
+      if (isMobile) {
+        setOpen(false);
+      }
     }
   };
 
