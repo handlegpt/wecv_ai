@@ -33,25 +33,41 @@ class SyncService {
    */
   async getCloudResumes(): Promise<ResumeSyncData[]> {
     console.log("🔍 正在获取云端简历...");
-    const { data, error } = await this.supabase
-      .from('resumes')
-      .select('*')
-      .order('updated_at', { ascending: false });
+    
+    try {
+      // 添加超时处理
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('获取云端简历超时')), 10000); // 10秒超时
+      });
+      
+      const queryPromise = this.supabase
+        .from('resumes')
+        .select('*')
+        .order('updated_at', { ascending: false });
+      
+      const { data, error } = await Promise.race([queryPromise, timeoutPromise]) as any;
 
-    if (error) {
-      console.error("❌ 获取云端简历失败:", error);
-      throw new Error(`获取云端简历失败: ${error.message}`);
+      if (error) {
+        console.error("❌ 获取云端简历失败:", error);
+        throw new Error(`获取云端简历失败: ${error.message}`);
+      }
+
+      console.log("📊 云端简历数据:", data);
+      return data.map((resume: any) => ({
+        id: resume.id,
+        title: resume.title,
+        data: resume.data,
+        templateId: resume.template_id,
+        version: resume.version,
+        lastModified: resume.updated_at,
+      }));
+    } catch (error: any) {
+      console.error("💥 获取云端简历异常:", error);
+      if (error.message.includes('超时')) {
+        throw new Error('网络连接超时，请检查网络连接后重试');
+      }
+      throw error;
     }
-
-    console.log("📊 云端简历数据:", data);
-    return data.map((resume: any) => ({
-      id: resume.id,
-      title: resume.title,
-      data: resume.data,
-      templateId: resume.template_id,
-      version: resume.version,
-      lastModified: resume.updated_at,
-    }));
   }
 
   /**
@@ -326,12 +342,34 @@ class SyncService {
   async checkCloudData(): Promise<void> {
     try {
       console.log("🔍 检查云端数据...");
+      
+      // 先测试基本连接
+      console.log("🔗 测试 Supabase 连接...");
+      const { data: testData, error: testError } = await this.supabase
+        .from('resumes')
+        .select('count')
+        .limit(1);
+      
+      if (testError) {
+        console.error("❌ Supabase 连接失败:", testError);
+        console.error("错误详情:", {
+          message: testError.message,
+          details: testError.details,
+          hint: testError.hint,
+          code: testError.code
+        });
+        return;
+      }
+      
+      console.log("✅ Supabase 连接成功");
+      
+      // 获取简历数据
       const { data, error } = await this.supabase
         .from('resumes')
         .select('id, title, created_at, updated_at, version');
       
       if (error) {
-        console.error("❌ 检查云端数据失败:", error);
+        console.error("❌ 获取简历数据失败:", error);
         return;
       }
       
