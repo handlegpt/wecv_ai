@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { User, Settings, Shield, Palette, Bell, Mail, LogOut, Loader2, CheckCircle, AlertCircle, Cloud, CloudOff, RefreshCw, Database, ShieldCheck, Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -24,6 +25,7 @@ import { toast } from "sonner";
 const SettingsPage = () => {
   const t = useTranslations();
   const tAuth = useTranslations("auth");
+  const router = useRouter();
   const { 
     isAuthenticated, 
     user, 
@@ -133,7 +135,16 @@ const SettingsPage = () => {
     setIsSyncing(true);
     try {
       await syncData();
-      toast.success(tAuth("syncComplete"));
+      
+      // 检查是否有简历数据
+      const localData = localStorage.getItem('resume-data');
+      const hasLocalResumes = localData && Object.keys(JSON.parse(localData || '{}')).length > 0;
+      
+      if (!hasLocalResumes) {
+        toast.info("💡 提示：您还没有创建任何简历。请先到简历页面创建简历，然后再进行同步。");
+      } else {
+        toast.success(tAuth("syncComplete"));
+      }
     } catch (error) {
       console.error("同步失败:", error);
       toast.error(tAuth("syncFailed"));
@@ -436,14 +447,24 @@ const SettingsPage = () => {
                           </>
                         )}
                       </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="w-full text-xs"
-                        onClick={handleCheckCloudData}
-                      >
-                        🔍 检查云端数据
-                      </Button>
+                      <div className="space-y-1">
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="w-full text-xs"
+                          onClick={handleCheckCloudData}
+                        >
+                          🔍 检查云端数据
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="w-full text-xs"
+                          onClick={() => router.push('/dashboard/resumes')}
+                        >
+                          📝 创建简历
+                        </Button>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>

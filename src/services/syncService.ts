@@ -274,6 +274,12 @@ class SyncService {
    */
   private async logSync(result: SyncResult): Promise<void> {
     try {
+      // 检查是否有简历数据需要记录
+      if (result.syncedResumes === 0) {
+        console.log("📝 没有简历数据，跳过日志记录");
+        return;
+      }
+      
       await this.supabase
         .from('sync_logs')
         .insert({
@@ -282,8 +288,9 @@ class SyncService {
           cloud_version: 1,
           status: result.success ? 'synced' : 'error',
         });
+      console.log("📝 同步日志记录成功");
     } catch (error) {
-      console.error('记录同步日志失败:', error);
+      console.warn("⚠️ 记录同步日志失败（不影响同步功能）:", error);
     }
   }
 
@@ -318,23 +325,29 @@ class SyncService {
     conflicts: number;
   }> {
     try {
-      // 获取最后同步时间
-      const { data: lastSync } = await this.supabase
-        .from('sync_logs')
-        .select('created_at')
-        .eq('action', 'sync')
-        .eq('status', 'synced')
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
-
       // 获取待同步更改数量
       const localResumes = this.getLocalResumes();
       const cloudResumes = await this.getCloudResumes();
       const conflicts = this.detectConflicts(localResumes, cloudResumes);
 
+      // 尝试获取最后同步时间（如果失败则使用默认值）
+      let lastSync = null;
+      try {
+        const { data: syncData } = await this.supabase
+          .from('sync_logs')
+          .select('created_at')
+          .eq('action', 'sync')
+          .eq('status', 'synced')
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .single();
+        lastSync = syncData?.created_at || null;
+      } catch (syncError) {
+        console.warn("⚠️ 无法获取同步日志（不影响功能）:", syncError);
+      }
+
       return {
-        lastSync: lastSync?.created_at || null,
+        lastSync,
         pendingChanges: localResumes.length + cloudResumes.length,
         conflicts: conflicts.length,
       };
