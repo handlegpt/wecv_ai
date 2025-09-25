@@ -96,7 +96,7 @@ export default function JsonLd({ type, data, locale = "zh" }: JsonLdProps) {
           "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer service",
-            "email": "support@wecv.com"
+            "email": "hello # wecv.com"
           }
         };
 
