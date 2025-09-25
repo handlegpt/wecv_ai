@@ -33,7 +33,8 @@ const SettingsPage = () => {
     syncStatus, 
     enableSync, 
     disableSync, 
-    syncData 
+    syncData,
+    initializeAuth
   } = useAuthStore();
   
   // 认证相关状态
@@ -48,6 +49,11 @@ const SettingsPage = () => {
   useEffect(() => {
     setSupabaseConfigured(isSupabaseConfigured());
   }, []);
+
+  // 初始化认证状态
+  useEffect(() => {
+    initializeAuth();
+  }, [initializeAuth]);
 
   // 处理Magic Link登录
   const handleMagicLinkLogin = async () => {
@@ -89,13 +95,26 @@ const SettingsPage = () => {
     setIsLoggingOut(true);
     try {
       console.log("开始登出，当前状态:", { isAuthenticated, user: user?.name });
+      
+      // 执行登出
       await logout();
       console.log("登出完成");
+      
+      // 清除所有相关的 localStorage 数据
+      try {
+        localStorage.removeItem('auth-storage');
+        localStorage.removeItem('resume-storage');
+        console.log("已清除所有本地存储数据");
+      } catch (error) {
+        console.warn("清除本地存储失败:", error);
+      }
+      
       toast.success(tAuth("logoutSuccess"));
-      // 强制刷新页面以确保状态更新
+      
+      // 延迟刷新以确保状态完全清理
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        window.location.href = '/';
+      }, 500);
     } catch (error) {
       console.error("登出失败:", error);
       toast.error(tAuth("logoutFailed"));

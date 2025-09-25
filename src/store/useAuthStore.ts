@@ -16,6 +16,7 @@ interface AuthStore extends AuthState {
   // Supabase 认证方法
   setUser: (user: User) => void;
   setIsAuthenticated: (authenticated: boolean) => void;
+  initializeAuth: () => Promise<void>;
   
   // 用户管理
   updateUser: (userData: Partial<User>) => Promise<void>;
@@ -234,6 +235,14 @@ export const useAuthStore = create<AuthStore>()(
         });
         console.log("状态更新完成");
         
+        // 清除 localStorage 中的认证状态
+        try {
+          localStorage.removeItem('auth-storage');
+          console.log("已清除 localStorage 中的认证状态");
+        } catch (error) {
+          console.warn("清除 localStorage 失败:", error);
+        }
+        
         // 确保状态更新后通知所有订阅者
         return Promise.resolve();
       },
@@ -420,6 +429,78 @@ export const useAuthStore = create<AuthStore>()(
       
       isHybridMode: () => {
         return get().authMode === 'hybrid';
+      },
+      
+      // 初始化认证状态
+      initializeAuth: async () => {
+        console.log("初始化认证状态...");
+        try {
+          if (isSupabaseConfigured()) {
+            const supabase = getSupabaseClient();
+            const { data: { session }, error } = await supabase.auth.getSession();
+            
+            if (error) {
+              console.error("获取会话失败:", error);
+              // 清除可能损坏的状态
+              set({
+                isAuthenticated: false,
+                user: null,
+                token: null,
+                authMode: 'local',
+              });
+              return;
+            }
+            
+            if (session?.user) {
+              console.log("发现有效会话，设置用户状态");
+              const user: User = {
+                id: session.user.id,
+                email: session.user.email || '',
+                name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || '用户',
+                avatar: session.user.user_metadata?.avatar_url || null,
+                preferences: {
+                  language: 'zh',
+                  theme: 'system' as 'system' | 'light' | 'dark',
+                  syncEnabled: true
+                },
+                createdAt: session.user.created_at,
+                updatedAt: session.user.updated_at || session.user.created_at
+              };
+              
+              set({
+                isAuthenticated: true,
+                user,
+                token: session.access_token,
+                authMode: 'cloud',
+              });
+            } else {
+              console.log("无有效会话，设置为本地模式");
+              set({
+                isAuthenticated: false,
+                user: null,
+                token: null,
+                authMode: 'local',
+              });
+            }
+          } else {
+            console.log("Supabase 未配置，使用本地模式");
+            set({
+              isAuthenticated: false,
+              user: null,
+              token: null,
+              authMode: 'local',
+            });
+          }
+        } catch (error) {
+          console.error("初始化认证状态失败:", error);
+          // 发生错误时重置为本地模式
+          set({
+            isAuthenticated: false,
+            user: null,
+            token: null,
+            authMode: 'local',
+          });
+        }
       },
     }),
     {
