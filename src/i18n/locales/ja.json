@@ -1066,5 +1066,53 @@
       "title": "プライバシー保護への約束",
       "content": "お約束します：お客様の履歴書データがお客様のデバイスから出ることはありません。お客様の個人履歴書情報を収集、保存、共有することはありません。お客様のプライバシーとセキュリティが私たちの最優先事項です。"
     }
+  },
+  "photoConfig": {
+    "title": "アバター設定",
+    "description": "履歴書のアバターをカスタマイズ",
+    "upload": {
+      "title": "オンラインリンク",
+      "dragHint": "ドラッグまたはクリックして画像をアップロード",
+      "sizeLimit": "画像サイズは2MBを超えないでください",
+      "typeLimit": "画像ファイルをアップロードしてください",
+      "urlPlaceholder": "画像リンクを入力",
+      "invalidUrl": "画像リンクが無効またはアクセスできません。他の画像リンクをお試しください",
+      "timeout": "読み込みタイムアウト",
+      "loadError": "画像の読み込みに失敗しました"
+    },
+    "config": {
+      "aspectRatio": "アスペクト比",
+      "size": "サイズ",
+      "width": "幅",
+      "height": "高さ",
+      "border-radius": "角の丸み",
+      "widthPlaceholder": "幅",
+      "heightPlaceholder": "高さ",
+      "ratios": {
+        "1:1": "1:1 正方形",
+        "4:3": "4:3 横版",
+        "3:4": "3:4 縦版",
+        "16:9": "16:9 ワイド",
+        "custom": "カスタム"
+      },
+      "borderRadius": {
+        "none": "なし",
+        "small": "小",
+        "medium": "中",
+        "large": "大",
+        "full": "完全な円"
+      },
+      "position": "位置",
+      "positions": {
+        "top": "上",
+        "center": "中央",
+        "bottom": "下"
+      }
+    },
+    "actions": {
+      "save": "保存",
+      "reset": "リセット",
+      "remove": "削除"
+    }
   }
 } 
