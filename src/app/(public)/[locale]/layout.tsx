@@ -10,6 +10,8 @@ import {
 import Document from "@/components/Document";
 import { locales } from "@/i18n/config";
 import { Providers } from "@/app/providers";
+import JsonLd from "@/components/seo/JsonLd";
+import { generatePerformanceMetadata } from "@/lib/performance";
 
 type Props = {
   children: ReactNode;
@@ -26,7 +28,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "common" });
   const baseUrl = "https://wecv.com";
 
-  return {
+  const baseMetadata = {
     title: t("title") + " - " + t("subtitle"),
     description: t("description"),
     keywords: locale === "zh" 
@@ -60,7 +62,7 @@ export async function generateMetadata({
       type: "website",
       images: [
         {
-          url: `${baseUrl}/og-image-${locale}.png`,
+          url: `${baseUrl}/opengraph-image-${locale}`,
           width: 1200,
           height: 630,
           alt: t("title") + " - " + t("subtitle"),
@@ -71,8 +73,8 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: t("title") + " - " + t("subtitle"),
       description: t("description"),
-      images: [`${baseUrl}/og-image-${locale}.png`],
-      creator: "@wecv_ai",
+      images: [`${baseUrl}/opengraph-image-${locale}`],
+      creator: "@wecvai",
     },
     robots: {
       index: true,
@@ -81,7 +83,7 @@ export async function generateMetadata({
         index: true,
         follow: true,
         "max-video-preview": -1,
-        "max-image-preview": "large",
+        "max-image-preview": "large" as const,
         "max-snippet": -1,
       },
     },
@@ -90,6 +92,14 @@ export async function generateMetadata({
       yandex: "your-yandex-verification-code",
       yahoo: "your-yahoo-verification-code",
     },
+  };
+
+  // 合并性能优化元数据
+  const performanceMetadata = generatePerformanceMetadata();
+  
+  return {
+    ...baseMetadata,
+    ...performanceMetadata,
   };
 }
 
@@ -108,7 +118,14 @@ export default async function LocaleLayout({
   return (
     <Document locale={locale}>
       <NextIntlClientProvider messages={messages}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {/* JSON-LD 结构化数据 */}
+          <JsonLd type="website" locale={locale} />
+          <JsonLd type="software" locale={locale} />
+          <JsonLd type="organization" locale={locale} />
+          <JsonLd type="faq" locale={locale} />
+          {children}
+        </Providers>
       </NextIntlClientProvider>
     </Document>
   );

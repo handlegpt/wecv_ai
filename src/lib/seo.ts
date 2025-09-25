@@ -74,7 +74,7 @@ export const defaultMetadata: Metadata = {
     title: 'WeCV AI - AI驱动的智能简历构建器',
     description: 'WeCV AI 是一个免费开源的智能简历构建器，支持AI润色、多语言、数据本地存储，无需注册，让您的简历更加专业。',
     images: ['https://wecv.com/twitter-image'],
-    creator: '@wecv_ai',
+    creator: '@wecvai',
   },
   robots: {
     index: true,
