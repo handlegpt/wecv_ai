@@ -120,10 +120,33 @@ class SyncService {
    */
   getLocalResumes(): ResumeSyncData[] {
     try {
-      const localData = localStorage.getItem('resume-data');
-      if (!localData) return [];
+      // 检查多个可能的存储键名
+      const possibleKeys = ['resume-storage', 'resume-data', 'resumes', 'wecv-resumes'];
+      let localData = null;
+      let usedKey = '';
+      
+      for (const key of possibleKeys) {
+        const data = localStorage.getItem(key);
+        if (data) {
+          localData = data;
+          usedKey = key;
+          break;
+        }
+      }
+      
+      console.log("🔍 检查本地存储键名:", possibleKeys);
+      console.log("📦 使用的键名:", usedKey);
+      console.log("📊 本地数据:", localData);
+      
+      if (!localData) {
+        console.log("❌ 未找到本地简历数据");
+        return [];
+      }
 
       const resumes = JSON.parse(localData);
+      console.log("📋 解析后的简历数据:", resumes);
+      console.log("📈 简历数量:", Object.keys(resumes).length);
+      
       return Object.entries(resumes).map(([id, resume]: [string, any]) => ({
         id,
         title: resume.title || '未命名简历',
@@ -143,7 +166,9 @@ class SyncService {
    */
   saveLocalResume(resumeData: ResumeSyncData): void {
     try {
-      const localData = JSON.parse(localStorage.getItem('resume-data') || '{}');
+      // 使用正确的存储键名
+      const storageKey = 'resume-storage';
+      const localData = JSON.parse(localStorage.getItem(storageKey) || '{}');
       localData[resumeData.id] = {
         ...resumeData.data,
         title: resumeData.title,
@@ -151,7 +176,8 @@ class SyncService {
         version: resumeData.version,
         lastModified: resumeData.lastModified,
       };
-      localStorage.setItem('resume-data', JSON.stringify(localData));
+      localStorage.setItem(storageKey, JSON.stringify(localData));
+      console.log("💾 保存简历到本地:", resumeData.title);
     } catch (error) {
       console.error('保存本地简历失败:', error);
       throw new Error('保存本地简历失败');
