@@ -1,71 +1,50 @@
 import { Metadata } from 'next'
 
 export const performanceMetadata: Partial<Metadata> = {
-  // 预加载关键资源
+  // 合并所有性能优化元数据
   other: {
-    'preload': '/fonts/MiSans-VF.ttf',
-    'preload': '/fonts/NotoSansSC.ttf',
-    'preload': '/fonts/GeistMonoVF.woff',
-  },
-  
-  // 资源提示
-  other: {
-    'dns-prefetch': 'https://fonts.googleapis.com',
-    'dns-prefetch': 'https://fonts.gstatic.com',
-    'preconnect': 'https://fonts.googleapis.com',
-    'preconnect': 'https://fonts.gstatic.com',
-  },
-
-  // 缓存控制
-  other: {
+    // 预加载关键资源
+    'preload-font-1': '/fonts/MiSans-VF.ttf',
+    'preload-font-2': '/fonts/NotoSansSC.ttf',
+    'preload-font-3': '/fonts/GeistMonoVF.woff',
+    
+    // 资源提示
+    'dns-prefetch-1': 'https://fonts.googleapis.com',
+    'dns-prefetch-2': 'https://fonts.gstatic.com',
+    'preconnect-1': 'https://fonts.googleapis.com',
+    'preconnect-2': 'https://fonts.gstatic.com',
+    
+    // 缓存控制
     'cache-control': 'public, max-age=31536000, immutable',
-  },
-
-  // 关键 CSS 内联
-  other: {
+    
+    // 关键 CSS 内联
     'critical-css': 'inline',
-  },
-
-  // 图片优化
-  other: {
+    
+    // 图片优化
     'image-src': 'self data: https:',
     'img-src': 'self data: https:',
-  },
-
-  // 字体优化
-  other: {
+    
+    // 字体优化
     'font-display': 'swap',
-  },
-
-  // 性能预算
-  other: {
+    
+    // 性能预算
     'performance-budget': 'lcp:2500ms, fid:100ms, cls:0.1',
-  },
-
-  // 资源优先级
-  other: {
+    
+    // 资源优先级
     'resource-hints': 'preload, prefetch, preconnect',
-  },
-
-  // 压缩
-  other: {
+    
+    // 压缩
     'content-encoding': 'gzip, br',
-  },
-
-  // 关键渲染路径优化
-  other: {
+    
+    // 关键渲染路径优化
     'render-blocking': 'none',
-  },
-
-  // 移动端优化
-  other: {
+    
+    // 移动端优化
     'viewport-fit': 'cover',
     'mobile-web-app-capable': 'yes',
     'mobile-web-app-status-bar-style': 'default',
-  },
-
-  // 性能监控
-  other: {
+    
+    // 性能监控
     'performance-observer': 'enabled',
     'web-vitals': 'enabled',
   }
@@ -74,25 +53,7 @@ export const performanceMetadata: Partial<Metadata> = {
 // 生成性能优化的元数据
 export function generatePerformanceMetadata(): Partial<Metadata> {
   return {
-    ...performanceMetadata,
-    // 添加性能相关的 OpenGraph 标签
-    openGraph: {
-      ...performanceMetadata.openGraph,
-      other: {
-        'og:image:width': '1200',
-        'og:image:height': '630',
-        'og:image:type': 'image/png',
-        'og:image:alt': 'WeCV AI - AI驱动的智能简历构建器',
-      }
-    },
-    // 添加 Twitter 性能优化
-    twitter: {
-      ...performanceMetadata.twitter,
-      other: {
-        'twitter:image:alt': 'WeCV AI - AI驱动的智能简历构建器',
-        'twitter:card': 'summary_large_image',
-      }
-    }
+    ...performanceMetadata
   }
 }
 
