@@ -30,8 +30,10 @@ export async function generateMetadata({
     title: t("title") + " - " + t("subtitle"),
     description: t("description"),
     keywords: locale === "zh" 
-      ? "简历制作,简历模板,简历编辑器,免费简历,AI简历,求职工具,简历设计,在线简历"
-      : "resume builder,resume template,resume editor,free resume,AI resume,job search tool,resume design,online resume",
+      ? "AI简历,智能简历,简历制作,简历模板,简历编辑器,免费简历,AI润色,求职工具,简历设计,在线简历,简历优化,AI写作"
+      : locale === "ja"
+      ? "AI履歴書,スマート履歴書,履歴書作成,履歴書テンプレート,履歴書エディター,無料履歴書,AI潤色,就職ツール,履歴書デザイン,オンライン履歴書,履歴書最適化,AIライティング"
+      : "AI resume,smart resume,resume builder,resume template,resume editor,free resume,AI polishing,job search tool,resume design,online resume,resume optimization,AI writing",
     authors: [{ name: "WeCV AI Team" }],
     creator: "WeCV AI",
     publisher: "WeCV AI",

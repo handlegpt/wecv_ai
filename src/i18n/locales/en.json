@@ -1,8 +1,8 @@
 {
   "common": {
-    "title": "WeCV",
-    "subtitle": "Professional Resume Builder & Editor",
-    "description": "We CV is an open-source resume editor that is free and privacy-focused. No registration required, all data is stored locally, supports data backup and export, ensuring your resume data is always available.",
+    "title": "WeCV AI",
+    "subtitle": "AI-Powered Smart Resume Builder",
+    "description": "WeCV AI is a free, open-source smart resume builder with AI polishing, multi-language support, and local data storage. No registration required, make your resume more professional.",
     "dashboard": "Dashboard",
     "edit": "Edit",
     "delete": "Delete",

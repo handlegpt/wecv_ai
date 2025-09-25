@@ -15,10 +15,10 @@ export default function StructuredData({ type, data, locale = "zh" }: Structured
         return {
           "@context": "https://schema.org",
           "@type": "WebSite",
-          "name": locale === "zh" ? "WeCV AI - 智能简历构建器" : "WeCV AI - Smart Resume Builder",
+          "name": locale === "zh" ? "WeCV AI - AI驱动的智能简历构建器" : "WeCV AI - AI-Powered Smart Resume Builder",
           "description": locale === "zh" 
-            ? "免费、开源的智能简历构建器，支持多语言，数据本地存储，无需注册"
-            : "Free, open-source smart resume builder with multi-language support, local data storage, no registration required",
+            ? "免费开源的AI智能简历构建器，支持AI润色、多语言、数据本地存储，无需注册，让简历更专业"
+            : "Free, open-source AI-powered smart resume builder with AI polishing, multi-language support, local data storage, no registration required",
           "url": baseUrl,
           "potentialAction": {
             "@type": "SearchAction",

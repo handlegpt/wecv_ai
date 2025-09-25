@@ -1,8 +1,8 @@
 {
   "common": {
-    "title": "WeCV",
-    "subtitle": "AI驱动的简历构建器 & 编辑器",
-    "description": "We CV 是一个开源的简历编辑器，免费且注重隐私。无需注册，所有数据本地存储，支持数据备份和导出，确保您的简历数据始终可用。",
+    "title": "WeCV AI",
+    "subtitle": "AI驱动的智能简历构建器",
+    "description": "WeCV AI 是一个免费开源的智能简历构建器，支持AI润色、多语言、数据本地存储，无需注册，让您的简历更加专业。",
     "dashboard": "仪表板",
     "edit": "编辑",
     "delete": "删除",
