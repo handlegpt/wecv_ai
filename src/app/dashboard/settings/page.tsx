@@ -409,7 +409,7 @@ const SettingsPage = () => {
             {/* 分享与链接 */}
             <div>
               <h3 className="text-lg font-semibold mb-4">{tAuth("sharingAndLinks")}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 gap-4 md:gap-6">
                 {/* 分享链接管理 */}
                 <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm">
                   <CardHeader className="space-y-4">
@@ -423,7 +423,8 @@ const SettingsPage = () => {
                       {tAuth("shareLinksDescription")}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-3">
+                  <CardContent className="space-y-4">
+                    {/* 链接信息 */}
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-sm">{tAuth("publicProfile")}</span>
@@ -435,7 +436,16 @@ const SettingsPage = () => {
                         <span className="text-sm">{tAuth("viewCount")}</span>
                         <span className="text-sm text-muted-foreground">0</span>
                       </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm">{tAuth("protectionStatus")}</span>
+                        <Badge variant="secondary" className="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                          <Lock className="h-3 w-3 mr-1" />
+                          {tAuth("disabled")}
+                        </Badge>
+                      </div>
                     </div>
+                    
+                    {/* 主要操作按钮 */}
                     <div className="space-y-2">
                       <Button 
                         variant="outline" 
@@ -446,52 +456,7 @@ const SettingsPage = () => {
                         <Share2 className="h-4 w-4 mr-2" />
                         {tAuth("manageShareLinks")}
                       </Button>
-                      <div className="space-y-1">
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          className="w-full text-xs"
-                          onClick={() => {/* TODO: 复制链接 */}}
-                        >
-                          📋 复制链接
-                        </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          className="w-full text-xs"
-                          onClick={() => {/* TODO: 查看统计 */}}
-                        >
-                          📊 查看统计
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* 密码保护 */}
-                <Card className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm">
-                  <CardHeader className="space-y-4">
-                    <CardTitle className="flex items-center gap-3">
-                      <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950">
-                        <Lock className="h-6 w-6 text-blue-500 dark:text-blue-400" />
-                      </div>
-                      <span>{tAuth("passwordProtection")}</span>
-                    </CardTitle>
-                    <CardDescription className="text-base">
-                      {tAuth("passwordProtectionDescription")}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">{tAuth("protectionStatus")}</span>
-                        <Badge variant="secondary" className="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
-                          <Lock className="h-3 w-3 mr-1" />
-                          {tAuth("disabled")}
-                        </Badge>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
+                      
                       <Button 
                         variant="outline" 
                         size="sm" 
@@ -501,16 +466,34 @@ const SettingsPage = () => {
                         <Lock className="h-4 w-4 mr-2" />
                         {tAuth("setPassword")}
                       </Button>
-                      <div className="space-y-1">
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          className="w-full text-xs"
-                          onClick={() => {/* TODO: 查看访问记录 */}}
-                        >
-                          📝 访问记录
-                        </Button>
-                      </div>
+                    </div>
+                    
+                    {/* 辅助操作按钮 */}
+                    <div className="grid grid-cols-3 gap-2">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="text-xs"
+                        onClick={() => {/* TODO: 复制链接 */}}
+                      >
+                        📋 复制链接
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="text-xs"
+                        onClick={() => {/* TODO: 查看统计 */}}
+                      >
+                        📊 查看统计
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="text-xs"
+                        onClick={() => {/* TODO: 查看访问记录 */}}
+                      >
+                        📝 访问记录
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
