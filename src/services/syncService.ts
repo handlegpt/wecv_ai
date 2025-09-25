@@ -74,19 +74,36 @@ class SyncService {
    * 上传简历到云端
    */
   async uploadResume(resumeData: ResumeSyncData): Promise<void> {
-    const { error } = await this.supabase
-      .from('resumes')
-      .upsert({
-        id: resumeData.id,
-        title: resumeData.title,
-        data: resumeData.data,
-        template_id: resumeData.templateId,
-        version: resumeData.version,
-        updated_at: resumeData.lastModified,
-      });
+    try {
+      console.log("⬆️ 上传简历到云端:", resumeData.title);
+      
+      // 获取当前用户ID
+      const { data: { user } } = await this.supabase.auth.getUser();
+      if (!user) {
+        throw new Error('用户未登录，无法上传简历');
+      }
+      
+      const { error } = await this.supabase
+        .from('resumes')
+        .upsert({
+          id: resumeData.id,
+          user_id: user.id, // 添加用户ID以通过RLS检查
+          title: resumeData.title,
+          data: resumeData.data,
+          template_id: resumeData.templateId,
+          version: resumeData.version,
+          updated_at: resumeData.lastModified,
+        });
 
-    if (error) {
-      throw new Error(`上传简历失败: ${error.message}`);
+      if (error) {
+        console.error("❌ 上传失败:", resumeData.title, error);
+        throw new Error(`上传简历失败: ${error.message}`);
+      }
+
+      console.log("✅ 上传成功:", resumeData.title);
+    } catch (error) {
+      console.error("❌ 上传失败:", resumeData.title, error);
+      throw error;
     }
   }
 
@@ -353,9 +370,17 @@ class SyncService {
         return;
       }
       
+      // 获取当前用户ID
+      const { data: { user } } = await this.supabase.auth.getUser();
+      if (!user) {
+        console.warn("⚠️ 用户未登录，跳过日志记录");
+        return;
+      }
+      
       await this.supabase
         .from('sync_logs')
         .insert({
+          user_id: user.id, // 添加用户ID以通过RLS检查
           action: 'sync',
           local_version: 1,
           cloud_version: 1,
