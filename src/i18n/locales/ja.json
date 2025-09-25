@@ -62,6 +62,7 @@
     "syncing": "同期中...",
     "syncComplete": "同期完了",
     "syncFailed": "同期失敗",
+    "syncNotEnabled": "まずクラウド同期を有効にしてください",
     "enableSyncSuccess": "クラウド同期が有効になりました",
     "disableSyncSuccess": "クラウド同期が無効になりました",
     "operations": "操作",

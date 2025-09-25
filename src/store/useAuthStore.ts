@@ -326,7 +326,12 @@ export const useAuthStore = create<AuthStore>()(
       
       syncData: async () => {
         const { token, syncStatus } = get();
-        if (!token || !syncStatus.isEnabled) return;
+        if (!token) {
+          throw new Error('用户未登录，无法同步数据');
+        }
+        if (!syncStatus.isEnabled) {
+          throw new Error('云同步功能未启用');
+        }
         
         set(state => ({
           syncStatus: {

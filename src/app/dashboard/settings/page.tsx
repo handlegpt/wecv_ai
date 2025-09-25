@@ -113,11 +113,28 @@ const SettingsPage = () => {
   };
 
   const handleManualSync = async () => {
+    console.log("开始手动同步，当前状态:", { 
+      isAuthenticated, 
+      syncStatus, 
+      user: user?.name 
+    });
+    
+    if (!isAuthenticated) {
+      toast.error(tAuth("loginRequired"));
+      return;
+    }
+    
+    if (!syncStatus.isEnabled) {
+      toast.error(tAuth("syncNotEnabled"));
+      return;
+    }
+    
     setIsSyncing(true);
     try {
       await syncData();
       toast.success(tAuth("syncComplete"));
     } catch (error) {
+      console.error("同步失败:", error);
       toast.error(tAuth("syncFailed"));
     } finally {
       setIsSyncing(false);

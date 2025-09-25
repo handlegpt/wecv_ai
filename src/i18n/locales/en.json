@@ -62,6 +62,7 @@
     "syncing": "Syncing...",
     "syncComplete": "Sync completed",
     "syncFailed": "Sync failed",
+    "syncNotEnabled": "Please enable cloud sync first",
     "enableSyncSuccess": "Cloud sync enabled",
     "disableSyncSuccess": "Cloud sync disabled",
     "operations": "Operations",
