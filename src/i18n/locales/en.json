@@ -473,9 +473,9 @@
       "resumeNotFound": "Resume not found",
       "navigationError": "Error navigating to resume",
       "notice": {
-        "title": "Attention",
-        "description": "It is recommended to configure a resume backup folder in the settings to prevent your data from being lost when the browser cache is cleared",
-        "goToSettings": "Go to Settings"
+        "title": "Protect Your Data",
+        "description": "Register an account to sync your resumes across devices and prevent data loss when browser cache is cleared",
+        "goToSettings": "Register Now"
       }
     },
     "settings": {
