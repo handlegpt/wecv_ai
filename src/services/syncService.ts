@@ -32,22 +32,16 @@ class SyncService {
    * 获取云端简历列表
    */
   async getCloudResumes(): Promise<ResumeSyncData[]> {
-    console.log("🔍 正在获取云端简历...");
-    
     try {
       // 先测试连接
-      console.log("🔗 测试 Supabase 连接...");
       const { data: testData, error: testError } = await this.supabase
         .from('resumes')
         .select('count')
         .limit(1);
       
       if (testError) {
-        console.error("❌ Supabase 连接测试失败:", testError);
         throw new Error(`连接失败: ${testError.message}`);
       }
-      
-      console.log("✅ Supabase 连接正常");
       
       // 添加超时处理
       const timeoutPromise = new Promise((_, reject) => {
@@ -60,13 +54,11 @@ class SyncService {
         .order('updated_at', { ascending: false });
       
       const { data, error } = await Promise.race([queryPromise, timeoutPromise]) as any;
-
+      
       if (error) {
-        console.error("❌ 获取云端简历失败:", error);
         throw new Error(`获取云端简历失败: ${error.message}`);
       }
-
-      console.log("📊 云端简历数据:", data);
+      
       return data.map((resume: any) => ({
         id: resume.id,
         title: resume.title,
@@ -76,7 +68,6 @@ class SyncService {
         lastModified: resume.updated_at,
       }));
     } catch (error: any) {
-      console.error("💥 获取云端简历异常:", error);
       if (error.message.includes('超时')) {
         throw new Error('网络连接超时，请检查网络连接后重试');
       }
@@ -89,15 +80,11 @@ class SyncService {
    */
   async uploadResume(resumeData: ResumeSyncData): Promise<void> {
     try {
-      console.log("⬆️ 上传简历到云端:", resumeData.title);
-      
       // 获取当前用户ID
       const { data: { user } } = await this.supabase.auth.getUser();
       if (!user) {
         throw new Error('用户未登录，无法上传简历');
       }
-      
-      console.log("👤 用户ID:", user.id);
       
       // 添加上传超时处理
       const timeoutPromise = new Promise((_, reject) => {
@@ -117,15 +104,11 @@ class SyncService {
         });
       
       const { error } = await Promise.race([uploadPromise, timeoutPromise]) as any;
-
+      
       if (error) {
-        console.error("❌ 上传失败:", resumeData.title, error);
         throw new Error(`上传简历失败: ${error.message}`);
       }
-
-      console.log("✅ 上传成功:", resumeData.title);
     } catch (error: any) {
-      console.error("❌ 上传失败:", resumeData.title, error);
       if (error.message.includes('超时')) {
         throw new Error('上传超时，请检查网络连接后重试');
       }
@@ -193,26 +176,17 @@ class SyncService {
         }
       }
       
-      console.log("🔍 检查本地存储键名:", possibleKeys);
-      console.log("📦 使用的键名:", usedKey);
-      console.log("📊 本地数据:", localData);
-      
       if (!localData) {
-        console.log("❌ 未找到本地简历数据");
         return [];
       }
 
       const resumes = JSON.parse(localData);
-      console.log("📋 解析后的简历数据:", resumes);
       
       // 检查数据结构：可能是 {state: {resumes: {...}}} 或直接的 {resumeId: {...}}
       let resumeData = resumes;
       if (resumes.state && resumes.state.resumes) {
         resumeData = resumes.state.resumes;
-        console.log("📦 检测到 Zustand 存储格式，提取 resumes 数据");
       }
-      
-      console.log("📈 简历数量:", Object.keys(resumeData).length);
       
       return Object.entries(resumeData).map(([id, resume]: [string, any]) => ({
         id,
@@ -259,9 +233,7 @@ class SyncService {
       }
       
       localStorage.setItem(storageKey, JSON.stringify(localData));
-      console.log("💾 保存简历到本地:", resumeData.title);
     } catch (error) {
-      console.error('保存本地简历失败:', error);
       throw new Error('保存本地简历失败');
     }
   }
@@ -304,19 +276,14 @@ class SyncService {
     };
 
     try {
-      console.log("🔄 开始执行同步...");
-      
       // 1. 获取本地数据
       const localResumes = this.getLocalResumes();
-      console.log("📱 本地简历数量:", localResumes.length, localResumes.map(r => r.title));
       
       // 2. 尝试获取云端数据（带超时处理）
       let cloudResumes: ResumeSyncData[] = [];
       try {
         cloudResumes = await this.getCloudResumes();
-        console.log("☁️ 云端简历数量:", cloudResumes.length, cloudResumes.map(r => r.title));
       } catch (error: any) {
-        console.warn("⚠️ 无法连接到云端，使用离线模式:", error.message);
         result.errors.push(`云端连接失败: ${error.message}`);
         // 继续执行，只上传本地数据
       }
@@ -340,16 +307,11 @@ class SyncService {
         const existsInCloud = cloudResumes.some(r => r.id === localResume.id);
         if (!existsInCloud) {
           try {
-            console.log("⬆️ 上传简历到云端:", localResume.title);
             await this.uploadResume(localResume);
             result.syncedResumes++;
-            console.log("✅ 上传成功:", localResume.title);
           } catch (error: any) {
-            console.error("❌ 上传失败:", localResume.title, error);
             result.errors.push(`上传简历失败 (${localResume.title}): ${error.message}`);
           }
-        } else {
-          console.log("⏭️ 简历已存在于云端:", localResume.title);
         }
       }
 
@@ -368,16 +330,8 @@ class SyncService {
 
       // 6. 记录同步日志
       await this.logSync(result);
-      
-      console.log("🎉 同步完成:", {
-        success: result.success,
-        syncedResumes: result.syncedResumes,
-        conflicts: result.conflicts,
-        errors: result.errors.length
-      });
 
     } catch (error: any) {
-      console.error("💥 同步失败:", error);
       result.success = false;
       result.errors.push(`同步失败: ${error.message}`);
     }
@@ -392,14 +346,12 @@ class SyncService {
     try {
       // 检查是否有简历数据需要记录
       if (result.syncedResumes === 0) {
-        console.log("📝 没有简历数据，跳过日志记录");
         return;
       }
       
       // 获取当前用户ID
       const { data: { user } } = await this.supabase.auth.getUser();
       if (!user) {
-        console.warn("⚠️ 用户未登录，跳过日志记录");
         return;
       }
       
@@ -412,9 +364,8 @@ class SyncService {
           cloud_version: 1,
           status: result.success ? 'synced' : 'error',
         });
-      console.log("📝 同步日志记录成功");
     } catch (error) {
-      console.warn("⚠️ 记录同步日志失败（不影响同步功能）:", error);
+      // 静默处理日志记录失败
     }
   }
 
@@ -423,27 +374,15 @@ class SyncService {
    */
   async checkCloudData(): Promise<void> {
     try {
-      console.log("🔍 检查云端数据...");
-      
       // 先测试基本连接
-      console.log("🔗 测试 Supabase 连接...");
       const { data: testData, error: testError } = await this.supabase
         .from('resumes')
         .select('count')
         .limit(1);
       
       if (testError) {
-        console.error("❌ Supabase 连接失败:", testError);
-        console.error("错误详情:", {
-          message: testError.message,
-          details: testError.details,
-          hint: testError.hint,
-          code: testError.code
-        });
-        return;
+        throw new Error(`连接失败: ${testError.message}`);
       }
-      
-      console.log("✅ Supabase 连接成功");
       
       // 获取简历数据
       const { data, error } = await this.supabase
@@ -451,14 +390,15 @@ class SyncService {
         .select('id, title, created_at, updated_at, version');
       
       if (error) {
-        console.error("❌ 获取简历数据失败:", error);
-        return;
+        throw new Error(`获取简历数据失败: ${error.message}`);
       }
       
-      console.log("📊 云端简历列表:", data);
-      console.log("📈 云端简历总数:", data.length);
+      console.log("云端数据检查完成:", {
+        count: data.length,
+        resumes: data.map((r: any) => ({ id: r.id, title: r.title }))
+      });
     } catch (error) {
-      console.error("💥 检查云端数据异常:", error);
+      throw error;
     }
   }
 
@@ -489,7 +429,7 @@ class SyncService {
           .single();
         lastSync = syncData?.created_at || null;
       } catch (syncError) {
-        console.warn("⚠️ 无法获取同步日志（不影响功能）:", syncError);
+        // 静默处理同步日志获取失败
       }
 
       return {
