@@ -161,9 +161,17 @@ class SyncService {
 
       const resumes = JSON.parse(localData);
       console.log("📋 解析后的简历数据:", resumes);
-      console.log("📈 简历数量:", Object.keys(resumes).length);
       
-      return Object.entries(resumes).map(([id, resume]: [string, any]) => ({
+      // 检查数据结构：可能是 {state: {resumes: {...}}} 或直接的 {resumeId: {...}}
+      let resumeData = resumes;
+      if (resumes.state && resumes.state.resumes) {
+        resumeData = resumes.state.resumes;
+        console.log("📦 检测到 Zustand 存储格式，提取 resumes 数据");
+      }
+      
+      console.log("📈 简历数量:", Object.keys(resumeData).length);
+      
+      return Object.entries(resumeData).map(([id, resume]: [string, any]) => ({
         id,
         title: resume.title || '未命名简历',
         data: resume,
@@ -185,13 +193,28 @@ class SyncService {
       // 使用正确的存储键名
       const storageKey = 'resume-storage';
       const localData = JSON.parse(localStorage.getItem(storageKey) || '{}');
-      localData[resumeData.id] = {
-        ...resumeData.data,
-        title: resumeData.title,
-        templateId: resumeData.templateId,
-        version: resumeData.version,
-        lastModified: resumeData.lastModified,
-      };
+      
+      // 检查是否是 Zustand 格式
+      if (localData.state && localData.state.resumes) {
+        // 更新 Zustand 格式的数据
+        localData.state.resumes[resumeData.id] = {
+          ...resumeData.data,
+          title: resumeData.title,
+          templateId: resumeData.templateId,
+          version: resumeData.version,
+          lastModified: resumeData.lastModified,
+        };
+      } else {
+        // 直接格式
+        localData[resumeData.id] = {
+          ...resumeData.data,
+          title: resumeData.title,
+          templateId: resumeData.templateId,
+          version: resumeData.version,
+          lastModified: resumeData.lastModified,
+        };
+      }
+      
       localStorage.setItem(storageKey, JSON.stringify(localData));
       console.log("💾 保存简历到本地:", resumeData.title);
     } catch (error) {
@@ -240,12 +263,20 @@ class SyncService {
     try {
       console.log("🔄 开始执行同步...");
       
-      // 1. 获取本地和云端数据
+      // 1. 获取本地数据
       const localResumes = this.getLocalResumes();
       console.log("📱 本地简历数量:", localResumes.length, localResumes.map(r => r.title));
       
-      const cloudResumes = await this.getCloudResumes();
-      console.log("☁️ 云端简历数量:", cloudResumes.length, cloudResumes.map(r => r.title));
+      // 2. 尝试获取云端数据（带超时处理）
+      let cloudResumes: ResumeSyncData[] = [];
+      try {
+        cloudResumes = await this.getCloudResumes();
+        console.log("☁️ 云端简历数量:", cloudResumes.length, cloudResumes.map(r => r.title));
+      } catch (error: any) {
+        console.warn("⚠️ 无法连接到云端，使用离线模式:", error.message);
+        result.errors.push(`云端连接失败: ${error.message}`);
+        // 继续执行，只上传本地数据
+      }
 
       // 2. 检测冲突
       const conflicts = this.detectConflicts(localResumes, cloudResumes);
