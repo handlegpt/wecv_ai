@@ -201,17 +201,21 @@ export const useAuthStore = create<AuthStore>()(
       
       logout: async () => {
         console.log("logout 方法被调用");
-        if (isSupabaseConfigured()) {
-          console.log("Supabase 已配置，执行 signOut");
-          const supabase = getSupabaseClient();
-          const { error } = await supabase.auth.signOut();
-          if (error) {
-            console.error("Supabase signOut 错误:", error);
+        try {
+          if (isSupabaseConfigured()) {
+            console.log("Supabase 已配置，执行 signOut");
+            const supabase = getSupabaseClient();
+            const { error } = await supabase.auth.signOut();
+            if (error) {
+              console.error("Supabase signOut 错误:", error);
+            } else {
+              console.log("Supabase signOut 成功");
+            }
           } else {
-            console.log("Supabase signOut 成功");
+            console.log("Supabase 未配置，跳过 signOut");
           }
-        } else {
-          console.log("Supabase 未配置，跳过 signOut");
+        } catch (error) {
+          console.error("登出过程中发生错误:", error);
         }
         
         console.log("更新本地状态");
@@ -229,6 +233,9 @@ export const useAuthStore = create<AuthStore>()(
           },
         });
         console.log("状态更新完成");
+        
+        // 确保状态更新后通知所有订阅者
+        return Promise.resolve();
       },
       
       refreshToken: async () => {
