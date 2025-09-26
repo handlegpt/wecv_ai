@@ -136,7 +136,8 @@
     "shareLinksDescription": "创建公开的简历链接，方便分享给他人",
     "publicProfile": "公开链接",
     "publicProfileEnabled": "公开资料已启用，其他人可以查看您的基本信息",
-    "publicProfileDisabled": "公开资料已禁用，您的信息不会公开显示"
+    "publicProfileDisabled": "公开资料已禁用，您的信息不会公开显示",
+    "manageShareLinks": "管理分享链接"
   },
   "share": {
     "title": "简历分享",
