@@ -17,6 +17,9 @@ export async function GET(
 
     const supabase = createSupabaseServerClient(request);
 
+    // 添加调试信息
+    console.log('尝试获取简历:', { id });
+
     // 获取简历数据 - 通过分享链接访问的简历不需要公开设置
     const { data: resume, error } = await supabase
       .from('resumes')
@@ -24,10 +27,23 @@ export async function GET(
       .eq('id', id)
       .single();
 
+    console.log('简历查询结果:', { 
+      hasData: !!resume, 
+      hasError: !!error, 
+      errorMessage: error?.message,
+      resumeId: resume?.id,
+      resumeTitle: resume?.title
+    });
+
     if (error) {
       console.error('获取简历失败:', error);
       return NextResponse.json({
-        error: '简历不存在'
+        error: `简历不存在: ${error.message}`,
+        debug: {
+          id,
+          errorCode: error.code,
+          errorMessage: error.message
+        }
       }, { status: 404 });
     }
 
