@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { Plus, Settings, AlertCircle, Upload, Calendar, Trash2, Edit3, Sparkles, FolderOpen } from "lucide-react";
+import { Plus, Settings, AlertCircle, Upload, Calendar, Trash2, Edit3, Sparkles, FolderOpen, Cloud } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -296,10 +296,15 @@ const ResumeWorkbench = () => {
                   <Card className="group relative border border-gray-200 dark:border-gray-700 h-[320px] flex flex-col transition-all duration-300 hover:border-blue-300 hover:shadow-xl dark:hover:border-blue-600 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
                     <CardContent className="relative flex-1 pt-6 text-center flex flex-col items-center">
                       
-                      {/* Resume Title */}
-                      <CardTitle className="text-lg font-semibold line-clamp-2 text-gray-900 dark:text-gray-100 mb-2 px-2">
-                        {resume.title || t("dashboard.resumes.untitled")}
-                      </CardTitle>
+                      {/* Resume Title with Sync Status */}
+                      <div className="flex items-center justify-center gap-2 mb-2 px-2">
+                        <CardTitle className="text-lg font-semibold line-clamp-2 text-gray-900 dark:text-gray-100">
+                          {resume.title || t("dashboard.resumes.untitled")}
+                        </CardTitle>
+                        {resume.isSynced && (
+                          <Cloud className="w-4 h-4 text-blue-500 dark:text-blue-400 flex-shrink-0" />
+                        )}
+                      </div>
                       
                       {/* Creation Date */}
                       <CardDescription className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">

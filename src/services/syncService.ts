@@ -115,6 +115,10 @@ class SyncService {
       }
       
       console.log(`✅ 上传成功: ${resumeData.title}`);
+      
+      // 更新本地简历的同步状态
+      this.updateLocalResumeSyncStatus(resumeData.id, true);
+      
     } catch (error: any) {
       if (error.message.includes('超时')) {
         console.error(`⏰ 上传超时: ${resumeData.title}`);
@@ -122,6 +126,35 @@ class SyncService {
       }
       console.error(`💥 上传异常: ${resumeData.title}`, error.message);
       throw error;
+    }
+  }
+
+  /**
+   * 更新本地简历的同步状态
+   */
+  private updateLocalResumeSyncStatus(resumeId: string, isSynced: boolean): void {
+    try {
+      const storageKey = 'resume-storage';
+      const localData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      
+      if (localData.state && localData.state.resumes && localData.state.resumes[resumeId]) {
+        // Zustand 格式
+        localData.state.resumes[resumeId].isSynced = isSynced;
+        if (isSynced) {
+          localData.state.resumes[resumeId].lastSyncAt = new Date().toISOString();
+        }
+      } else if (localData[resumeId]) {
+        // 直接格式
+        localData[resumeId].isSynced = isSynced;
+        if (isSynced) {
+          localData[resumeId].lastSyncAt = new Date().toISOString();
+        }
+      }
+      
+      localStorage.setItem(storageKey, JSON.stringify(localData));
+      console.log(`🔄 更新本地同步状态: ${resumeId} -> ${isSynced ? '已同步' : '未同步'}`);
+    } catch (error) {
+      console.error('更新本地同步状态失败:', error);
     }
   }
 
@@ -232,6 +265,8 @@ class SyncService {
           templateId: resumeData.templateId,
           version: resumeData.version,
           lastModified: resumeData.lastModified,
+          isSynced: true, // 标记为已同步
+          lastSyncAt: new Date().toISOString(), // 设置同步时间
         };
       } else {
         console.log(`📦 使用直接格式保存`);
@@ -242,6 +277,8 @@ class SyncService {
           templateId: resumeData.templateId,
           version: resumeData.version,
           lastModified: resumeData.lastModified,
+          isSynced: true, // 标记为已同步
+          lastSyncAt: new Date().toISOString(), // 设置同步时间
         };
       }
       

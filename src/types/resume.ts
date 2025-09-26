@@ -182,6 +182,8 @@ export interface ResumeData {
   draggingProjectId: string | null;
   menuSections: MenuSection[];
   globalSettings: GlobalSettings;
+  isSynced?: boolean; // 是否已同步到云端
+  lastSyncAt?: string; // 最后同步时间
 }
 
 export interface ResumeStore {
