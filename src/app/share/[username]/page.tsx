@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -35,6 +36,7 @@ interface ResumeApiData {
 export default function PublicSharePage() {
   const params = useParams();
   const username = params.username as string;
+  const t = useTranslations('share');
   
   const [shareLink, setShareLink] = useState<ShareLinkData | null>(null);
   const [resumeData, setResumeData] = useState<ResumeApiData | null>(null);
@@ -113,14 +115,14 @@ export default function PublicSharePage() {
   const copyLink = () => {
     const link = `${window.location.origin}/share/${username}`;
     navigator.clipboard.writeText(link);
-    toast.success('链接已复制到剪贴板');
+    toast.success(t('copySuccess'));
   };
 
   const handleShare = () => {
     const link = `${window.location.origin}/share/${username}`;
     if (navigator.share) {
       navigator.share({
-        title: '查看我的简历',
+        title: t('shareTitle'),
         url: link,
       });
     } else {
@@ -133,7 +135,7 @@ export default function PublicSharePage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-400">加载中...</p>
+          <p className="text-gray-600 dark:text-gray-400">{t('loading')}</p>
         </div>
       </div>
     );
@@ -144,7 +146,7 @@ export default function PublicSharePage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
-            <CardTitle className="text-red-600">访问失败</CardTitle>
+            <CardTitle className="text-red-600">{t('accessFailed')}</CardTitle>
             <CardDescription>{error}</CardDescription>
           </CardHeader>
           <CardContent>
@@ -152,7 +154,7 @@ export default function PublicSharePage() {
               onClick={() => window.location.reload()} 
               className="w-full"
             >
-              重试
+              {t('retry')}
             </Button>
           </CardContent>
         </Card>
@@ -168,21 +170,21 @@ export default function PublicSharePage() {
             <div className="mx-auto mb-4 p-3 rounded-full bg-blue-100 dark:bg-blue-900">
               <Lock className="h-8 w-8 text-blue-600 dark:text-blue-400" />
             </div>
-            <CardTitle>密码保护</CardTitle>
+            <CardTitle>{t('passwordProtection')}</CardTitle>
             <CardDescription>
-              此分享链接需要密码才能访问
+              {t('passwordRequired')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handlePasswordSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="password">密码</Label>
+                <Label htmlFor="password">{t('passwordProtection')}</Label>
                 <Input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="请输入访问密码"
+                  placeholder={t('enterPassword')}
                   className={passwordError ? 'border-red-500' : ''}
                 />
                 {passwordError && (
@@ -190,7 +192,7 @@ export default function PublicSharePage() {
                 )}
               </div>
               <Button type="submit" className="w-full">
-                访问简历
+                {t('accessResume')}
               </Button>
             </form>
           </CardContent>
@@ -204,8 +206,8 @@ export default function PublicSharePage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
-            <CardTitle>未找到简历</CardTitle>
-            <CardDescription>分享链接不存在或已失效</CardDescription>
+            <CardTitle>{t('resumeNotFound')}</CardTitle>
+            <CardDescription>{t('shareLinkNotFound')}</CardDescription>
           </CardHeader>
         </Card>
       </div>
@@ -223,21 +225,21 @@ export default function PublicSharePage() {
                 {resumeData.title}
               </h1>
               <p className="text-gray-600 dark:text-gray-400">
-                通过 WeCV AI 创建
+                {t('createdWithWeCV')}
               </p>
             </div>
             <div className="flex items-center gap-3">
               <Badge variant="outline" className="flex items-center gap-1">
                 <Eye className="h-3 w-3" />
-                {shareLink.viewCount} 次查看
+                {shareLink.viewCount} {t('viewCount')}
               </Badge>
               <Button variant="outline" size="sm" onClick={copyLink}>
                 <Copy className="h-4 w-4 mr-1" />
-                复制链接
+                {t('copyLink')}
               </Button>
               <Button variant="outline" size="sm" onClick={handleShare}>
                 <Share2 className="h-4 w-4 mr-1" />
-                分享
+                {t('share')}
               </Button>
             </div>
           </div>
@@ -257,9 +259,9 @@ export default function PublicSharePage() {
           <Card>
             <CardContent className="p-8">
               <div className="text-center text-gray-500 dark:text-gray-400">
-                <p>正在加载简历内容...</p>
+                <p>{t('loadingResume')}</p>
                 <p className="text-sm mt-2">
-                  简历ID: {shareLink.resumeId}
+                  {t('resumeId')}: {shareLink.resumeId}
                 </p>
               </div>
             </CardContent>
@@ -271,7 +273,7 @@ export default function PublicSharePage() {
       <div className="bg-white dark:bg-gray-800 border-t">
         <div className="max-w-4xl mx-auto px-4 py-6 text-center">
           <p className="text-gray-600 dark:text-gray-400 text-sm">
-            使用 <a href="/" className="text-blue-600 hover:underline">WeCV AI</a> 创建专业简历
+            {t('createWeCV')} <a href="/" className="text-blue-600 hover:underline">WeCV AI</a>
           </p>
         </div>
       </div>
@@ -286,6 +288,7 @@ interface ResumeRendererProps {
 }
 
 function ResumeRenderer({ resumeData, templateId }: ResumeRendererProps) {
+  const t = useTranslations('share');
   // 获取模板配置
   const template = DEFAULT_TEMPLATES.find((t) => t.id === templateId) || DEFAULT_TEMPLATES[0];
   
@@ -295,7 +298,7 @@ function ResumeRenderer({ resumeData, templateId }: ResumeRendererProps) {
   if (!TemplateComponent) {
     return (
       <div className="p-8 text-center text-gray-500">
-        <p>无法加载简历模板</p>
+        <p>{t('templateError')}</p>
       </div>
     );
   }
