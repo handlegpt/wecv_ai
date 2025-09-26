@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
 import { shareLinkService } from '@/services/shareLinkService';
+import { verifyUser } from '@/lib/supabase-server';
 
 // GET /api/share-links/[id] - 获取特定分享链接详情
 export async function GET(
@@ -9,27 +8,8 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const cookieStore = cookies();
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          get(name: string) {
-            return cookieStore.get(name)?.value;
-          },
-          set(name: string, value: string, options: any) {
-            cookieStore.set(name, value, options);
-          },
-          remove(name: string, options: any) {
-            cookieStore.set(name, '', { ...options, maxAge: 0 });
-          },
-        },
-      }
-    );
+    const { user, authError, supabase } = await verifyUser(request);
     
-    // 验证用户身份
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) {
       return NextResponse.json({ error: '未授权访问' }, { status: 401 });
     }
@@ -68,47 +48,36 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const cookieStore = cookies();
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          get(name: string) {
-            return cookieStore.get(name)?.value;
-          },
-          set(name: string, value: string, options: any) {
-            cookieStore.set(name, value, options);
-          },
-          remove(name: string, options: any) {
-            cookieStore.set(name, '', { ...options, maxAge: 0 });
-          },
-        },
-      }
-    );
+    const { user, authError, supabase } = await verifyUser(request);
     
-    // 验证用户身份
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) {
       return NextResponse.json({ error: '未授权访问' }, { status: 401 });
     }
 
     const { id } = params;
     const body = await request.json();
-    const { isActive, password, removePassword } = body;
+    const { username, password, isActive } = body;
 
-    // 验证用户是否拥有这个分享链接
-    const userShareLinks = await shareLinkService.getUserShareLinks(user.id);
-    const shareLink = userShareLinks.find(link => link.id === id);
-    
-    if (!shareLink) {
-      return NextResponse.json({ error: '分享链接不存在或无权限' }, { status: 404 });
+    // 验证输入
+    if (username && !/^[a-zA-Z0-9_-]{3,20}$/.test(username)) {
+      return NextResponse.json({ 
+        error: '用户名只能包含字母、数字、下划线和连字符，长度3-20位' 
+      }, { status: 400 });
     }
 
+    // 检查分享链接是否存在且属于当前用户
+    const shareLinks = await shareLinkService.getUserShareLinks(user.id);
+    const shareLink = shareLinks.find(link => link.id === id);
+    
+    if (!shareLink) {
+      return NextResponse.json({ error: '分享链接不存在' }, { status: 404 });
+    }
+
+    // 更新分享链接
     const updatedShareLink = await shareLinkService.updateShareLink(id, {
-      isActive,
+      username,
       password,
-      removePassword,
+      isActive,
     });
     
     return NextResponse.json({ 
@@ -129,41 +98,23 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const cookieStore = cookies();
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          get(name: string) {
-            return cookieStore.get(name)?.value;
-          },
-          set(name: string, value: string, options: any) {
-            cookieStore.set(name, value, options);
-          },
-          remove(name: string, options: any) {
-            cookieStore.set(name, '', { ...options, maxAge: 0 });
-          },
-        },
-      }
-    );
+    const { user, authError, supabase } = await verifyUser(request);
     
-    // 验证用户身份
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) {
       return NextResponse.json({ error: '未授权访问' }, { status: 401 });
     }
 
     const { id } = params;
-
-    // 验证用户是否拥有这个分享链接
-    const userShareLinks = await shareLinkService.getUserShareLinks(user.id);
-    const shareLink = userShareLinks.find(link => link.id === id);
+    
+    // 检查分享链接是否存在且属于当前用户
+    const shareLinks = await shareLinkService.getUserShareLinks(user.id);
+    const shareLink = shareLinks.find(link => link.id === id);
     
     if (!shareLink) {
-      return NextResponse.json({ error: '分享链接不存在或无权限' }, { status: 404 });
+      return NextResponse.json({ error: '分享链接不存在' }, { status: 404 });
     }
 
+    // 删除分享链接
     await shareLinkService.deleteShareLink(id);
     
     return NextResponse.json({ 
