@@ -1,11 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSupabaseClient } from '@/lib/supabase';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 import { shareLinkService } from '@/services/shareLinkService';
 
 // GET /api/share-links/stats - 获取用户的分享统计
 export async function GET(request: NextRequest) {
   try {
-    const supabase = getSupabaseClient();
+    const cookieStore = cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value;
+          },
+        },
+      }
+    );
     
     // 验证用户身份
     const { data: { user }, error: authError } = await supabase.auth.getUser();
