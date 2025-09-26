@@ -137,7 +137,7 @@ export default function StructuredData({ type, data, locale = "zh" }: Structured
           "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer service",
-            "email": "hello@wecv.com"
+            "email": "hello # wecv.com"
           },
           "sameAs": [
             "https://github.com/handlegpt/wecv_old"

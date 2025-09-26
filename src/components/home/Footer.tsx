@@ -16,7 +16,7 @@ export default function Footer() {
     // 动态生成邮箱地址
     const name = "hello";
     const domain = "wecv.com";
-    const fullEmail = `${name}@${domain}`;
+    const fullEmail = `${name} # ${domain}`;
     setEmail(fullEmail);
   }, []);
 

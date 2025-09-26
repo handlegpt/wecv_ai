@@ -515,7 +515,7 @@
     },
     "terms": {
       "title": "Terms of Service",
-      "lastUpdated": "Last updated: January 15, 2025",
+      "lastUpdated": "Last updated: August 15, 2025",
       "sections": {
         "serviceDescription": {
           "title": "1. Service Description",
@@ -588,8 +588,7 @@
           "title": "8. Contact Us",
           "content": "If you have any questions about these terms of service, please contact us through the following methods:",
           "methods": [
-            "Email: hello@wecv.com",
-            "GitHub: https://github.com/handlegpt/wecv_ai",
+            "Email: hello # wecv.com",
             "Website: https://wecv.com"
           ]
         }
@@ -1292,22 +1291,32 @@
     }
   },
   "privacy": {
-    "lastUpdated": "Last updated: August 1, 2025",
+    "lastUpdated": "Last updated: August 15, 2025",
     "commitment": {
       "title": "Privacy Protection Commitment",
-      "content": "WeCV AI is committed to protecting your privacy. We use local storage technology to ensure that your resume data is completely stored on your device and will not be uploaded to our servers."
+      "content": "WeCV AI is committed to protecting your privacy. We offer both local storage and cloud synchronization options, giving you full control over your data storage preferences."
     },
     "dataCollection": {
       "title": "Data Collection and Use",
       "localStorage": {
-        "title": "Local Data Storage",
-        "content": "Your resume data is completely stored in your browser's local storage, including:",
+        "title": "Local Data Storage (Default)",
+        "content": "By default, your resume data is stored locally in your browser, including:",
         "items": [
           "Personal basic information",
           "Educational background",
           "Work experience",
           "Skills and project experience",
           "Resume template selection"
+        ]
+      },
+      "cloudStorage": {
+        "title": "Cloud Storage (Optional)",
+        "content": "If you choose to create an account and enable cloud sync, we may store:",
+        "items": [
+          "Your account information (email, profile data)",
+          "Resume data synchronized across devices",
+          "Share link settings and statistics",
+          "User preferences and settings"
         ]
       },
       "technicalData": {
@@ -1317,7 +1326,8 @@
           "Browser type and version",
           "Operating system information",
           "Access time and page browsing",
-          "Error logs (excluding personal information)"
+          "Error logs (excluding personal information)",
+          "Usage analytics (anonymous)"
         ]
       }
     },
@@ -1325,9 +1335,10 @@
       "title": "Data Security",
       "content": "We use multiple security measures to protect your data:",
       "measures": [
-        "Local storage: All resume data is stored locally on your device and will not be transmitted to our servers",
+        "Local storage: Resume data is stored locally by default and never transmitted without your consent",
         "HTTPS encryption: All data transmission uses HTTPS encryption",
-        "No server storage: We do not store your personal resume data on servers",
+        "End-to-end encryption: Cloud sync uses end-to-end encryption when enabled",
+        "Secure authentication: Account access is protected with secure authentication methods",
         "Regular cleanup: Technical logs are regularly cleaned and do not retain sensitive information"
       ]
     },
@@ -1355,7 +1366,9 @@
       "content": "You have complete control over your data:",
       "rights": [
         "Data export: You can export your resume data at any time",
-        "Data deletion: You can clear local data in your browser at any time",
+        "Local data deletion: You can clear local data in your browser at any time",
+        "Account deletion: You can delete your account and all associated data",
+        "Cloud sync control: You can enable or disable cloud synchronization at any time",
         "Data backup: We recommend regularly backing up important resume data"
       ]
     },
@@ -1371,14 +1384,13 @@
       "title": "Contact Us",
       "content": "If you have any questions or suggestions about this privacy policy, please contact us through the following methods:",
       "methods": [
-        "Email: hello@wecv.com",
-        "GitHub: https://github.com/handlegpt/wecv_ai",
+        "Email: hello # wecv.com",
         "Website: https://wecv.com"
       ]
     },
     "promise": {
       "title": "Privacy Protection Promise",
-      "content": "We promise: Your resume data will never leave your device. We will not collect, store, or share your personal resume information. Your privacy and security are our top priority."
+      "content": "We promise: Your resume data is stored locally by default and will only be synchronized to the cloud if you explicitly choose to create an account and enable cloud sync. We will not collect, store, or share your personal resume information without your consent. Your privacy and security are our top priority."
     }
   }
 }
