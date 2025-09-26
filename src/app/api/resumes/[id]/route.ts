@@ -17,18 +17,17 @@ export async function GET(
 
     const supabase = createSupabaseServerClient(request);
 
-    // 获取简历数据
+    // 获取简历数据 - 通过分享链接访问的简历不需要公开设置
     const { data: resume, error } = await supabase
       .from('resumes')
       .select('*')
       .eq('id', id)
-      .eq('is_public', true) // 只获取公开的简历
       .single();
 
     if (error) {
       console.error('获取简历失败:', error);
       return NextResponse.json({
-        error: '简历不存在或未公开'
+        error: '简历不存在'
       }, { status: 404 });
     }
 

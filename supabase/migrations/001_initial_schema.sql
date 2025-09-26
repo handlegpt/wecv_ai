@@ -76,6 +76,10 @@ CREATE POLICY "Users can update own resumes" ON public.resumes
 CREATE POLICY "Users can delete own resumes" ON public.resumes
     FOR DELETE USING (auth.uid() = user_id);
 
+-- Allow public access to resumes through share links
+CREATE POLICY "Public can view resumes via share links" ON public.resumes
+    FOR SELECT USING (true);
+
 -- Users can only access their own sync logs
 CREATE POLICY "Users can view own sync logs" ON public.sync_logs
     FOR SELECT USING (auth.uid() = user_id);
