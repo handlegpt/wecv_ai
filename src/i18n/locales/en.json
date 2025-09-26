@@ -513,6 +513,88 @@
       "contactUs": "Contact Us",
       "description": "AI-powered professional resume creation tool. Free to use, privacy-focused, with local data storage."
     },
+    "terms": {
+      "title": "Terms of Service",
+      "lastUpdated": "Last updated: January 15, 2025",
+      "sections": {
+        "serviceDescription": {
+          "title": "1. Service Description",
+          "content": "WeCV AI is a free, AI-powered online resume creation and editing tool. We provide the following services:",
+          "features": [
+            "AI-driven resume creation and editing",
+            "Multiple professional resume templates",
+            "AI-powered grammar checking and content optimization",
+            "Local data storage for privacy protection",
+            "Multiple format exports (PDF, Word, etc.)",
+            "Resume sharing link functionality",
+            "Cloud synchronization features"
+          ]
+        },
+        "userResponsibilities": {
+          "title": "2. User Responsibilities",
+          "content": "By using WeCV AI, you agree to the following terms:",
+          "requirements": [
+            "You must comply with all applicable laws and regulations",
+            "You may not use the service for any illegal activities",
+            "You may not attempt to disrupt or interfere with the normal operation of the service",
+            "You may not access or use others' data without authorization",
+            "You must provide true and accurate personal information",
+            "You may not upload or share illegal, harmful, threatening, abusive, defamatory, pornographic, or other inappropriate content"
+          ]
+        },
+        "privacyProtection": {
+          "title": "3. Privacy Protection",
+          "content": "WeCV AI values user privacy protection:",
+          "features": [
+            "Your resume data is stored locally in your browser by default",
+            "Cloud synchronization uses end-to-end encryption",
+            "We will not share your personal information without your consent",
+            "You can delete your account and data at any time",
+            "We use industry-standard security measures to protect your data"
+          ]
+        },
+        "disclaimer": {
+          "title": "4. Disclaimer",
+          "content": "WeCV AI provides services 'as is' without any express or implied warranties. We are not responsible for:",
+          "items": [
+            "Service interruptions or data loss",
+            "Any direct or indirect losses caused by using the service",
+            "Problems or interruptions of third-party services",
+            "Accuracy or completeness of user data",
+            "Accuracy or applicability of AI-generated content",
+            "Success rate of resume submissions or interview results"
+          ]
+        },
+        "intellectualProperty": {
+          "title": "5. Intellectual Property",
+          "content": "All content of WeCV AI, including but not limited to text, graphics, logos, button icons, images, audio clips, digital downloads, data editing, and software, is the property of WeCV AI or its content providers, protected by copyright laws and international copyright treaties as well as other intellectual property laws and regulations.",
+          "userRights": "You retain ownership of the resume content you create, but you authorize us to use this content to provide and improve our services."
+        },
+        "serviceAvailability": {
+          "title": "6. Service Availability",
+          "content": "We strive to maintain continuous service availability, but do not guarantee that the service will not be interrupted. We may suspend or terminate the service for the following reasons:",
+          "reasons": [
+            "System maintenance and upgrades",
+            "Technical failures or security issues",
+            "Force majeure factors",
+            "Violations of terms of service"
+          ]
+        },
+        "modifications": {
+          "title": "7. Modifications to Terms",
+          "content": "We reserve the right to modify these terms at any time. Modified terms will take effect immediately upon publication on the website. Continued use of our service indicates your acceptance of the modified terms."
+        },
+        "contact": {
+          "title": "8. Contact Us",
+          "content": "If you have any questions about these terms of service, please contact us through the following methods:",
+          "methods": [
+            "Email: hello@wecv.com",
+            "GitHub: https://github.com/handlegpt/wecv_ai",
+            "Website: https://wecv.com"
+          ]
+        }
+      }
+    },
     "cta": {
       "title": "Buy us a coffee ☕",
       "description": "If helpful, buy us a coffee ☕",
@@ -1289,7 +1371,9 @@
       "title": "Contact Us",
       "content": "If you have any questions or suggestions about this privacy policy, please contact us through the following methods:",
       "methods": [
-        "Email: hello [at] wecv.com"
+        "Email: hello@wecv.com",
+        "GitHub: https://github.com/handlegpt/wecv_ai",
+        "Website: https://wecv.com"
       ]
     },
     "promise": {

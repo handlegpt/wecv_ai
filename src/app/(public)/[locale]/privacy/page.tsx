@@ -1,5 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
+import LandingHeader from "@/components/home/LandingHeader";
+import Footer from "@/components/home/Footer";
 
 export async function generateMetadata({
   params: { locale }
@@ -30,9 +32,11 @@ export default async function PrivacyPage() {
   const p = await getTranslations("privacy");
 
   return (
-    <div className="py-20">
-      <div className="mx-auto max-w-[800px] px-4">
-        <h1 className="text-4xl font-bold mb-8">{t("privacyPolicy")}</h1>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50/50 via-white to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-900">
+      <LandingHeader />
+      <div className="py-20">
+        <div className="mx-auto max-w-[800px] px-4">
+          <h1 className="text-4xl font-bold mb-8">{t("privacyPolicy")}</h1>
         <div className="prose dark:prose-invert max-w-none">
           <p className="text-lg mb-6">
             {p("lastUpdated")}
@@ -137,7 +141,9 @@ export default async function PrivacyPage() {
             </p>
           </div>
         </div>
+        </div>
       </div>
+      <Footer />
     </div>
   );
 }
