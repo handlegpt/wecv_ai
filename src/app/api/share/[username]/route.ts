@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ShareLinkService } from '@/services/shareLinkService';
-import { getSupabaseClient } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase-server';
 
 // GET /api/share/[username] - 通过用户名获取公开的分享链接
 export async function GET(
@@ -12,7 +12,7 @@ export async function GET(
     const { searchParams } = new URL(request.url);
     const password = searchParams.get('password');
 
-    const supabase = getSupabaseClient();
+    const supabase = createSupabaseServerClient(request);
     const shareLinkService = new ShareLinkService(supabase);
     
     // 获取分享链接
