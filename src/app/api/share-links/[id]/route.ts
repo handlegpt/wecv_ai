@@ -56,14 +56,7 @@ export async function PUT(
 
     const { id } = params;
     const body = await request.json();
-    const { username, password, isActive } = body;
-
-    // 验证输入
-    if (username && !/^[a-zA-Z0-9_-]{3,20}$/.test(username)) {
-      return NextResponse.json({ 
-        error: '用户名只能包含字母、数字、下划线和连字符，长度3-20位' 
-      }, { status: 400 });
-    }
+    const { password, isActive, removePassword } = body;
 
     // 检查分享链接是否存在且属于当前用户
     const shareLinks = await shareLinkService.getUserShareLinks(user.id);
@@ -75,9 +68,9 @@ export async function PUT(
 
     // 更新分享链接
     const updatedShareLink = await shareLinkService.updateShareLink(id, {
-      username,
       password,
       isActive,
+      removePassword,
     });
     
     return NextResponse.json({ 
