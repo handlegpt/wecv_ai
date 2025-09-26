@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { Mail, Github, Twitter, Heart, ArrowUp } from "lucide-react";
+import { Mail, Github, Twitter, ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -119,9 +119,9 @@ export default function Footer() {
               <p>{t("footer.copyright")}</p>
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-              <span>Made with</span>
-              <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-              <span>by WeCV Team</span>
+              <span>Made by WeCV AI</span>
+              <span className="text-gray-400">•</span>
+              <span className="text-gray-500 italic">not backed by Y Combinator</span>
             </div>
           </div>
         </div>
