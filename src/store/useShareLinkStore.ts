@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { shareLinkService, ShareLink, ShareLinkStats } from '@/services/shareLinkService';
+import { ShareLink, ShareLinkStats } from '@/services/shareLinkService';
 
 interface ShareLinkState {
   // 数据状态

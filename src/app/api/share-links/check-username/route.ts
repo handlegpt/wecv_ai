@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { shareLinkService } from '@/services/shareLinkService';
+import { ShareLinkService } from '@/services/shareLinkService';
+import { getSupabaseClient } from '@/lib/supabase';
 
 // POST /api/share-links/check-username - 检查用户名可用性
 export async function POST(request: NextRequest) {
@@ -21,6 +22,8 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
+    const supabase = getSupabaseClient();
+    const shareLinkService = new ShareLinkService(supabase);
     const isAvailable = await shareLinkService.checkUsernameAvailability(username);
     
     return NextResponse.json({ 

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { shareLinkService } from '@/services/shareLinkService';
+import { ShareLinkService } from '@/services/shareLinkService';
 import { verifyUser } from '@/lib/supabase-server';
 
 // GET /api/share-links - 获取用户的分享链接列表
@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
       }, { status: 401 });
     }
 
+    const shareLinkService = new ShareLinkService(supabase);
     const shareLinks = await shareLinkService.getUserShareLinks(user.id);
     
     return NextResponse.json({ 
@@ -63,6 +64,7 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
+    const shareLinkService = new ShareLinkService(supabase);
     const shareLink = await shareLinkService.createShareLink({
       username,
       resumeId,

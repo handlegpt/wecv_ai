@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { shareLinkService } from '@/services/shareLinkService';
+import { ShareLinkService } from '@/services/shareLinkService';
 import { verifyUser } from '@/lib/supabase-server';
 
 // GET /api/share-links/[id] - 获取特定分享链接详情
@@ -16,10 +16,12 @@ export async function GET(
 
     const { id } = params;
     
+    const shareLinkService = new ShareLinkService(supabase);
+    
     // 获取分享链接详情（包含访问记录）
     const shareLinks = await shareLinkService.getUserShareLinks(user.id);
     const shareLink = shareLinks.find(link => link.id === id);
-    
+
     if (!shareLink) {
       return NextResponse.json({ error: '分享链接不存在' }, { status: 404 });
     }
@@ -58,10 +60,12 @@ export async function PUT(
     const body = await request.json();
     const { password, isActive, removePassword } = body;
 
+    const shareLinkService = new ShareLinkService(supabase);
+    
     // 检查分享链接是否存在且属于当前用户
     const shareLinks = await shareLinkService.getUserShareLinks(user.id);
     const shareLink = shareLinks.find(link => link.id === id);
-    
+
     if (!shareLink) {
       return NextResponse.json({ error: '分享链接不存在' }, { status: 404 });
     }
@@ -99,10 +103,12 @@ export async function DELETE(
 
     const { id } = params;
     
+    const shareLinkService = new ShareLinkService(supabase);
+    
     // 检查分享链接是否存在且属于当前用户
     const shareLinks = await shareLinkService.getUserShareLinks(user.id);
     const shareLink = shareLinks.find(link => link.id === id);
-    
+
     if (!shareLink) {
       return NextResponse.json({ error: '分享链接不存在' }, { status: 404 });
     }

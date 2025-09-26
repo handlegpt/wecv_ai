@@ -1,4 +1,4 @@
-import { getSupabaseClient } from '@/lib/supabase';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 export interface ShareLink {
   id: string;
@@ -44,7 +44,7 @@ export interface UpdateShareLinkData {
 }
 
 class ShareLinkService {
-  private supabase = getSupabaseClient();
+  constructor(private supabase: SupabaseClient) {}
 
   /**
    * 创建分享链接
@@ -367,4 +367,5 @@ class ShareLinkService {
   }
 }
 
-export const shareLinkService = new ShareLinkService();
+// 导出服务类，不创建实例
+export { ShareLinkService };
