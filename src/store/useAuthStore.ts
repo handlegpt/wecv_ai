@@ -452,28 +452,52 @@ export const useAuthStore = create<AuthStore>()(
               return;
             }
             
-            if (session?.user) {
+            if (session?.user && session.access_token) {
               console.log("发现有效会话，设置用户状态");
-              const user: User = {
-                id: session.user.id,
-                email: session.user.email || '',
-                name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || '用户',
-                avatar: session.user.user_metadata?.avatar_url || null,
-                preferences: {
-                  language: 'zh',
-                  theme: 'system' as 'system' | 'light' | 'dark',
-                  syncEnabled: true
-                },
-                createdAt: session.user.created_at,
-                updatedAt: session.user.updated_at || session.user.created_at
-              };
               
-              set({
-                isAuthenticated: true,
-                user,
-                token: session.access_token,
-                authMode: 'cloud',
-              });
+              // 验证token是否有效
+              try {
+                const { data: { user: currentUser }, error: userError } = await supabase.auth.getUser();
+                if (userError || !currentUser) {
+                  console.log("Token无效，清除认证状态");
+                  set({
+                    isAuthenticated: false,
+                    user: null,
+                    token: null,
+                    authMode: 'local',
+                  });
+                  return;
+                }
+                
+                const user: User = {
+                  id: session.user.id,
+                  email: session.user.email || '',
+                  name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || '用户',
+                  avatar: session.user.user_metadata?.avatar_url || null,
+                  preferences: {
+                    language: 'zh',
+                    theme: 'system' as 'system' | 'light' | 'dark',
+                    syncEnabled: true
+                  },
+                  createdAt: session.user.created_at,
+                  updatedAt: session.user.updated_at || session.user.created_at
+                };
+                
+                set({
+                  isAuthenticated: true,
+                  user,
+                  token: session.access_token,
+                  authMode: 'cloud',
+                });
+              } catch (error) {
+                console.log("Token验证失败，清除认证状态:", error);
+                set({
+                  isAuthenticated: false,
+                  user: null,
+                  token: null,
+                  authMode: 'local',
+                });
+              }
             } else {
               console.log("无有效会话，设置为本地模式");
               set({

@@ -38,7 +38,8 @@ export async function GET(request: NextRequest) {
       hasUser: !!user,
       userId: user?.id,
       authError: authError?.message,
-      cookies: request.headers.get('cookie')
+      cookies: request.headers.get('cookie'),
+      allHeaders: Object.fromEntries(request.headers.entries())
     });
     
     if (authError || !user) {
@@ -78,7 +79,8 @@ export async function POST(request: NextRequest) {
       hasUser: !!user,
       userId: user?.id,
       authError: authError?.message,
-      cookies: request.headers.get('cookie')
+      cookies: request.headers.get('cookie'),
+      allHeaders: Object.fromEntries(request.headers.entries())
     });
     
     if (authError || !user) {

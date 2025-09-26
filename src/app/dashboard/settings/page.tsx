@@ -69,6 +69,7 @@ const SettingsPage = () => {
   
   // 加载分享链接数据
   useEffect(() => {
+    console.log('设置页面认证状态检查:', { isAuthenticated, user: !!user, userId: user?.id });
     if (isAuthenticated) {
       loadShareLinks();
       loadStats();
