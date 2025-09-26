@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -38,7 +38,22 @@ export default function PublicSharePage() {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
-  const loadShareLink = async () => {
+  const loadResumeData = useCallback(async (resumeId: string) => {
+    try {
+      // 这里应该从本地存储或API获取简历数据
+      // 暂时使用模拟数据
+      const mockResumeData = {
+        id: resumeId,
+        title: '我的简历',
+        // 其他简历数据...
+      };
+      setResumeData(mockResumeData);
+    } catch (error) {
+      console.error('加载简历数据失败:', error);
+    }
+  }, []);
+
+  const loadShareLink = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -70,26 +85,11 @@ export default function PublicSharePage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [username, password, loadResumeData]);
 
   useEffect(() => {
     loadShareLink();
-  }, [username]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const loadResumeData = async (resumeId: string) => {
-    try {
-      // 这里应该从本地存储或API获取简历数据
-      // 暂时使用模拟数据
-      const mockResumeData = {
-        id: resumeId,
-        title: '我的简历',
-        // 其他简历数据...
-      };
-      setResumeData(mockResumeData);
-    } catch (error) {
-      console.error('加载简历数据失败:', error);
-    }
-  };
+  }, [loadShareLink]);
 
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
