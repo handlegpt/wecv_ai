@@ -273,26 +273,30 @@ export const useAuthStore = create<AuthStore>()(
       
       // 用户管理
       updateUser: async (userData: Partial<User>) => {
-        const { token } = get();
-        if (!token) throw new Error('未登录');
+        const { user: currentUser } = get();
+        if (!currentUser) throw new Error('未登录');
         
         try {
-          const response = await fetch(`${API_BASE_URL}/api/user/profile`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify(userData),
-          });
+          // 直接更新本地状态，因为用户数据现在存储在 Supabase Auth 中
+          const updatedUser = {
+            ...currentUser,
+            ...userData,
+          };
           
-          const data = await response.json();
+          set({ user: updatedUser });
           
-          if (!response.ok) {
-            throw new Error(data.message || '更新失败');
+          // 如果需要更新 Supabase 中的用户元数据，可以在这里添加
+          if (isSupabaseConfigured()) {
+            const supabase = getSupabaseClient();
+            const { error } = await supabase.auth.updateUser({
+              data: userData
+            });
+            
+            if (error) {
+              console.error('更新 Supabase 用户数据失败:', error);
+              // 不抛出错误，因为本地状态已经更新
+            }
           }
-          
-          set({ user: data.user });
         } catch (error: any) {
           set({ error: error.message });
           throw error;
