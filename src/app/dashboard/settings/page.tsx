@@ -28,6 +28,7 @@ import ShareLinkDialog from "@/components/share/ShareLinkDialog";
 const SettingsPage = () => {
   const t = useTranslations();
   const tAuth = useTranslations("auth");
+  const tPrefs = useTranslations("preferences");
   const router = useRouter();
   const { 
     isAuthenticated, 
@@ -527,7 +528,7 @@ const SettingsPage = () => {
                           onClick={() => setShowShareLinkDialog(true)}
                         >
                           <Lock className="h-4 w-4 mr-2" />
-                          {tAuth("setPassword")}
+                          {tPrefs("setPassword")}
                         </Button>
                       )}
                     </div>
@@ -603,7 +604,7 @@ const SettingsPage = () => {
                       <span className="text-sm text-muted-foreground">
                         {syncStatus.lastSyncAt 
                           ? new Date(syncStatus.lastSyncAt).toLocaleString()
-                          : tAuth("never")
+                          : tPrefs("never")
                         }
                       </span>
                     </div>
