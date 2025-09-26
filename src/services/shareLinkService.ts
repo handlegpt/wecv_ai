@@ -63,8 +63,15 @@ class ShareLinkService {
         throw new Error('用户名已被使用，请选择其他用户名');
       }
 
+      // 获取当前用户ID
+      const { data: { user }, error: userError } = await this.supabase.auth.getUser();
+      if (userError || !user) {
+        throw new Error('用户未认证');
+      }
+
       // 准备数据
       const shareLinkData: any = {
+        user_id: user.id, // 设置用户ID以满足RLS策略
         username: data.username,
         resume_id: data.resumeId,
         is_active: true,
