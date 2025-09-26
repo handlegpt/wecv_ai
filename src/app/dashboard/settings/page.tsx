@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
@@ -36,7 +37,8 @@ const SettingsPage = () => {
     enableSync, 
     disableSync, 
     syncData,
-    initializeAuth
+    initializeAuth,
+    updateUser
   } = useAuthStore();
   
   const { 
@@ -445,28 +447,65 @@ const SettingsPage = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {/* 链接信息 */}
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">{tAuth("publicProfile")}</span>
-                        <Badge variant="outline" className="text-xs">
-                          wecv.com/share/{user?.name?.toLowerCase().replace(/\s+/g, '') || 'username'}
-                        </Badge>
+                    {/* 公开资料开关 */}
+                    <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">{tAuth("publicProfile")}</span>
+                          <Badge variant="outline" className="text-xs">
+                            wecv.com/share/{user?.name?.toLowerCase().replace(/\s+/g, '') || 'username'}
+                          </Badge>
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          {user?.preferences?.privacy?.profilePublic 
+                            ? tAuth("publicProfileEnabled") 
+                            : tAuth("publicProfileDisabled")
+                          }
+                        </p>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">{tAuth("viewCount")}</span>
-                        <span className="text-sm text-muted-foreground">
-                          {stats?.totalViews || 0}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">{tAuth("protectionStatus")}</span>
-                        <Badge variant="secondary" className="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
-                          <Lock className="h-3 w-3 mr-1" />
-                          {shareLinks.length > 0 ? tAuth("enabled") : tAuth("disabled")}
-                        </Badge>
-                      </div>
+                      <Switch
+                        checked={user?.preferences?.privacy?.profilePublic || false}
+                        onCheckedChange={async (checked) => {
+                          try {
+                            await updateUser({
+                              preferences: {
+                                language: user?.preferences?.language || 'zh',
+                                theme: user?.preferences?.theme || 'system',
+                                syncEnabled: user?.preferences?.syncEnabled || false,
+                                notifications: user?.preferences?.notifications,
+                                privacy: {
+                                  profilePublic: checked,
+                                  dataSharing: user?.preferences?.privacy?.dataSharing ?? false,
+                                  analytics: user?.preferences?.privacy?.analytics ?? false
+                                }
+                              }
+                            });
+                            toast.success(checked ? tAuth("publicProfileEnabled") : tAuth("publicProfileDisabled"));
+                          } catch (error) {
+                            toast.error(tAuth("updateFailed"));
+                          }
+                        }}
+                      />
                     </div>
+                    
+                    {/* 链接信息 */}
+                    {user?.preferences?.privacy?.profilePublic && (
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm">{tAuth("viewCount")}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {stats?.totalViews || 0}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm">{tAuth("protectionStatus")}</span>
+                          <Badge variant="secondary" className="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                            <Lock className="h-3 w-3 mr-1" />
+                            {shareLinks.length > 0 ? tAuth("enabled") : tAuth("disabled")}
+                          </Badge>
+                        </div>
+                      </div>
+                    )}
                     
                     {/* 主要操作按钮 */}
                     <div className="space-y-2">

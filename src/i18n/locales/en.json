@@ -135,6 +135,8 @@
     "shareLinks": "Share Links",
     "shareLinksDescription": "Create public resume links for easy sharing",
     "publicProfile": "Public Link",
+    "publicProfileEnabled": "Public profile is enabled, others can view your basic information",
+    "publicProfileDisabled": "Public profile is disabled, your information will not be publicly displayed",
     "viewCount": "View Count",
     "manageShareLinks": "Manage Share Links",
     "passwordProtection": "Password Protection",
