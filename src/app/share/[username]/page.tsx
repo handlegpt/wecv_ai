@@ -9,6 +9,10 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Eye, Lock, ExternalLink, Copy, Share2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { ResumeData } from '@/types/resume';
+import { DEFAULT_TEMPLATES } from '@/config';
+import templates from '@/components/templates';
+import { ResumeTemplate } from '@/types/template';
 
 interface ShareLinkData {
   id: string;
@@ -19,11 +23,13 @@ interface ShareLinkData {
   createdAt: string;
 }
 
-interface ResumeData {
+interface ResumeApiData {
   id: string;
   title: string;
-  // 这里应该包含简历的完整数据
-  [key: string]: any;
+  data: ResumeData;
+  templateId: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export default function PublicSharePage() {
@@ -31,7 +37,7 @@ export default function PublicSharePage() {
   const username = params.username as string;
   
   const [shareLink, setShareLink] = useState<ShareLinkData | null>(null);
-  const [resumeData, setResumeData] = useState<ResumeData | null>(null);
+  const [resumeData, setResumeData] = useState<ResumeApiData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [requiresPassword, setRequiresPassword] = useState(false);
@@ -40,16 +46,17 @@ export default function PublicSharePage() {
 
   const loadResumeData = useCallback(async (resumeId: string) => {
     try {
-      // 这里应该从本地存储或API获取简历数据
-      // 暂时使用模拟数据
-      const mockResumeData = {
-        id: resumeId,
-        title: '我的简历',
-        // 其他简历数据...
-      };
-      setResumeData(mockResumeData);
-    } catch (error) {
+      const response = await fetch(`/api/resumes/${resumeId}`);
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.error || '获取简历数据失败');
+      }
+      
+      setResumeData(result.data);
+    } catch (error: any) {
       console.error('加载简历数据失败:', error);
+      setError(error.message);
     }
   }, []);
 
@@ -239,16 +246,25 @@ export default function PublicSharePage() {
 
       {/* 简历内容 */}
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <Card>
-          <CardContent className="p-8">
-            <div className="text-center text-gray-500 dark:text-gray-400">
-              <p>简历内容将在这里显示</p>
-              <p className="text-sm mt-2">
-                简历ID: {shareLink.resumeId}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+        {resumeData ? (
+          <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+            <ResumeRenderer 
+              resumeData={resumeData.data} 
+              templateId={resumeData.templateId}
+            />
+          </div>
+        ) : (
+          <Card>
+            <CardContent className="p-8">
+              <div className="text-center text-gray-500 dark:text-gray-400">
+                <p>正在加载简历内容...</p>
+                <p className="text-sm mt-2">
+                  简历ID: {shareLink.resumeId}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       {/* 页脚 */}
@@ -259,6 +275,37 @@ export default function PublicSharePage() {
           </p>
         </div>
       </div>
+    </div>
+  );
+}
+
+// 简历渲染组件
+interface ResumeRendererProps {
+  resumeData: ResumeData;
+  templateId: string;
+}
+
+function ResumeRenderer({ resumeData, templateId }: ResumeRendererProps) {
+  // 获取模板配置
+  const template = DEFAULT_TEMPLATES.find((t) => t.id === templateId) || DEFAULT_TEMPLATES[0];
+  
+  // 获取模板组件
+  const TemplateComponent = templates[templateId as keyof typeof templates] || templates["classic"];
+  
+  if (!TemplateComponent) {
+    return (
+      <div className="p-8 text-center text-gray-500">
+        <p>无法加载简历模板</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="resume-container">
+      <TemplateComponent 
+        data={resumeData} 
+        template={template as ResumeTemplate}
+      />
     </div>
   );
 }
