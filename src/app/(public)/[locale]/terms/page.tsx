@@ -1,9 +1,34 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { Metadata } from "next";
 import LandingHeader from "@/components/home/LandingHeader";
 import Footer from "@/components/home/Footer";
 
-export default function TermsPage() {
-  const t = useTranslations("terms");
+export async function generateMetadata({
+  params: { locale }
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const baseUrl = "https://wecv.com";
+  
+  return {
+    title: locale === "zh" 
+      ? "服务条款 - WeCV AI" 
+      : "Terms of Service - WeCV AI",
+    description: locale === "zh"
+      ? "WeCV AI 服务条款 - 了解我们的服务条款和使用条件，保护您的权益。"
+      : "WeCV AI Terms of Service - Learn about our terms of service and usage conditions to protect your rights.",
+    alternates: {
+      canonical: `${baseUrl}/${locale}/terms`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
+
+export default async function TermsPage() {
+  const t = await getTranslations("terms");
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50/50 via-white to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-900">
