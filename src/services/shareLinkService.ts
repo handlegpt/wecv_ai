@@ -51,13 +51,14 @@ class ShareLinkService {
    */
   async createShareLink(data: CreateShareLinkData): Promise<ShareLink> {
     try {
-      // 首先尝试清理无效的分享链接
-      try {
-        await this.supabase.rpc('cleanup_invalid_share_links');
-      } catch (cleanupError) {
-        console.warn('清理无效分享链接失败:', cleanupError);
-        // 继续执行，不阻塞主流程
-      }
+      // 只在必要时清理无效的分享链接（减少自动清理频率）
+      // 注释掉自动清理，改为手动触发或定期清理
+      // try {
+      //   await this.supabase.rpc('cleanup_invalid_share_links');
+      // } catch (cleanupError) {
+      //   console.warn('清理无效分享链接失败:', cleanupError);
+      //   // 继续执行，不阻塞主流程
+      // }
 
       // 检查用户名是否可用
       const { data: availability, error: checkError } = await this.supabase

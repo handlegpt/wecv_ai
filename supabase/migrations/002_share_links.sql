@@ -99,9 +99,11 @@ CREATE TRIGGER trigger_update_share_link_view_count
 CREATE OR REPLACE FUNCTION check_username_availability(username_to_check VARCHAR(50))
 RETURNS BOOLEAN AS $$
 BEGIN
+  -- 只检查活跃的分享链接，避免已删除链接占用用户名
   RETURN NOT EXISTS (
     SELECT 1 FROM share_links 
-    WHERE username = username_to_check
+    WHERE username = username_to_check 
+    AND is_active = true
   );
 END;
 $$ LANGUAGE plpgsql;
@@ -112,12 +114,15 @@ RETURNS INTEGER AS $$
 DECLARE
   deleted_count INTEGER;
 BEGIN
-  -- 删除没有对应简历的分享链接
+  -- 只删除明确无效的分享链接：
+  -- 1. 对应的简历确实不存在
+  -- 2. 且分享链接创建时间超过30天（给用户足够时间修复）
   DELETE FROM share_links 
   WHERE resume_id NOT IN (
     SELECT id FROM resumes 
     WHERE id IS NOT NULL
-  );
+  )
+  AND created_at < NOW() - INTERVAL '30 days';
   
   GET DIAGNOSTICS deleted_count = ROW_COUNT;
   RETURN deleted_count;
