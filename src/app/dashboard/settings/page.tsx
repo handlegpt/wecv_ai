@@ -67,7 +67,7 @@ const SettingsPage = () => {
   // 初始化认证状态（只执行一次）
   useEffect(() => {
     initializeAuth();
-  }, []); // 移除依赖，避免无限循环
+  }, [initializeAuth]);
   
   // 加载分享链接数据
   useEffect(() => {
@@ -76,7 +76,7 @@ const SettingsPage = () => {
       loadShareLinks();
       loadStats();
     }
-  }, [isAuthenticated, loadShareLinks, loadStats]);
+  }, [isAuthenticated, user, loadShareLinks, loadStats]);
 
   // 处理Magic Link登录
   const handleMagicLinkLogin = async () => {

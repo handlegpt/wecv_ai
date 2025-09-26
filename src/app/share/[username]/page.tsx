@@ -38,10 +38,6 @@ export default function PublicSharePage() {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadShareLink();
-  }, [username]);
-
   const loadShareLink = async () => {
     try {
       setLoading(true);
@@ -75,6 +71,10 @@ export default function PublicSharePage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadShareLink();
+  }, [username]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadResumeData = async (resumeId: string) => {
     try {
