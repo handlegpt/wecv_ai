@@ -36,6 +36,14 @@ CREATE INDEX IF NOT EXISTS idx_share_link_views_viewed_at ON share_link_views(vi
 ALTER TABLE share_links ENABLE ROW LEVEL SECURITY;
 ALTER TABLE share_link_views ENABLE ROW LEVEL SECURITY;
 
+-- 删除现有的RLS策略（如果存在）
+DROP POLICY IF EXISTS "Users can view their own share links" ON share_links;
+DROP POLICY IF EXISTS "Users can insert their own share links" ON share_links;
+DROP POLICY IF EXISTS "Users can update their own share links" ON share_links;
+DROP POLICY IF EXISTS "Users can delete their own share links" ON share_links;
+DROP POLICY IF EXISTS "Link owners can view their view records" ON share_link_views;
+DROP POLICY IF EXISTS "Anyone can insert view records" ON share_link_views;
+
 -- 创建RLS策略
 -- 用户只能访问自己的分享链接
 CREATE POLICY "Users can view their own share links" ON share_links
@@ -77,6 +85,9 @@ BEGIN
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
+-- 删除现有触发器（如果存在）
+DROP TRIGGER IF EXISTS trigger_update_share_link_view_count ON share_link_views;
 
 -- 创建触发器：自动更新查看次数
 CREATE TRIGGER trigger_update_share_link_view_count
