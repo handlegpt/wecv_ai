@@ -136,7 +136,8 @@
     "shareLinksDescription": "公開履歴書リンクを作成して簡単に共有",
     "publicProfile": "公開リンク",
     "publicProfileEnabled": "公開プロフィールが有効です。他のユーザーがあなたの基本情報を閲覧できます",
-    "publicProfileDisabled": "公開プロフィールが無効です。あなたの情報は公開表示されません"
+    "publicProfileDisabled": "公開プロフィールが無効です。あなたの情報は公開表示されません",
+    "manageShareLinks": "共有リンク管理"
   },
   "preferences": {
     "disabled": "無効",
