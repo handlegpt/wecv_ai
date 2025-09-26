@@ -51,6 +51,14 @@ class ShareLinkService {
    */
   async createShareLink(data: CreateShareLinkData): Promise<ShareLink> {
     try {
+      // 首先尝试清理无效的分享链接
+      try {
+        await this.supabase.rpc('cleanup_invalid_share_links');
+      } catch (cleanupError) {
+        console.warn('清理无效分享链接失败:', cleanupError);
+        // 继续执行，不阻塞主流程
+      }
+
       // 检查用户名是否可用
       const { data: availability, error: checkError } = await this.supabase
         .rpc('check_username_availability', { username_to_check: data.username });
@@ -60,6 +68,16 @@ class ShareLinkService {
       }
 
       if (!availability) {
+        // 提供更详细的错误信息
+        const { data: existingLinks } = await this.supabase
+          .from('share_links')
+          .select('username, is_active, created_at')
+          .eq('username', data.username);
+        
+        if (existingLinks && existingLinks.length > 0) {
+          const link = existingLinks[0];
+          throw new Error(`用户名 "${data.username}" 已被使用。该链接创建于 ${new Date(link.created_at).toLocaleString()}，状态：${link.is_active ? '活跃' : '已禁用'}`);
+        }
         throw new Error('用户名已被使用，请选择其他用户名');
       }
 

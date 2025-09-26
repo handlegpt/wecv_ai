@@ -90,9 +90,26 @@ RETURNS BOOLEAN AS $$
 BEGIN
   RETURN NOT EXISTS (
     SELECT 1 FROM share_links 
-    WHERE username = username_to_check 
-    AND is_active = true
+    WHERE username = username_to_check
   );
+END;
+$$ LANGUAGE plpgsql;
+
+-- 创建函数：清理无效的分享链接
+CREATE OR REPLACE FUNCTION cleanup_invalid_share_links()
+RETURNS INTEGER AS $$
+DECLARE
+  deleted_count INTEGER;
+BEGIN
+  -- 删除没有对应简历的分享链接
+  DELETE FROM share_links 
+  WHERE resume_id NOT IN (
+    SELECT id FROM resumes 
+    WHERE id IS NOT NULL
+  );
+  
+  GET DIAGNOSTICS deleted_count = ROW_COUNT;
+  RETURN deleted_count;
 END;
 $$ LANGUAGE plpgsql;
 

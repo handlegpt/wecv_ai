@@ -23,11 +23,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Props) {
-  return (
-    <html lang="zh">
-      <body>
-        {children}
-      </body>
-    </html>
-  );
+  return children;
 }
