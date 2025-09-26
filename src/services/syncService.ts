@@ -80,11 +80,15 @@ class SyncService {
    */
   async uploadResume(resumeData: ResumeSyncData): Promise<void> {
     try {
+      console.log(`📤 开始上传简历: ${resumeData.title} (ID: ${resumeData.id})`);
+      
       // 获取当前用户ID
       const { data: { user } } = await this.supabase.auth.getUser();
       if (!user) {
         throw new Error('用户未登录，无法上传简历');
       }
+      
+      console.log(`👤 用户ID: ${user.id}`);
       
       // 添加上传超时处理
       const timeoutPromise = new Promise((_, reject) => {
@@ -106,12 +110,17 @@ class SyncService {
       const { error } = await Promise.race([uploadPromise, timeoutPromise]) as any;
       
       if (error) {
+        console.error(`❌ 上传失败: ${error.message}`);
         throw new Error(`上传简历失败: ${error.message}`);
       }
+      
+      console.log(`✅ 上传成功: ${resumeData.title}`);
     } catch (error: any) {
       if (error.message.includes('超时')) {
+        console.error(`⏰ 上传超时: ${resumeData.title}`);
         throw new Error('上传超时，请检查网络连接后重试');
       }
+      console.error(`💥 上传异常: ${resumeData.title}`, error.message);
       throw error;
     }
   }
@@ -207,12 +216,15 @@ class SyncService {
    */
   saveLocalResume(resumeData: ResumeSyncData): void {
     try {
+      console.log(`💾 保存简历到本地: ${resumeData.title} (ID: ${resumeData.id})`);
+      
       // 使用正确的存储键名
       const storageKey = 'resume-storage';
       const localData = JSON.parse(localStorage.getItem(storageKey) || '{}');
       
       // 检查是否是 Zustand 格式
       if (localData.state && localData.state.resumes) {
+        console.log(`📦 使用 Zustand 格式保存`);
         // 更新 Zustand 格式的数据
         localData.state.resumes[resumeData.id] = {
           ...resumeData.data,
@@ -222,6 +234,7 @@ class SyncService {
           lastModified: resumeData.lastModified,
         };
       } else {
+        console.log(`📦 使用直接格式保存`);
         // 直接格式
         localData[resumeData.id] = {
           ...resumeData.data,
@@ -233,7 +246,9 @@ class SyncService {
       }
       
       localStorage.setItem(storageKey, JSON.stringify(localData));
+      console.log(`✅ 本地保存成功: ${resumeData.title}`);
     } catch (error) {
+      console.error(`❌ 保存本地简历失败 (${resumeData.title}):`, error);
       throw new Error('保存本地简历失败');
     }
   }
@@ -276,14 +291,21 @@ class SyncService {
     };
 
     try {
+      console.log("🔄 开始同步...");
+      
       // 1. 获取本地数据
       const localResumes = this.getLocalResumes();
+      console.log("📱 本地简历数量:", localResumes.length);
+      console.log("📱 本地简历列表:", localResumes.map(r => ({ id: r.id, title: r.title })));
       
       // 2. 尝试获取云端数据（带超时处理）
       let cloudResumes: ResumeSyncData[] = [];
       try {
         cloudResumes = await this.getCloudResumes();
+        console.log("☁️ 云端简历数量:", cloudResumes.length);
+        console.log("☁️ 云端简历列表:", cloudResumes.map(r => ({ id: r.id, title: r.title })));
       } catch (error: any) {
+        console.error("❌ 云端连接失败:", error.message);
         result.errors.push(`云端连接失败: ${error.message}`);
         // 继续执行，只上传本地数据
       }
@@ -291,47 +313,84 @@ class SyncService {
       // 2. 检测冲突
       const conflicts = this.detectConflicts(localResumes, cloudResumes);
       result.conflicts = conflicts.length;
+      console.log("⚠️ 检测到冲突数量:", conflicts.length);
+      if (conflicts.length > 0) {
+        console.log("⚠️ 冲突详情:", conflicts.map(c => ({ 
+          title: c.title, 
+          localVersion: c.localVersion.version, 
+          cloudVersion: c.cloudVersion.version 
+        })));
+      }
 
       // 3. 处理冲突（默认使用本地版本）
       for (const conflict of conflicts) {
         try {
+          console.log(`🔄 处理冲突: ${conflict.title}`);
           await this.uploadResume(conflict.localVersion);
           result.syncedResumes++;
+          console.log(`✅ 冲突处理成功: ${conflict.title}`);
         } catch (error: any) {
+          console.error(`❌ 处理冲突失败 (${conflict.title}):`, error.message);
           result.errors.push(`处理冲突失败 (${conflict.title}): ${error.message}`);
         }
       }
 
       // 4. 上传本地新简历到云端
+      console.log("📤 开始上传本地简历到云端...");
       for (const localResume of localResumes) {
         const existsInCloud = cloudResumes.some(r => r.id === localResume.id);
         if (!existsInCloud) {
           try {
+            console.log(`📤 上传简历: ${localResume.title}`);
             await this.uploadResume(localResume);
             result.syncedResumes++;
+            console.log(`✅ 上传成功: ${localResume.title}`);
           } catch (error: any) {
+            console.error(`❌ 上传失败 (${localResume.title}):`, error.message);
             result.errors.push(`上传简历失败 (${localResume.title}): ${error.message}`);
           }
+        } else {
+          console.log(`⏭️ 跳过已存在的简历: ${localResume.title}`);
         }
       }
 
       // 5. 下载云端新简历到本地
+      console.log("📥 开始下载云端简历到本地...");
       for (const cloudResume of cloudResumes) {
         const existsLocally = localResumes.some(r => r.id === cloudResume.id);
         if (!existsLocally) {
           try {
+            console.log(`📥 下载简历: ${cloudResume.title}`);
             this.saveLocalResume(cloudResume);
             result.syncedResumes++;
+            console.log(`✅ 下载成功: ${cloudResume.title}`);
           } catch (error: any) {
+            console.error(`❌ 下载失败 (${cloudResume.title}):`, error.message);
             result.errors.push(`下载简历失败 (${cloudResume.title}): ${error.message}`);
           }
+        } else {
+          console.log(`⏭️ 跳过已存在的简历: ${cloudResume.title}`);
         }
       }
 
       // 6. 记录同步日志
       await this.logSync(result);
 
+      // 7. 输出同步结果总结
+      console.log("🎉 同步完成!");
+      console.log("📊 同步结果:", {
+        成功: result.success,
+        同步简历数: result.syncedResumes,
+        冲突数: result.conflicts,
+        错误数: result.errors.length
+      });
+      
+      if (result.errors.length > 0) {
+        console.error("❌ 同步错误:", result.errors);
+      }
+
     } catch (error: any) {
+      console.error("💥 同步失败:", error.message);
       result.success = false;
       result.errors.push(`同步失败: ${error.message}`);
     }
