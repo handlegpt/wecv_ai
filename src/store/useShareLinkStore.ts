@@ -62,7 +62,12 @@ export const useShareLinkStore = create<ShareLinkStore>()(
       loadShareLinks: async () => {
         set({ loading: true, error: null });
         try {
-          const response = await fetch('/api/share-links');
+          const response = await fetch('/api/share-links', {
+            credentials: 'include', // 包含cookies
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
           const data = await response.json();
           
           if (!response.ok) {
@@ -78,7 +83,12 @@ export const useShareLinkStore = create<ShareLinkStore>()(
       // 加载统计信息
       loadStats: async () => {
         try {
-          const response = await fetch('/api/share-links/stats');
+          const response = await fetch('/api/share-links/stats', {
+            credentials: 'include', // 包含cookies
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
           const data = await response.json();
           
           if (!response.ok) {
@@ -97,6 +107,7 @@ export const useShareLinkStore = create<ShareLinkStore>()(
         try {
           const response = await fetch('/api/share-links', {
             method: 'POST',
+            credentials: 'include', // 包含cookies
             headers: {
               'Content-Type': 'application/json',
             },
@@ -129,6 +140,7 @@ export const useShareLinkStore = create<ShareLinkStore>()(
         try {
           const response = await fetch(`/api/share-links/${id}`, {
             method: 'PUT',
+            credentials: 'include', // 包含cookies
             headers: {
               'Content-Type': 'application/json',
             },
@@ -165,6 +177,10 @@ export const useShareLinkStore = create<ShareLinkStore>()(
         try {
           const response = await fetch(`/api/share-links/${id}`, {
             method: 'DELETE',
+            credentials: 'include', // 包含cookies
+            headers: {
+              'Content-Type': 'application/json',
+            },
           });
           
           const result = await response.json();
@@ -192,6 +208,7 @@ export const useShareLinkStore = create<ShareLinkStore>()(
         try {
           const response = await fetch('/api/share-links/check-username', {
             method: 'POST',
+            credentials: 'include', // 包含cookies
             headers: {
               'Content-Type': 'application/json',
             },
