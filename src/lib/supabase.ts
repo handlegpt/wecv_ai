@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createBrowserClient } from '@supabase/ssr';
 
 // 创建 Supabase 客户端，支持服务端和客户端
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
@@ -9,8 +9,9 @@ let supabaseClient: any = null;
 
 export const getSupabaseClient = () => {
   if (typeof window === 'undefined') {
-    // 服务器端
+    // 服务器端 - 使用简单的客户端，不处理认证
     if (!supabaseClient) {
+      const { createClient } = require('@supabase/supabase-js');
       supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
         auth: {
           autoRefreshToken: false,
@@ -21,15 +22,9 @@ export const getSupabaseClient = () => {
     }
     return supabaseClient;
   } else {
-    // 客户端
+    // 客户端 - 使用 SSR 客户端
     if (!supabaseClient) {
-      supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
-        auth: {
-          autoRefreshToken: true,
-          persistSession: true,
-          detectSessionInUrl: true
-        }
-      });
+      supabaseClient = createBrowserClient(supabaseUrl, supabaseAnonKey);
     }
     return supabaseClient;
   }
