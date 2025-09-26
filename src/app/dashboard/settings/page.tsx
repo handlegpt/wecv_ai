@@ -18,9 +18,11 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useShareLinkStore } from "@/store/useShareLinkStore";
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { syncService } from "@/services/syncService";
 import { toast } from "sonner";
+import ShareLinkDialog from "@/components/share/ShareLinkDialog";
 
 const SettingsPage = () => {
   const t = useTranslations();
@@ -37,6 +39,13 @@ const SettingsPage = () => {
     initializeAuth
   } = useAuthStore();
   
+  const { 
+    shareLinks, 
+    stats, 
+    loadShareLinks, 
+    loadStats 
+  } = useShareLinkStore();
+  
   // 认证相关状态
   const [email, setEmail] = useState("");
   const [isSendingMagicLink, setIsSendingMagicLink] = useState(false);
@@ -44,6 +53,9 @@ const SettingsPage = () => {
   const [supabaseConfigured, setSupabaseConfigured] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
+  
+  // 分享链接相关状态
+  const [showShareLinkDialog, setShowShareLinkDialog] = useState(false);
 
   // 检查Supabase配置
   useEffect(() => {
@@ -54,6 +66,14 @@ const SettingsPage = () => {
   useEffect(() => {
     initializeAuth();
   }, []); // 移除依赖，避免无限循环
+  
+  // 加载分享链接数据
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadShareLinks();
+      loadStats();
+    }
+  }, [isAuthenticated, loadShareLinks, loadStats]);
 
   // 处理Magic Link登录
   const handleMagicLinkLogin = async () => {
@@ -429,18 +449,20 @@ const SettingsPage = () => {
                       <div className="flex items-center justify-between">
                         <span className="text-sm">{tAuth("publicProfile")}</span>
                         <Badge variant="outline" className="text-xs">
-                          wecv.com/{user?.name?.toLowerCase().replace(/\s+/g, '') || 'username'}
+                          wecv.com/share/{user?.name?.toLowerCase().replace(/\s+/g, '') || 'username'}
                         </Badge>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm">{tAuth("viewCount")}</span>
-                        <span className="text-sm text-muted-foreground">0</span>
+                        <span className="text-sm text-muted-foreground">
+                          {stats?.totalViews || 0}
+                        </span>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm">{tAuth("protectionStatus")}</span>
                         <Badge variant="secondary" className="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
                           <Lock className="h-3 w-3 mr-1" />
-                          {tAuth("disabled")}
+                          {shareLinks.length > 0 ? tAuth("enabled") : tAuth("disabled")}
                         </Badge>
                       </div>
                     </div>
@@ -451,50 +473,61 @@ const SettingsPage = () => {
                         variant="outline" 
                         size="sm" 
                         className="w-full min-h-[44px] text-sm md:text-base"
-                        onClick={() => {/* TODO: 实现分享链接功能 */}}
+                        onClick={() => setShowShareLinkDialog(true)}
                       >
                         <Share2 className="h-4 w-4 mr-2" />
-                        {tAuth("manageShareLinks")}
+                        {shareLinks.length > 0 ? tAuth("manageShareLinks") : "创建分享链接"}
                       </Button>
                       
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="w-full min-h-[44px] text-sm md:text-base"
-                        onClick={() => {/* TODO: 设置密码保护 */}}
-                      >
-                        <Lock className="h-4 w-4 mr-2" />
-                        {tAuth("setPassword")}
-                      </Button>
+                      {shareLinks.length > 0 && (
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="w-full min-h-[44px] text-sm md:text-base"
+                          onClick={() => setShowShareLinkDialog(true)}
+                        >
+                          <Lock className="h-4 w-4 mr-2" />
+                          {tAuth("setPassword")}
+                        </Button>
+                      )}
                     </div>
                     
                     {/* 辅助操作按钮 */}
-                    <div className="grid grid-cols-3 gap-2">
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="text-xs"
-                        onClick={() => {/* TODO: 复制链接 */}}
-                      >
-                        📋 复制链接
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="text-xs"
-                        onClick={() => {/* TODO: 查看统计 */}}
-                      >
-                        📊 查看统计
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="text-xs"
-                        onClick={() => {/* TODO: 查看访问记录 */}}
-                      >
-                        📝 访问记录
-                      </Button>
-                    </div>
+                    {shareLinks.length > 0 && (
+                      <div className="grid grid-cols-3 gap-2">
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-xs"
+                          onClick={() => {
+                            const link = `${window.location.origin}/share/${shareLinks[0]?.username}`;
+                            navigator.clipboard.writeText(link);
+                            toast.success('链接已复制到剪贴板');
+                          }}
+                        >
+                          📋 复制链接
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-xs"
+                          onClick={() => setShowShareLinkDialog(true)}
+                        >
+                          📊 查看统计
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-xs"
+                          onClick={() => {
+                            const link = `${window.location.origin}/share/${shareLinks[0]?.username}`;
+                            window.open(link, '_blank');
+                          }}
+                        >
+                          🔗 预览链接
+                        </Button>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </div>
@@ -615,6 +648,12 @@ const SettingsPage = () => {
           </div>
         </div>
       )}
+      
+      {/* 分享链接管理对话框 */}
+      <ShareLinkDialog
+        isOpen={showShareLinkDialog}
+        onClose={() => setShowShareLinkDialog(false)}
+      />
     </div>
   );
 };
