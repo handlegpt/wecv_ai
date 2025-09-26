@@ -29,7 +29,7 @@ export default async function LocaleLayout({ children }: Props) {
     <Document locale={locale}>
       <NextIntlClientProvider messages={messages}>
         <Providers>
-          <AuthGuard requireAuth={false}>
+          <AuthGuard requireAuth={true}>
             <Client>{children}</Client>
           </AuthGuard>
         </Providers>
