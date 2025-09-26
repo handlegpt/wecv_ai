@@ -1,7 +1,17 @@
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
-import LandingHeader from "@/components/home/LandingHeader";
-import Footer from "@/components/home/Footer";
+import dynamic from "next/dynamic";
+
+// 动态导入客户端组件，禁用SSR
+const LandingHeader = dynamic(() => import("@/components/home/LandingHeader"), {
+  ssr: false,
+  loading: () => <div className="h-20 bg-white dark:bg-gray-900 border-b"></div>
+});
+
+const Footer = dynamic(() => import("@/components/home/Footer"), {
+  ssr: false,
+  loading: () => <div className="h-32 bg-gray-50 dark:bg-gray-900"></div>
+});
 
 export async function generateMetadata({
   params: { locale }
