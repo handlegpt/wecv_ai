@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   Dialog,
   DialogContent,
@@ -38,6 +39,8 @@ interface ShareLinkDialogProps {
 }
 
 export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLinkDialogProps) {
+  const t = useTranslations('share');
+  
   const { 
     shareLinks, 
     stats, 
@@ -86,11 +89,11 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
         const available = await checkUsernameAvailability(value);
         setUsernameAvailable(available);
         if (!available) {
-          setUsernameError('用户名已被使用');
+          setUsernameError(t('usernameTaken'));
         }
       } catch (error) {
         setUsernameAvailable(false);
-        setUsernameError('检查用户名失败');
+        setUsernameError(t('checkUsernameFailed'));
       } finally {
         setCheckingUsername(false);
       }
@@ -101,27 +104,27 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
 
   const validateForm = () => {
     if (!username.trim()) {
-      setUsernameError('请输入用户名');
+      setUsernameError(t('usernameRequired'));
       return false;
     }
     if (username.length < 3) {
-      setUsernameError('用户名至少3个字符');
+      setUsernameError(t('usernameMinLength'));
       return false;
     }
     if (username.length > 20) {
-      setUsernameError('用户名最多20个字符');
+      setUsernameError(t('usernameMaxLength'));
       return false;
     }
     if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
-      setUsernameError('用户名只能包含字母、数字、下划线和连字符');
+      setUsernameError(t('usernameInvalidChars'));
       return false;
     }
     if (usernameAvailable === false) {
-      setUsernameError('用户名已被使用');
+      setUsernameError(t('usernameTaken'));
       return false;
     }
     if (enablePassword && !password.trim()) {
-      toast.error('启用密码保护时请输入密码');
+      toast.error(t('passwordRequiredWhenEnabled'));
       return false;
     }
     return true;
@@ -129,7 +132,7 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
 
   const handleCreateShareLink = async () => {
     if (!currentResumeId) {
-      toast.error('请先选择一个简历');
+      toast.error(t('selectResumeFirst'));
       return;
     }
 
@@ -142,11 +145,11 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
         password: enablePassword ? password : undefined,
       });
       
-      toast.success('分享链接创建成功！');
+      toast.success(t('shareLinkCreated'));
       onClose();
       resetForm();
     } catch (error: any) {
-      toast.error(error.message || '创建分享链接失败');
+      toast.error(error.message || t('createShareLinkFailed'));
     }
   };
 
@@ -162,10 +165,10 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
         removePassword: !enablePassword && !!currentShareLink.passwordHash,
       });
       
-      toast.success('分享链接更新成功！');
+      toast.success(t('shareLinkUpdated'));
       onClose();
     } catch (error: any) {
-      toast.error(error.message || '更新分享链接失败');
+      toast.error(error.message || t('updateShareLinkFailed'));
     }
   };
 
@@ -218,10 +221,10 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Share2 className="h-5 w-5" />
-            管理分享链接
+            {t('manageShareLinksTitle')}
           </DialogTitle>
           <DialogDescription>
-            创建和管理您的简历分享链接，让其他人可以查看您的简历
+            {t('manageShareLinksDescription')}
           </DialogDescription>
         </DialogHeader>
 
@@ -235,9 +238,9 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
         {currentShareLink && (
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">当前分享链接</CardTitle>
+              <CardTitle className="text-lg">{t('currentShareLink')}</CardTitle>
               <CardDescription>
-                链接: <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                {t('link')}: <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
                   wecv.com/share/{currentShareLink.username}
                 </code>
               </CardDescription>
@@ -246,16 +249,16 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-center gap-2">
                   <Eye className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm">查看次数: {currentShareLink.viewCount}</span>
+                  <span className="text-sm">{t('viewCount')}: {currentShareLink.viewCount}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   {currentShareLink.passwordHash ? (
                     <Badge variant="secondary" className="flex items-center gap-1">
                       <Lock className="h-3 w-3" />
-                      密码保护
+                      {t('passwordProtected')}
                     </Badge>
                   ) : (
-                    <Badge variant="outline">公开访问</Badge>
+                    <Badge variant="outline">{t('publicAccess')}</Badge>
                   )}
                 </div>
               </div>
@@ -263,11 +266,11 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" onClick={copyShareLink}>
                   <Copy className="h-4 w-4 mr-1" />
-                  复制链接
+                  {t('copyLink')}
                 </Button>
                 <Button variant="outline" size="sm" onClick={openShareLink}>
                   <ExternalLink className="h-4 w-4 mr-1" />
-                  预览链接
+                  {t('previewLink')}
                 </Button>
                 <Button 
                   variant="destructive" 
@@ -280,7 +283,7 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
                   ) : (
                     <Trash2 className="h-4 w-4 mr-1" />
                   )}
-                  删除
+                  {t('delete')}
                 </Button>
               </div>
             </CardContent>
@@ -292,11 +295,11 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
         {/* 分享链接表单 */}
         <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="username">用户名</Label>
+            <Label htmlFor="username">{t('username')}</Label>
             <div className="relative">
               <Input
                 id="username"
-                placeholder="输入您的用户名"
+                placeholder={t('enterUsername')}
                 value={username}
                 onChange={(e) => handleUsernameChange(e.target.value)}
                 disabled={!!currentShareLink}
@@ -318,7 +321,7 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
               )}
             </div>
             <p className="text-sm text-gray-500">
-              这将创建链接: wecv.com/share/{username || 'username'}
+              {t('linkWillBeCreated')}: wecv.com/share/{username || 'username'}
             </p>
             {usernameError && (
               <p className="text-sm text-red-500">{usernameError}</p>
@@ -327,9 +330,9 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
 
           <div className="flex flex-row items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
-              <Label className="text-base">密码保护</Label>
+              <Label className="text-base">{t('passwordProtection')}</Label>
               <p className="text-sm text-gray-500">
-                为您的分享链接设置密码，只有知道密码的人才能访问
+                {t('passwordProtectionDescription')}
               </p>
             </div>
             <Switch
@@ -340,23 +343,23 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
 
           {enablePassword && (
             <div className="space-y-2">
-              <Label htmlFor="password">访问密码</Label>
+              <Label htmlFor="password">{t('accessPassword')}</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="设置访问密码"
+                placeholder={t('setAccessPassword')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <p className="text-sm text-gray-500">
-                访问者需要输入此密码才能查看您的简历
+                {t('passwordRequiredForAccess')}
               </p>
             </div>
           )}
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={onClose}>
-              取消
+              {t('cancel')}
             </Button>
             <Button 
               type="submit" 
@@ -365,12 +368,12 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
               {isCreating || isUpdating ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  {currentShareLink ? '更新中...' : '创建中...'}
+                  {currentShareLink ? t('updating') : t('creating')}
                 </>
               ) : (
                 <>
                   <Share2 className="h-4 w-4 mr-2" />
-                  {currentShareLink ? '更新链接' : '创建链接'}
+                  {currentShareLink ? t('updateLink') : t('createLink')}
                 </>
               )}
             </Button>
@@ -383,24 +386,24 @@ export default function ShareLinkDialog({ isOpen, onClose, resumeId }: ShareLink
             <Separator />
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">分享统计</CardTitle>
+                <CardTitle className="text-lg">{t('shareStats')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="text-gray-500">总链接数:</span>
+                    <span className="text-gray-500">{t('totalLinks')}:</span>
                     <span className="ml-2 font-medium">{stats.totalLinks}</span>
                   </div>
                   <div>
-                    <span className="text-gray-500">活跃链接:</span>
+                    <span className="text-gray-500">{t('activeLinks')}:</span>
                     <span className="ml-2 font-medium">{stats.activeLinks}</span>
                   </div>
                   <div>
-                    <span className="text-gray-500">总访问量:</span>
+                    <span className="text-gray-500">{t('totalViews')}:</span>
                     <span className="ml-2 font-medium">{stats.totalViews}</span>
                   </div>
                   <div>
-                    <span className="text-gray-500">近期访问:</span>
+                    <span className="text-gray-500">{t('recentViews')}:</span>
                     <span className="ml-2 font-medium">{stats.recentViews}</span>
                   </div>
                 </div>
