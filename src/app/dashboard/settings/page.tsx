@@ -29,6 +29,7 @@ const SettingsPage = () => {
   const t = useTranslations();
   const tAuth = useTranslations("auth");
   const tPrefs = useTranslations("preferences");
+  const tShare = useTranslations("share");
   const router = useRouter();
   const { 
     isAuthenticated, 
@@ -178,9 +179,9 @@ const SettingsPage = () => {
       const hasLocalResumes = localData && Object.keys(JSON.parse(localData || '{}')).length > 0;
       
       if (!hasLocalResumes) {
-        toast.info("💡 提示：您还没有创建任何简历。请先到简历页面创建简历，然后再进行同步。");
+        toast.info(tShare('noResumesCreated'));
       } else {
-        toast.success("🎉 同步成功！您的简历已安全备份到云端");
+        toast.success(tShare('syncSuccess'));
       }
     } catch (error) {
       console.error("同步失败:", error);
@@ -543,10 +544,10 @@ const SettingsPage = () => {
                           onClick={() => {
                             const link = `${window.location.origin}/share/${shareLinks[0]?.username}`;
                             navigator.clipboard.writeText(link);
-                            toast.success('链接已复制到剪贴板');
+                            toast.success(tShare('linkCopiedToClipboard'));
                           }}
                         >
-                          📋 复制链接
+                          📋 {tShare('copyLink')}
                         </Button>
                         <Button 
                           variant="ghost" 
@@ -554,7 +555,7 @@ const SettingsPage = () => {
                           className="text-xs"
                           onClick={() => setShowShareLinkDialog(true)}
                         >
-                          📊 查看统计
+                          📊 {tShare('viewStats')}
                         </Button>
                         <Button 
                           variant="ghost" 
@@ -565,7 +566,7 @@ const SettingsPage = () => {
                             window.open(link, '_blank');
                           }}
                         >
-                          🔗 预览链接
+                          🔗 {tShare('previewLink')}
                         </Button>
                       </div>
                     )}
@@ -643,7 +644,7 @@ const SettingsPage = () => {
                           className="w-full text-xs"
                           onClick={() => router.push('/dashboard/resumes')}
                         >
-                          📝 创建简历
+                          📝 {tShare('createResume')}
                         </Button>
                       </div>
                     </div>

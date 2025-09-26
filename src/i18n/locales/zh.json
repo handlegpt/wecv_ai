@@ -203,7 +203,14 @@
     "shareLinkCreated": "分享链接创建成功！",
     "shareLinkUpdated": "分享链接更新成功！",
     "createShareLinkFailed": "创建分享链接失败",
-    "updateShareLinkFailed": "更新分享链接失败"
+    "updateShareLinkFailed": "更新分享链接失败",
+    "copyLink": "复制链接",
+    "viewStats": "查看统计",
+    "previewLink": "预览链接",
+    "createResume": "创建简历",
+    "linkCopiedToClipboard": "链接已复制到剪贴板",
+    "noResumesCreated": "💡 提示：您还没有创建任何简历。请先到简历页面创建简历，然后再进行同步。",
+    "syncSuccess": "🎉 同步成功！您的简历已安全备份到云端"
   },
   "preferences": {
     "disabled": "未启用",
